@@ -427,22 +427,6 @@
     margin-bottom: 45px;
 }
 
-.brandTag {
-    padding: 12px 28px;
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    font-size: 13px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    transition: all 0.4s ease;
-}
-
-.brandTag:hover {
-    border-color: rgba(220, 38, 38, 0.5);
-    transform: translateY(-3px);
-    background: rgba(220, 38, 38, 0.1);
-}
-
 .serviceButton {
     display: inline-flex;
     align-items: center;
