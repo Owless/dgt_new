@@ -214,10 +214,6 @@ export default function Home() {
               <h2 className={styles.serviceTitle}>{t.exhaustTitle}</h2>
               <p className={styles.serviceDescription}>{t.exhaustDesc}</p>
               <div className={styles.serviceBrands}>
-                <div className={styles.brandTag}>Akrapovic</div>
-                <div className={styles.brandTag}>iPE</div>
-                <div className={styles.brandTag}>Capristo</div>
-                <div className={styles.brandTag}>Remus</div>
               </div>
               <Link href="/exhaust" className={styles.serviceButton}>
                 <span>{t.exhaustButton}</span>
@@ -241,9 +237,6 @@ export default function Home() {
               <h2 className={styles.serviceTitle}>{t.brakesTitle}</h2>
               <p className={styles.serviceDescription}>{t.brakesDesc}</p>
               <div className={styles.serviceBrands}>
-                <div className={styles.brandTag}>Brembo</div>
-                <div className={styles.brandTag}>AP Racing</div>
-                <div className={styles.brandTag}>Endless</div>
               </div>
               <Link href="/brakes" className={styles.serviceButton}>
                 <span>{t.brakesButton}</span>
@@ -267,10 +260,6 @@ export default function Home() {
               <h2 className={styles.serviceTitle}>{t.wheelsTitle}</h2>
               <p className={styles.serviceDescription}>{t.wheelsDesc}</p>
               <div className={styles.serviceBrands}>
-                <div className={styles.brandTag}>HRE</div>
-                <div className={styles.brandTag}>Vossen</div>
-                <div className={styles.brandTag}>BBS</div>
-                <div className={styles.brandTag}>ADV.1</div>
               </div>
               <Link href="/wheels" className={styles.serviceButton}>
                 <span>{t.wheelsButton}</span>
@@ -294,9 +283,6 @@ export default function Home() {
               <h2 className={styles.serviceTitle}>{t.suspensionTitle}</h2>
               <p className={styles.serviceDescription}>{t.suspensionDesc}</p>
               <div className={styles.serviceBrands}>
-                <div className={styles.brandTag}>KW</div>
-                <div className={styles.brandTag}>Öhlins</div>
-                <div className={styles.brandTag}>Air Lift</div>
               </div>
               <Link href="/suspension" className={styles.serviceButton}>
                 <span>{t.suspensionButton}</span>
