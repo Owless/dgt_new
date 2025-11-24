@@ -1,152 +1,195 @@
+/* Footer Styles */
 .footer {
-    padding: 80px 80px 30px;
-    background: #000;
-    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    background: #050505;
+    color: #fff;
+    padding: 80px 0 0;
+    margin-top: 100px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.footerContent {
+.footerMain {
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 0 60px 60px;
     display: grid;
-    grid-template-columns: 2fr 1fr 1fr 1.5fr;
-    gap: 50px;
-    margin-bottom: 50px;
-    max-width: 1400px;
-    margin-left: auto;
-    margin-right: auto;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 80px;
 }
 
-.footerColumn {
-    /* Empty - just for structure */
-}
-
-.footerLogo {
-    font-size: 38px;
-    font-weight: 900;
-    color: #dc2626;
-    letter-spacing: -2px;
-    text-transform: uppercase;
-    font-style: italic;
-    transform: skewX(-8deg);
-    margin-bottom: 18px;
-}
-
-.footerLogo span {
-    display: block;
-    font-size: 8px;
-    letter-spacing: 2.5px;
-    color: rgba(255, 255, 255, 0.6);
-    margin-top: -5px;
-    transform: skewX(8deg);
-}
-
-.footerDescription {
-    font-size: 14px;
-    line-height: 1.8;
-    color: rgba(255, 255, 255, 0.5);
+/* Footer About */
+.footerAbout .footerLogo {
+    display: flex;
+    align-items: center;
+    gap: 15px;
     margin-bottom: 25px;
+}
+
+.footerLogo .logoIcon {
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(135deg, #fff 0%, rgba(255,255,255,0.8) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    font-weight: 700;
+    color: #000;
+    border-radius: 2px;
+}
+
+.footerLogo .logoText {
+    display: flex;
+    flex-direction: column;
+}
+
+.footerLogo .logoText .brand {
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    color: #fff;
+    line-height: 1;
+}
+
+.footerLogo .logoText .tagline {
+    font-size: 9px;
+    letter-spacing: 2px;
+    color: rgba(255, 255, 255, 0.5);
+    text-transform: uppercase;
+    margin-top: 5px;
+}
+
+.footerAbout p {
+    font-size: 14px;
+    line-height: 1.9;
+    color: rgba(255, 255, 255, 0.6);
+    margin-bottom: 30px;
 }
 
 .footerSocial {
     display: flex;
-    gap: 12px;
+    gap: 15px;
 }
 
-.footerSocialLink {
-    width: 38px;
-    height: 38px;
+.socialLink {
+    width: 45px;
+    height: 45px;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     color: rgba(255, 255, 255, 0.6);
+    text-decoration: none;
+    font-size: 18px;
     transition: all 0.3s ease;
 }
 
-.footerSocialLink:hover {
-    background: linear-gradient(135deg, #dc2626, #ef4444);
-    color: #fff;
+.socialLink:hover {
+    background: #fff;
+    color: #000;
+    border-color: #fff;
     transform: translateY(-3px);
 }
 
-.footerHeading {
-    font-size: 15px;
+/* Footer Sections */
+.footerSection h3 {
+    font-size: 13px;
     font-weight: 600;
-    margin-bottom: 22px;
     letter-spacing: 2px;
     text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.4);
+    margin-bottom: 25px;
 }
 
 .footerLinks {
     list-style: none;
+    padding: 0;
+    margin: 0;
 }
 
 .footerLinks li {
-    margin-bottom: 13px;
+    margin-bottom: 14px;
 }
 
 .footerLinks a {
-    color: rgba(255, 255, 255, 0.5);
+    color: rgba(255, 255, 255, 0.65);
     text-decoration: none;
     font-size: 14px;
-    transition: color 0.3s ease;
+    font-weight: 400;
+    transition: all 0.3s ease;
+    display: inline-block;
 }
 
 .footerLinks a:hover {
-    color: #dc2626;
+    color: #fff;
+    padding-left: 5px;
 }
 
-.footerContacts {
+/* Footer Contact */
+.footerContactInfo {
     list-style: none;
+    padding: 0;
+    margin: 0;
 }
 
-.footerContacts li {
-    display: flex;
-    gap: 12px;
+.footerContactInfo li {
     margin-bottom: 18px;
+    display: flex;
+    align-items: start;
+    gap: 12px;
     font-size: 14px;
-    color: rgba(255, 255, 255, 0.5);
+    color: rgba(255, 255, 255, 0.65);
+    line-height: 1.6;
 }
 
-.footerContacts i {
-    color: #dc2626;
+.footerContactInfo .icon {
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255, 255, 255, 0.4);
+    flex-shrink: 0;
     margin-top: 2px;
 }
 
-.footerContacts a {
-    color: rgba(255, 255, 255, 0.5);
+.footerContactInfo a {
+    color: rgba(255, 255, 255, 0.65);
     text-decoration: none;
     transition: color 0.3s ease;
 }
 
-.footerContacts a:hover {
+.footerContactInfo a:hover {
     color: #fff;
 }
 
+/* Footer Bottom */
 .footerBottom {
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 30px 60px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding-top: 35px;
-    border-top: 1px solid rgba(255, 255, 255, 0.05);
-    max-width: 1400px;
-    margin: 0 auto;
 }
 
 .footerCopyright {
-    font-size: 13px;
+    font-size: 12px;
     color: rgba(255, 255, 255, 0.4);
+    letter-spacing: 0.5px;
 }
 
 .footerBottomLinks {
     display: flex;
-    gap: 25px;
+    gap: 30px;
 }
 
 .footerBottomLinks a {
-    font-size: 13px;
+    font-size: 12px;
     color: rgba(255, 255, 255, 0.4);
     text-decoration: none;
+    letter-spacing: 0.5px;
     transition: color 0.3s ease;
 }
 
@@ -154,27 +197,30 @@
     color: #fff;
 }
 
-/* Responsive - Tablets */
-@media (max-width: 1024px) {
-    .footer {
-        padding: 100px 40px;
+/* Responsive */
+@media (max-width: 1200px) {
+    .footerMain {
+        grid-template-columns: 1fr 1fr;
+        gap: 50px;
     }
 }
 
-/* Responsive - Mobile */
-@media (max-width: 768px) {
-    .footer {
-        padding: 80px 20px;
-    }
-
-    .footerContent {
+@media (max-width: 968px) {
+    .footerMain {
+        padding: 0 30px 40px;
         grid-template-columns: 1fr;
         gap: 40px;
     }
 
     .footerBottom {
+        padding: 25px 30px;
         flex-direction: column;
         gap: 20px;
         text-align: center;
+    }
+
+    .footerBottomLinks {
+        flex-direction: column;
+        gap: 15px;
     }
 }
