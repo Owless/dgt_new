@@ -26,7 +26,6 @@
     z-index: 0;
 }
 
-
 /* Content */
 .content {
     position: relative;
@@ -525,26 +524,8 @@
     fill: #fff;
 }
 
-
-
 /* Responsive - Tablets */
 @media (max-width: 1024px) {
-    .header {
-        padding: 18px 40px;
-    }
-
-    .logo {
-        font-size: 36px;
-    }
-
-    .nav {
-        gap: 25px;
-    }
-
-    .nav a {
-        font-size: 10px;
-    }
-
     .contentBox h1 {
         font-size: 44px;
     }
@@ -552,8 +533,7 @@
     .aboutSection,
     .serviceSection,
     .projectsSection,
-    .videoSection,
-    .footer {
+    .videoSection {
         padding: 100px 40px;
     }
 
@@ -579,41 +559,6 @@
 
 /* Responsive - Mobile */
 @media (max-width: 768px) {
-    .header {
-        padding: 15px 20px;
-        flex-wrap: wrap;
-    }
-
-    .logo {
-        font-size: 32px;
-        order: 1;
-    }
-
-    .nav {
-        order: 3;
-        width: 100%;
-        flex-direction: column;
-        gap: 15px;
-        margin-top: 15px;
-        padding-top: 15px;
-        border-top: 1px solid rgba(255, 255, 255, 0.1);
-    }
-
-    .nav a {
-        font-size: 11px;
-    }
-
-    .headerRight {
-        order: 2;
-        gap: 15px;
-    }
-
-    .socialIcons a {
-        width: 34px;
-        height: 34px;
-        font-size: 13px;
-    }
-
     .content {
         padding: 0 20px;
     }
@@ -635,8 +580,7 @@
     .aboutSection,
     .serviceSection,
     .projectsSection,
-    .videoSection,
-    .footer {
+    .videoSection {
         padding: 80px 20px;
     }
 
@@ -717,16 +661,5 @@
 
     .videoGrid {
         grid-template-columns: 1fr;
-    }
-
-    .footerContent {
-        grid-template-columns: 1fr;
-        gap: 40px;
-    }
-
-    .footerBottom {
-        flex-direction: column;
-        gap: 20px;
-        text-align: center;
     }
 }
