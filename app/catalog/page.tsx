@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import Header from '@/components/Header'
@@ -11,7 +11,6 @@ export default function CatalogPage() {
   const [currentLang, setCurrentLang] = useState<'ru' | 'en'>('ru')
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
   const [activeCard, setActiveCard] = useState<number | null>(null)
-  const canvasRef = useRef<HTMLCanvasElement>(null)
 
   const translations = {
     ru: {
@@ -124,95 +123,26 @@ export default function CatalogPage() {
 
   const t = translations[currentLang]
 
-  // Particles animation
+  // Mouse tracking (throttled)
   useEffect(() => {
-    const canvas = canvasRef.current
-    if (!canvas) return
-
-    const ctx = canvas.getContext('2d')
-    if (!ctx) return
-
-    canvas.width = window.innerWidth
-    canvas.height = window.innerHeight
-
-    const particles: Array<{
-      x: number
-      y: number
-      vx: number
-      vy: number
-      size: number
-    }> = []
-
-    for (let i = 0; i < 100; i++) {
-      particles.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        vx: (Math.random() - 0.5) * 0.5,
-        vy: (Math.random() - 0.5) * 0.5,
-        size: Math.random() * 2
-      })
-    }
-
-    const animate = () => {
-      ctx.fillStyle = 'rgba(0, 0, 0, 0.05)'
-      ctx.fillRect(0, 0, canvas.width, canvas.height)
-
-      particles.forEach((particle) => {
-        particle.x += particle.vx
-        particle.y += particle.vy
-
-        if (particle.x < 0 || particle.x > canvas.width) particle.vx *= -1
-        if (particle.y < 0 || particle.y > canvas.height) particle.vy *= -1
-
-        ctx.fillStyle = 'rgba(220, 38, 38, 0.3)'
-        ctx.beginPath()
-        ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2)
-        ctx.fill()
-      })
-
-      // Draw connections
-      particles.forEach((p1, i) => {
-        particles.slice(i + 1).forEach((p2) => {
-          const dx = p1.x - p2.x
-          const dy = p1.y - p2.y
-          const distance = Math.sqrt(dx * dx + dy * dy)
-
-          if (distance < 100) {
-            ctx.strokeStyle = `rgba(220, 38, 38, ${0.2 * (1 - distance / 100)})`
-            ctx.lineWidth = 0.5
-            ctx.beginPath()
-            ctx.moveTo(p1.x, p1.y)
-            ctx.lineTo(p2.x, p2.y)
-            ctx.stroke()
-          }
-        })
-      })
-
-      requestAnimationFrame(animate)
-    }
-
-    animate()
-
-    const handleResize = () => {
-      canvas.width = window.innerWidth
-      canvas.height = window.innerHeight
-    }
-
-    window.addEventListener('resize', handleResize)
-    return () => window.removeEventListener('resize', handleResize)
-  }, [])
-
-  // Mouse tracking
-  useEffect(() => {
+    let rafId: number
     const handleMouseMove = (e: MouseEvent) => {
-      setMousePosition({
-        x: (e.clientX / window.innerWidth) * 2 - 1,
-        y: (e.clientY / window.innerHeight) * 2 - 1
+      if (rafId) return
+      
+      rafId = requestAnimationFrame(() => {
+        setMousePosition({
+          x: (e.clientX / window.innerWidth) * 2 - 1,
+          y: (e.clientY / window.innerHeight) * 2 - 1
+        })
+        rafId = 0
       })
     }
 
     window.addEventListener('mousemove', handleMouseMove)
-    return () => window.removeEventListener('mousemove', handleMouseMove)
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove)
+      if (rafId) cancelAnimationFrame(rafId)
+    }
   }, [])
 
   return (
@@ -220,17 +150,15 @@ export default function CatalogPage() {
       <Header currentLang={currentLang} onLanguageChange={setCurrentLang} />
       
       <main className={styles.catalogPage}>
-        <canvas ref={canvasRef} className={styles.particlesCanvas}></canvas>
+        {/* Animated Background */}
+        <div className={styles.bgAnimation}>
+          <div className={styles.bgGradient1}></div>
+          <div className={styles.bgGradient2}></div>
+          <div className={styles.bgGradient3}></div>
+        </div>
 
         <div className={styles.catalogHeader}>
-          <h1 
-            className={styles.pageTitle}
-            style={{
-              transform: `translate(${mousePosition.x * 10}px, ${mousePosition.y * 10}px)`
-            }}
-          >
-            {t.pageTitle}
-          </h1>
+          <h1 className={styles.pageTitle}>{t.pageTitle}</h1>
           <p className={styles.pageSubtitle}>{t.pageSubtitle}</p>
         </div>
 
@@ -260,11 +188,6 @@ export default function CatalogPage() {
               className={`${styles.serviceCard} ${activeCard === index ? styles.active : ''}`}
               onMouseEnter={() => setActiveCard(index)}
               onMouseLeave={() => setActiveCard(null)}
-              style={{
-                transform: activeCard === index 
-                  ? `perspective(1000px) rotateX(${-mousePosition.y * 5}deg) rotateY(${mousePosition.x * 5}deg) scale(1.05)` 
-                  : 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1)'
-              }}
             >
               <div className={styles.cardGlow}></div>
               
@@ -274,6 +197,7 @@ export default function CatalogPage() {
                   alt={service.title} 
                   fill 
                   style={{ objectFit: 'contain' }}
+                  loading="lazy"
                 />
                 <div className={styles.cardImageOverlay}></div>
               </div>
