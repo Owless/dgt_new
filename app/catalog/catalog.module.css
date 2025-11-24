@@ -1,94 +1,59 @@
 .catalogPage {
     min-height: 100vh;
     background: #000;
-    padding: 140px 40px 0;
     position: relative;
     overflow: hidden;
 }
 
-/* Optimized Background Animation */
-.bgAnimation {
-    position: fixed;
+/* Particles */
+.particles {
+    position: fixed !important;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
+    z-index: 1;
     pointer-events: none;
-    z-index: 0;
-    will-change: transform;
 }
 
-.bgGradient1,
-.bgGradient2,
-.bgGradient3 {
-    position: absolute;
-    border-radius: 50%;
-    filter: blur(100px);
-    opacity: 0.15;
-    will-change: transform;
-}
-
-.bgGradient1 {
-    top: -10%;
-    left: -10%;
-    width: 600px;
-    height: 600px;
-    background: radial-gradient(circle, #dc2626 0%, transparent 70%);
-    animation: float1 20s ease-in-out infinite;
-}
-
-.bgGradient2 {
-    top: 50%;
-    right: -10%;
-    width: 500px;
-    height: 500px;
-    background: radial-gradient(circle, #991b1b 0%, transparent 70%);
-    animation: float2 25s ease-in-out infinite;
-}
-
-.bgGradient3 {
-    bottom: -10%;
-    left: 30%;
-    width: 700px;
-    height: 700px;
-    background: radial-gradient(circle, #7f1d1d 0%, transparent 70%);
-    animation: float3 30s ease-in-out infinite;
-}
-
-@keyframes float1 {
-    0%, 100% { transform: translate(0, 0) scale(1); }
-    50% { transform: translate(100px, 100px) scale(1.1); }
-}
-
-@keyframes float2 {
-    0%, 100% { transform: translate(0, 0) scale(1); }
-    50% { transform: translate(-100px, -100px) scale(1.2); }
-}
-
-@keyframes float3 {
-    0%, 100% { transform: translate(0, 0) scale(1); }
-    50% { transform: translate(-150px, 50px) scale(0.9); }
-}
-
-/* Header */
-.catalogHeader {
-    text-align: center;
-    margin-bottom: 80px;
+/* Hero Section */
+.heroSection {
     position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 140px 40px 100px;
     z-index: 2;
 }
 
+.hero3D {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    opacity: 0.3;
+    pointer-events: none;
+}
+
 .pageTitle {
-    font-size: 96px;
+    font-size: 120px;
     font-weight: 200;
-    letter-spacing: 12px;
+    letter-spacing: 20px;
     text-transform: uppercase;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
     background: linear-gradient(135deg, #fff 0%, #dc2626 50%, #fff 100%);
     background-size: 200% 200%;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     animation: gradientShift 5s ease infinite;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+    text-shadow: 0 0 80px rgba(220, 38, 38, 0.5);
 }
 
 @keyframes gradientShift {
@@ -97,35 +62,67 @@
 }
 
 .pageSubtitle {
-    font-size: 20px;
+    font-size: 24px;
     color: rgba(255, 255, 255, 0.6);
-    letter-spacing: 3px;
+    letter-spacing: 4px;
     text-transform: uppercase;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+}
+
+/* Scroll Indicator */
+.scrollIndicator {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1;
+}
+
+.mouse {
+    width: 30px;
+    height: 50px;
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    border-radius: 20px;
+    position: relative;
+}
+
+.wheel {
+    width: 4px;
+    height: 10px;
+    background: #dc2626;
+    border-radius: 2px;
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    animation: scroll 2s infinite;
+}
+
+@keyframes scroll {
+    0% { opacity: 1; top: 10px; }
+    100% { opacity: 0; top: 30px; }
 }
 
 /* Center Block - Projects */
 .centerBlock {
     max-width: 1400px;
-    margin: 0 auto 100px;
+    margin: 0 auto 120px;
+    padding: 0 40px;
     position: relative;
     z-index: 2;
 }
 
 .centerContent {
     position: relative;
-    background: linear-gradient(135deg, rgba(220, 38, 38, 0.1), rgba(153, 27, 27, 0.1));
+    background: linear-gradient(135deg, rgba(220, 38, 38, 0.15), rgba(153, 27, 27, 0.1));
     border: 2px solid rgba(220, 38, 38, 0.3);
     border-radius: 24px;
-    padding: 80px 60px;
+    padding: 100px 80px;
     overflow: hidden;
     backdrop-filter: blur(20px);
     transition: all 0.5s ease;
-}
-
-.centerContent:hover {
-    border-color: rgba(220, 38, 38, 0.6);
-    box-shadow: 0 20px 80px rgba(220, 38, 38, 0.4);
-    transform: translateY(-10px);
 }
 
 .centerGlow {
@@ -133,9 +130,9 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 500px;
-    height: 500px;
-    background: radial-gradient(circle, rgba(220, 38, 38, 0.3) 0%, transparent 70%);
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(220, 38, 38, 0.4) 0%, transparent 70%);
     animation: pulseGlow 4s ease-in-out infinite;
     pointer-events: none;
 }
@@ -151,51 +148,49 @@
     text-align: center;
 }
 
-.centerTitle {
-    font-size: 64px;
+.centerInner h2 {
+    font-size: 72px;
     font-weight: 300;
-    letter-spacing: 8px;
+    letter-spacing: 12px;
     text-transform: uppercase;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
     color: #fff;
 }
 
 .centerDesc {
-    font-size: 20px;
+    font-size: 22px;
     color: rgba(255, 255, 255, 0.7);
-    margin-bottom: 40px;
+    margin-bottom: 50px;
     letter-spacing: 2px;
 }
 
 .centerButton {
     display: inline-flex;
     align-items: center;
-    gap: 15px;
-    padding: 20px 50px;
+    gap: 20px;
+    padding: 22px 60px;
     background: linear-gradient(135deg, #dc2626, #991b1b);
     color: #fff;
     text-decoration: none;
     font-size: 16px;
-    font-weight: 600;
-    letter-spacing: 2px;
+    font-weight: 700;
+    letter-spacing: 3px;
     text-transform: uppercase;
-    border-radius: 50px;
-    transition: all 0.4s ease;
-    box-shadow: 0 10px 40px rgba(220, 38, 38, 0.4);
+    border-radius: 60px;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 15px 50px rgba(220, 38, 38, 0.5);
+    transition: all 0.3s ease;
 }
 
-.centerButton:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 60px rgba(220, 38, 38, 0.6);
-}
-
-/* Services Grid 2x2 */
+/* Services Grid */
 .servicesGrid {
     max-width: 1400px;
     margin: 0 auto 100px;
+    padding: 0 40px;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 40px;
+    gap: 50px;
     position: relative;
     z-index: 2;
 }
@@ -203,19 +198,13 @@
 /* Service Card */
 .serviceCard {
     position: relative;
-    background: linear-gradient(135deg, rgba(10, 10, 10, 0.9), rgba(20, 20, 20, 0.9));
+    background: linear-gradient(135deg, rgba(10, 10, 10, 0.95), rgba(20, 20, 20, 0.95));
     border-radius: 24px;
     overflow: hidden;
     cursor: pointer;
     text-decoration: none;
+    height: 650px;
     transition: all 0.4s ease;
-    height: 600px;
-    will-change: transform;
-}
-
-.serviceCard:hover {
-    transform: translateY(-10px);
-    z-index: 10;
 }
 
 .cardGlow {
@@ -225,14 +214,9 @@
     transform: translate(-50%, -50%);
     width: 100%;
     height: 100%;
-    background: radial-gradient(circle, rgba(220, 38, 38, 0.2) 0%, transparent 70%);
+    background: radial-gradient(circle, var(--card-color, #dc2626) 0%, transparent 70%);
     opacity: 0;
-    transition: opacity 0.5s ease;
     pointer-events: none;
-}
-
-.serviceCard:hover .cardGlow {
-    opacity: 1;
 }
 
 .cardImage {
@@ -242,11 +226,6 @@
     width: 100%;
     height: 100%;
     z-index: 0;
-    transition: transform 0.5s ease;
-}
-
-.serviceCard:hover .cardImage {
-    transform: scale(1.1);
 }
 
 .cardImageOverlay {
@@ -254,8 +233,8 @@
     inset: 0;
     background: linear-gradient(
         180deg,
-        rgba(0, 0, 0, 0.3) 0%,
-        rgba(0, 0, 0, 0.7) 50%,
+        rgba(0, 0, 0, 0.2) 0%,
+        rgba(0, 0, 0, 0.6) 40%,
         rgba(0, 0, 0, 0.95) 100%
     );
 }
@@ -263,7 +242,7 @@
 .cardContent {
     position: relative;
     z-index: 1;
-    padding: 40px;
+    padding: 50px;
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -271,64 +250,81 @@
 }
 
 .cardTitle {
-    font-size: 36px;
-    font-weight: 600;
-    letter-spacing: 3px;
+    font-size: 42px;
+    font-weight: 700;
+    letter-spacing: 4px;
     text-transform: uppercase;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
     color: #fff;
     transition: all 0.3s ease;
 }
 
 .serviceCard:hover .cardTitle {
-    color: #dc2626;
+    color: var(--card-color, #dc2626);
+    text-shadow: 0 0 30px var(--card-color, #dc2626);
 }
 
 .cardDescription {
     font-size: 16px;
     line-height: 1.8;
     color: rgba(255, 255, 255, 0.7);
-    margin-bottom: 30px;
+    margin-bottom: 35px;
 }
 
 .cardStats {
     display: flex;
-    gap: 30px;
-    margin-bottom: 30px;
+    gap: 35px;
+    margin-bottom: 35px;
     flex-wrap: wrap;
 }
 
 .statItem {
     display: flex;
+    align-items: center;
+    gap: 12px;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 15px 20px;
+    border-radius: 50px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+}
+
+.statIcon {
+    font-size: 28px;
+    filter: drop-shadow(0 0 10px var(--card-color, #dc2626));
+}
+
+.statInfo {
+    display: flex;
     flex-direction: column;
-    gap: 5px;
+    gap: 2px;
 }
 
 .statValue {
-    font-size: 28px;
+    font-size: 22px;
     font-weight: 700;
-    color: #dc2626;
+    color: var(--card-color, #dc2626);
     letter-spacing: 1px;
 }
 
 .statLabel {
-    font-size: 12px;
+    font-size: 11px;
     text-transform: uppercase;
-    letter-spacing: 2px;
+    letter-spacing: 1.5px;
     color: rgba(255, 255, 255, 0.5);
 }
 
 .cardButton {
     display: inline-flex;
     align-items: center;
-    gap: 12px;
-    padding: 16px 35px;
+    gap: 15px;
+    padding: 18px 40px;
     background: rgba(220, 38, 38, 0.1);
     border: 2px solid rgba(220, 38, 38, 0.3);
-    border-radius: 50px;
+    border-radius: 60px;
     color: #fff;
     font-size: 14px;
-    font-weight: 600;
+    font-weight: 700;
     letter-spacing: 2px;
     text-transform: uppercase;
     width: fit-content;
@@ -336,98 +332,128 @@
 }
 
 .serviceCard:hover .cardButton {
-    background: linear-gradient(135deg, #dc2626, #991b1b);
+    background: linear-gradient(135deg, var(--card-color, #dc2626), rgba(153, 27, 27, 0.8));
     border-color: transparent;
-    box-shadow: 0 10px 30px rgba(220, 38, 38, 0.5);
+    box-shadow: 0 10px 40px var(--card-color, rgba(220, 38, 38, 0.6));
 }
 
 .cardBorder {
     position: absolute;
     inset: 0;
     border-radius: 24px;
-    border: 2px solid rgba(220, 38, 38, 0);
-    transition: border-color 0.5s ease;
+    border: 2px solid transparent;
+    background: linear-gradient(135deg, var(--card-color, #dc2626), transparent) border-box;
+    -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity 0.5s ease;
     pointer-events: none;
 }
 
 .serviceCard:hover .cardBorder {
-    border-color: rgba(220, 38, 38, 0.5);
+    opacity: 1;
 }
 
 /* Responsive - Tablets */
 @media (max-width: 1024px) {
-    .catalogPage {
-        padding: 120px 30px 0;
+    .heroSection {
+        padding: 120px 30px 80px;
     }
 
     .pageTitle {
-        font-size: 64px;
+        font-size: 72px;
+        letter-spacing: 12px;
+    }
+
+    .pageSubtitle {
+        font-size: 18px;
+    }
+
+    .centerContent {
+        padding: 70px 50px;
+    }
+
+    .centerInner h2 {
+        font-size: 52px;
         letter-spacing: 8px;
     }
 
-    .centerTitle {
-        font-size: 48px;
-        letter-spacing: 5px;
+    .centerDesc {
+        font-size: 18px;
     }
 
     .servicesGrid {
-        gap: 30px;
-        margin-bottom: 80px;
+        gap: 35px;
+        padding: 0 30px;
     }
 
     .serviceCard {
-        height: 550px;
+        height: 600px;
     }
 
     .cardTitle {
-        font-size: 30px;
+        font-size: 34px;
     }
 }
 
 /* Responsive - Mobile */
 @media (max-width: 768px) {
-    .catalogPage {
-        padding: 100px 20px 0;
+    .heroSection {
+        padding: 100px 20px 60px;
     }
 
     .pageTitle {
-        font-size: 42px;
-        letter-spacing: 4px;
+        font-size: 48px;
+        letter-spacing: 6px;
     }
 
     .pageSubtitle {
         font-size: 16px;
+        letter-spacing: 2px;
+    }
+
+    .centerBlock {
+        padding: 0 20px;
+        margin-bottom: 80px;
     }
 
     .centerContent {
         padding: 50px 30px;
     }
 
-    .centerTitle {
+    .centerInner h2 {
         font-size: 36px;
-        letter-spacing: 3px;
+        letter-spacing: 4px;
     }
 
     .centerDesc {
         font-size: 16px;
     }
 
+    .centerButton {
+        padding: 18px 40px;
+        font-size: 14px;
+    }
+
     .servicesGrid {
         grid-template-columns: 1fr;
-        gap: 25px;
+        gap: 30px;
+        padding: 0 20px;
         margin-bottom: 60px;
     }
 
     .serviceCard {
-        height: 500px;
+        height: 550px;
     }
 
     .cardContent {
-        padding: 30px;
+        padding: 35px;
     }
 
     .cardTitle {
-        font-size: 26px;
+        font-size: 28px;
+        letter-spacing: 2px;
     }
 
     .cardDescription {
@@ -435,37 +461,50 @@
     }
 
     .cardStats {
-        gap: 20px;
+        gap: 15px;
+    }
+
+    .statItem {
+        padding: 12px 16px;
+    }
+
+    .statIcon {
+        font-size: 24px;
     }
 
     .statValue {
-        font-size: 22px;
+        font-size: 18px;
+    }
+
+    .statLabel {
+        font-size: 10px;
     }
 }
 
 @media (max-width: 480px) {
     .pageTitle {
-        font-size: 32px;
-        letter-spacing: 2px;
+        font-size: 36px;
+        letter-spacing: 3px;
     }
 
-    .centerTitle {
+    .centerInner h2 {
         font-size: 28px;
     }
 
     .serviceCard {
-        height: 450px;
+        height: 500px;
     }
 
     .cardTitle {
-        font-size: 22px;
+        font-size: 24px;
     }
 
     .cardStats {
-        gap: 15px;
+        flex-direction: column;
+        gap: 12px;
     }
 
     .statItem {
-        flex: 0 0 calc(50% - 7.5px);
+        width: 100%;
     }
 }
