@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import styles from './Footer.module.css'
 
 interface FooterProps {
@@ -11,12 +12,12 @@ export default function Footer({ currentLang = 'ru' }: FooterProps) {
   const translations = {
     ru: {
       logoSubtitle: 'EXHAUST SYSTEM',
+      footerDesc: 'Премиальные решения для вашего автомобиля. Выхлопные системы, тормоза, диски, подвеска — все для максимальной производительности.',
+      footerServices: 'Услуги',
       navExhaust: 'Выхлопные системы',
       navBrakes: 'Тормозные системы',
       navWheels: 'Кованые диски',
       navSuspension: 'Подвеска',
-      footerDesc: 'Премиальные решения для вашего автомобиля. Выхлопные системы, тормоза, диски, подвеска — все для максимальной производительности.',
-      footerServices: 'Услуги',
       footerProjects: 'Проекты под ключ',
       footerCompany: 'Компания',
       footerAbout: 'О нас',
@@ -30,12 +31,12 @@ export default function Footer({ currentLang = 'ru' }: FooterProps) {
     },
     en: {
       logoSubtitle: 'EXHAUST SYSTEM',
+      footerDesc: 'Premium solutions for your car. Exhaust systems, brakes, wheels, suspension — everything for maximum performance.',
+      footerServices: 'Services',
       navExhaust: 'Exhaust Systems',
       navBrakes: 'Brake Systems',
       navWheels: 'Forged Wheels',
       navSuspension: 'Suspension',
-      footerDesc: 'Premium solutions for your car. Exhaust systems, brakes, wheels, suspension — everything for maximum performance.',
-      footerServices: 'Services',
       footerProjects: 'Turnkey Projects',
       footerCompany: 'Company',
       footerAbout: 'About Us',
@@ -52,12 +53,17 @@ export default function Footer({ currentLang = 'ru' }: FooterProps) {
   const t = translations[currentLang]
 
   return (
-    <footer className={styles.footer} id="contacts">
+    <footer className={styles.footer}>
       <div className={styles.footerContent}>
         <div className={styles.footerColumn}>
           <div className={styles.footerLogo}>
-            DGT
-            <span>{t.logoSubtitle}</span>
+            <Image 
+              src="/logo.png" 
+              alt="DGT Exhaust System" 
+              width={100} 
+              height={50}
+              style={{ objectFit: 'contain' }}
+            />
           </div>
           <p className={styles.footerDescription}>{t.footerDesc}</p>
           <div className={styles.footerSocial}>
@@ -72,6 +78,7 @@ export default function Footer({ currentLang = 'ru' }: FooterProps) {
             </a>
           </div>
         </div>
+
         <div className={styles.footerColumn}>
           <h3 className={styles.footerHeading}>{t.footerServices}</h3>
           <ul className={styles.footerLinks}>
@@ -82,6 +89,7 @@ export default function Footer({ currentLang = 'ru' }: FooterProps) {
             <li><Link href="/projects">{t.footerProjects}</Link></li>
           </ul>
         </div>
+
         <div className={styles.footerColumn}>
           <h3 className={styles.footerHeading}>{t.footerCompany}</h3>
           <ul className={styles.footerLinks}>
@@ -90,6 +98,7 @@ export default function Footer({ currentLang = 'ru' }: FooterProps) {
             <li><Link href="/contacts">{t.footerContacts}</Link></li>
           </ul>
         </div>
+
         <div className={styles.footerColumn}>
           <h3 className={styles.footerHeading}>{t.footerContactsTitle}</h3>
           <ul className={styles.footerContacts}>
@@ -108,6 +117,7 @@ export default function Footer({ currentLang = 'ru' }: FooterProps) {
           </ul>
         </div>
       </div>
+
       <div className={styles.footerBottom}>
         <p className={styles.footerCopyright}>{t.footerCopyright}</p>
         <div className={styles.footerBottomLinks}>
