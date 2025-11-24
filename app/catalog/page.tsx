@@ -240,21 +240,32 @@ export default function CatalogPage() {
           init={particlesInit}
           options={{
             fullScreen: { enable: false },
-            background: { color: 'transparent' },
+            background: { color: { value: 'transparent' } },
             fpsLimit: 60,
             particles: {
-              number: { value: 50, density: { enable: true, value_area: 800 } },
+              number: { 
+                value: 50, 
+                density: { 
+                  enable: true
+                } 
+              },
               color: { value: '#dc2626' },
               shape: { type: 'circle' },
               opacity: {
-                value: 0.3,
-                random: true,
-                anim: { enable: true, speed: 1, opacity_min: 0.1, sync: false }
+                value: { min: 0.1, max: 0.3 },
+                animation: { 
+                  enable: true, 
+                  speed: 1, 
+                  sync: false 
+                }
               },
               size: {
-                value: 3,
-                random: true,
-                anim: { enable: true, speed: 2, size_min: 0.1, sync: false }
+                value: { min: 1, max: 3 },
+                animation: { 
+                  enable: true, 
+                  speed: 2, 
+                  sync: false 
+                }
               },
               links: {
                 enable: true,
@@ -269,19 +280,34 @@ export default function CatalogPage() {
                 direction: 'none',
                 random: false,
                 straight: false,
-                outModes: { default: 'bounce' }
+                outModes: 'bounce'
               }
             },
             interactivity: {
-              detectsOn: 'canvas',
+              detectsOn: 'window',
               events: {
-                onHover: { enable: true, mode: 'grab' },
-                onClick: { enable: true, mode: 'push' },
-                resize: { enable: true }
+                onHover: { 
+                  enable: true, 
+                  mode: 'grab' 
+                },
+                onClick: { 
+                  enable: true, 
+                  mode: 'push' 
+                },
+                resize: {
+                  enable: true
+                }
               },
               modes: {
-                grab: { distance: 140, links: { opacity: 0.5 } },
-                push: { quantity: 4 }
+                grab: { 
+                  distance: 140, 
+                  links: { 
+                    opacity: 0.5 
+                  } 
+                },
+                push: { 
+                  quantity: 4 
+                }
               }
             },
             detectRetina: true
