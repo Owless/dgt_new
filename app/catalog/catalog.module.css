@@ -1,20 +1,73 @@
 .catalogPage {
     min-height: 100vh;
     background: #000;
-    padding: 140px 40px 100px;
+    padding: 140px 40px 0;
     position: relative;
     overflow: hidden;
 }
 
-/* Particles Canvas */
-.particlesCanvas {
+/* Optimized Background Animation */
+.bgAnimation {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     pointer-events: none;
-    z-index: 1;
+    z-index: 0;
+    will-change: transform;
+}
+
+.bgGradient1,
+.bgGradient2,
+.bgGradient3 {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(100px);
+    opacity: 0.15;
+    will-change: transform;
+}
+
+.bgGradient1 {
+    top: -10%;
+    left: -10%;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, #dc2626 0%, transparent 70%);
+    animation: float1 20s ease-in-out infinite;
+}
+
+.bgGradient2 {
+    top: 50%;
+    right: -10%;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, #991b1b 0%, transparent 70%);
+    animation: float2 25s ease-in-out infinite;
+}
+
+.bgGradient3 {
+    bottom: -10%;
+    left: 30%;
+    width: 700px;
+    height: 700px;
+    background: radial-gradient(circle, #7f1d1d 0%, transparent 70%);
+    animation: float3 30s ease-in-out infinite;
+}
+
+@keyframes float1 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(100px, 100px) scale(1.1); }
+}
+
+@keyframes float2 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(-100px, -100px) scale(1.2); }
+}
+
+@keyframes float3 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(-150px, 50px) scale(0.9); }
 }
 
 /* Header */
@@ -36,7 +89,6 @@
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     animation: gradientShift 5s ease infinite;
-    transition: transform 0.1s ease;
 }
 
 @keyframes gradientShift {
@@ -140,7 +192,7 @@
 /* Services Grid 2x2 */
 .servicesGrid {
     max-width: 1400px;
-    margin: 0 auto;
+    margin: 0 auto 100px;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 40px;
@@ -156,21 +208,23 @@
     overflow: hidden;
     cursor: pointer;
     text-decoration: none;
-    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-    transform-style: preserve-3d;
+    transition: all 0.4s ease;
     height: 600px;
+    will-change: transform;
 }
 
 .serviceCard:hover {
+    transform: translateY(-10px);
     z-index: 10;
 }
 
 .cardGlow {
     position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
     background: radial-gradient(circle, rgba(220, 38, 38, 0.2) 0%, transparent 70%);
     opacity: 0;
     transition: opacity 0.5s ease;
@@ -179,12 +233,6 @@
 
 .serviceCard:hover .cardGlow {
     opacity: 1;
-    animation: rotateGlow 10s linear infinite;
-}
-
-@keyframes rotateGlow {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
 }
 
 .cardImage {
@@ -247,6 +295,7 @@
     display: flex;
     gap: 30px;
     margin-bottom: 30px;
+    flex-wrap: wrap;
 }
 
 .statItem {
@@ -296,30 +345,19 @@
     position: absolute;
     inset: 0;
     border-radius: 24px;
-    border: 2px solid transparent;
-    background: linear-gradient(135deg, rgba(220, 38, 38, 0.5), rgba(153, 27, 27, 0.5)) border-box;
-    -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-    opacity: 0;
-    transition: opacity 0.5s ease;
+    border: 2px solid rgba(220, 38, 38, 0);
+    transition: border-color 0.5s ease;
     pointer-events: none;
 }
 
 .serviceCard:hover .cardBorder {
-    opacity: 1;
-    animation: rotateBorder 3s linear infinite;
-}
-
-@keyframes rotateBorder {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
+    border-color: rgba(220, 38, 38, 0.5);
 }
 
 /* Responsive - Tablets */
 @media (max-width: 1024px) {
     .catalogPage {
-        padding: 120px 30px 80px;
+        padding: 120px 30px 0;
     }
 
     .pageTitle {
@@ -334,6 +372,7 @@
 
     .servicesGrid {
         gap: 30px;
+        margin-bottom: 80px;
     }
 
     .serviceCard {
@@ -348,7 +387,7 @@
 /* Responsive - Mobile */
 @media (max-width: 768px) {
     .catalogPage {
-        padding: 100px 20px 60px;
+        padding: 100px 20px 0;
     }
 
     .pageTitle {
@@ -376,6 +415,7 @@
     .servicesGrid {
         grid-template-columns: 1fr;
         gap: 25px;
+        margin-bottom: 60px;
     }
 
     .serviceCard {
@@ -422,7 +462,6 @@
     }
 
     .cardStats {
-        flex-wrap: wrap;
         gap: 15px;
     }
 
