@@ -6,8 +6,6 @@ import Image from 'next/image'
 import { motion, useScroll, useTransform, useSpring, useInView } from 'framer-motion'
 import { Canvas } from '@react-three/fiber'
 import { OrbitControls, Sphere, MeshDistortMaterial, Float } from '@react-three/drei'
-import Particles from '@tsparticles/react'
-import { loadSlim } from '@tsparticles/slim'
 import Tilt from 'react-parallax-tilt'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
@@ -174,11 +172,6 @@ export default function CatalogPage() {
 
   const t = translations[currentLang]
 
-  // Particles initialization
-  const particlesInit = async (engine: any) => {
-    await loadSlim(engine)
-  }
-
   // GSAP animations for center block
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -233,86 +226,12 @@ export default function CatalogPage() {
       <Header currentLang={currentLang} onLanguageChange={setCurrentLang} />
       
       <main className={styles.catalogPage}>
-        {/* Particles Background */}
-        <Particles
-          id="tsparticles"
-          className={styles.particles}
-          init={particlesInit}
-          options={{
-            fullScreen: { enable: false },
-            background: { color: { value: 'transparent' } },
-            fpsLimit: 60,
-            particles: {
-              number: { 
-                value: 50, 
-                density: { 
-                  enable: true
-                } 
-              },
-              color: { value: '#dc2626' },
-              shape: { type: 'circle' },
-              opacity: {
-                value: { min: 0.1, max: 0.3 },
-                animation: { 
-                  enable: true, 
-                  speed: 1, 
-                  sync: false 
-                }
-              },
-              size: {
-                value: { min: 1, max: 3 },
-                animation: { 
-                  enable: true, 
-                  speed: 2, 
-                  sync: false 
-                }
-              },
-              links: {
-                enable: true,
-                distance: 150,
-                color: '#dc2626',
-                opacity: 0.2,
-                width: 1
-              },
-              move: {
-                enable: true,
-                speed: 1,
-                direction: 'none',
-                random: false,
-                straight: false,
-                outModes: 'bounce'
-              }
-            },
-            interactivity: {
-              detectsOn: 'window',
-              events: {
-                onHover: { 
-                  enable: true, 
-                  mode: 'grab' 
-                },
-                onClick: { 
-                  enable: true, 
-                  mode: 'push' 
-                },
-                resize: {
-                  enable: true
-                }
-              },
-              modes: {
-                grab: { 
-                  distance: 140, 
-                  links: { 
-                    opacity: 0.5 
-                  } 
-                },
-                push: { 
-                  quantity: 4 
-                }
-              }
-            },
-            detectRetina: true
-          }}
-        />
+        {/* Animated Background */}
+        <div className={styles.bgAnimation}>
+          <div className={styles.bgGradient1}></div>
+          <div className={styles.bgGradient2}></div>
+          <div className={styles.bgGradient3}></div>
+        </div>
 
         {/* Hero Section with Parallax */}
         <motion.div 
