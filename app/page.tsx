@@ -127,8 +127,14 @@ export default function Home() {
     <>
       <header className={styles.header}>
         <Link href="/" className={styles.logo}>
-          DGT
-          <span>{t.logoSubtitle}</span>
+          <Image 
+            src="/logo.png" 
+            alt="DGT Exhaust System" 
+            width={120} 
+            height={60}
+            style={{ objectFit: 'contain' }}
+            priority
+          />
         </Link>
         <nav className={styles.nav}>
           <Link href="/exhaust">{t.navExhaust}</Link>
@@ -359,8 +365,13 @@ export default function Home() {
         <div className={styles.footerContent}>
           <div className={styles.footerColumn}>
             <div className={styles.footerLogo}>
-              DGT
-              <span>{t.logoSubtitle}</span>
+              <Image 
+                src="/logo.png" 
+                alt="DGT Exhaust System" 
+                width={100} 
+                height={50}
+                style={{ objectFit: 'contain' }}
+              />
             </div>
             <p className={styles.footerDescription}>{t.footerDesc}</p>
             <div className={styles.footerSocial}>
