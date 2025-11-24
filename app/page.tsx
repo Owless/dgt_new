@@ -3,6 +3,8 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
+import Header from '@/components/Header'
+import Footer from '@/components/Footer'
 import styles from './page.module.css'
 
 export default function Home() {
@@ -10,12 +12,6 @@ export default function Home() {
 
   const translations = {
     ru: {
-      logoSubtitle: 'EXHAUST SYSTEM',
-      navExhaust: 'Выхлопные системы',
-      navBrakes: 'Тормозные системы',
-      navWheels: 'Кованые диски',
-      navSuspension: 'Подвеска',
-      navProjects: 'Проекты',
       heroTitle1: 'СЕРВИСНЫЕ УСЛУГИ',
       heroTitle2: 'ДЛЯ АВТОМОБИЛЕЙ',
       heroSubtitle: 'Премиальное обслуживание вашего автомобиля',
@@ -44,27 +40,9 @@ export default function Home() {
       hp: 'л.с.',
       kg: 'кг',
       mods: 'модификаций',
-      videoTitle: 'Видеоматериалы',
-      footerDesc: 'Премиальные решения для вашего автомобиля. Выхлопные системы, тормоза, диски, подвеска — все для максимальной производительности.',
-      footerServices: 'Услуги',
-      footerProjects: 'Проекты под ключ',
-      footerCompany: 'Компания',
-      footerAbout: 'О нас',
-      footerVideo: 'Видео',
-      footerContacts: 'Контакты',
-      footerContactsTitle: 'Контакты',
-      footerAddress: 'Москва, ул. Примерная, 123',
-      footerCopyright: '© 2025 DGT Exhaust System. Все права защищены.',
-      footerPrivacy: 'Политика конфиденциальности',
-      footerTerms: 'Условия использования'
+      videoTitle: 'Видеоматериалы'
     },
     en: {
-      logoSubtitle: 'EXHAUST SYSTEM',
-      navExhaust: 'Exhaust Systems',
-      navBrakes: 'Brake Systems',
-      navWheels: 'Forged Wheels',
-      navSuspension: 'Suspension',
-      navProjects: 'Projects',
       heroTitle1: 'AUTOMOTIVE SERVICES',
       heroTitle2: 'FOR YOUR CAR',
       heroSubtitle: 'Premium service for your vehicle',
@@ -93,27 +71,11 @@ export default function Home() {
       hp: 'hp',
       kg: 'kg',
       mods: 'modifications',
-      videoTitle: 'Video Materials',
-      footerDesc: 'Premium solutions for your car. Exhaust systems, brakes, wheels, suspension — everything for maximum performance.',
-      footerServices: 'Services',
-      footerProjects: 'Turnkey Projects',
-      footerCompany: 'Company',
-      footerAbout: 'About Us',
-      footerVideo: 'Videos',
-      footerContacts: 'Contacts',
-      footerContactsTitle: 'Contacts',
-      footerAddress: 'Moscow, Primernaya St., 123',
-      footerCopyright: '© 2025 DGT Exhaust System. All rights reserved.',
-      footerPrivacy: 'Privacy Policy',
-      footerTerms: 'Terms of Use'
+      videoTitle: 'Video Materials'
     }
   }
 
   const t = translations[currentLang]
-
-  const toggleLanguage = () => {
-    setCurrentLang(currentLang === 'ru' ? 'en' : 'ru')
-  }
 
   const handleImageClick = (e: React.MouseEvent<HTMLDivElement>) => {
     const element = e.currentTarget
@@ -125,47 +87,7 @@ export default function Home() {
 
   return (
     <>
-      <header className={styles.header}>
-        <Link href="/" className={styles.logo}>
-          <Image 
-            src="/logo.png" 
-            alt="DGT Exhaust System" 
-            width={120} 
-            height={60}
-            style={{ objectFit: 'contain' }}
-            priority
-          />
-        </Link>
-        <nav className={styles.nav}>
-          <Link href="/exhaust">{t.navExhaust}</Link>
-          <Link href="/brakes">{t.navBrakes}</Link>
-          <Link href="/wheels">{t.navWheels}</Link>
-          <Link href="/suspension">{t.navSuspension}</Link>
-          <Link href="/projects">{t.navProjects}</Link>
-        </nav>
-        <div className={styles.headerRight}>
-          <div className={styles.socialIcons}>
-            <a href="https://vk.com" target="_blank" rel="noopener noreferrer">
-              <i className="fab fa-vk"></i>
-            </a>
-            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">
-              <i className="fab fa-instagram"></i>
-            </a>
-            <a href="https://youtube.com" target="_blank" rel="noopener noreferrer">
-              <i className="fab fa-youtube"></i>
-            </a>
-          </div>
-          <div className={styles.langToggle} onClick={toggleLanguage}>
-            <span className={`${styles.langOption} ${currentLang === 'ru' ? styles.active : ''}`}>
-              RU
-            </span>
-            <span>|</span>
-            <span className={`${styles.langOption} ${currentLang === 'en' ? styles.active : ''}`}>
-              EN
-            </span>
-          </div>
-        </div>
-      </header>
+      <Header currentLang={currentLang} onLanguageChange={setCurrentLang} />
 
       <div className={styles.hero}>
         <div className={styles.heroBg}></div>
@@ -361,75 +283,7 @@ export default function Home() {
         </div>
       </section>
 
-      <footer className={styles.footer} id="contacts">
-        <div className={styles.footerContent}>
-          <div className={styles.footerColumn}>
-            <div className={styles.footerLogo}>
-              <Image 
-                src="/logo.png" 
-                alt="DGT Exhaust System" 
-                width={100} 
-                height={50}
-                style={{ objectFit: 'contain' }}
-              />
-            </div>
-            <p className={styles.footerDescription}>{t.footerDesc}</p>
-            <div className={styles.footerSocial}>
-              <a href="https://vk.com" target="_blank" rel="noopener noreferrer" className={styles.footerSocialLink}>
-                <i className="fab fa-vk"></i>
-              </a>
-              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className={styles.footerSocialLink}>
-                <i className="fab fa-instagram"></i>
-              </a>
-              <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" className={styles.footerSocialLink}>
-                <i className="fab fa-youtube"></i>
-              </a>
-            </div>
-          </div>
-          <div className={styles.footerColumn}>
-            <h3 className={styles.footerHeading}>{t.footerServices}</h3>
-            <ul className={styles.footerLinks}>
-              <li><Link href="/exhaust">{t.navExhaust}</Link></li>
-              <li><Link href="/brakes">{t.navBrakes}</Link></li>
-              <li><Link href="/wheels">{t.navWheels}</Link></li>
-              <li><Link href="/suspension">{t.navSuspension}</Link></li>
-              <li><Link href="/projects">{t.footerProjects}</Link></li>
-            </ul>
-          </div>
-          <div className={styles.footerColumn}>
-            <h3 className={styles.footerHeading}>{t.footerCompany}</h3>
-            <ul className={styles.footerLinks}>
-              <li><Link href="/about">{t.footerAbout}</Link></li>
-              <li><Link href="/video">{t.footerVideo}</Link></li>
-              <li><Link href="/contacts">{t.footerContacts}</Link></li>
-            </ul>
-          </div>
-          <div className={styles.footerColumn}>
-            <h3 className={styles.footerHeading}>{t.footerContactsTitle}</h3>
-            <ul className={styles.footerContacts}>
-              <li>
-                <i className="fas fa-phone"></i>
-                <a href="tel:+79001234567">+7 (900) 123-45-67</a>
-              </li>
-              <li>
-                <i className="fas fa-envelope"></i>
-                <a href="mailto:info@dgt-exhaust.com">info@dgt-exhaust.com</a>
-              </li>
-              <li>
-                <i className="fas fa-map-marker-alt"></i>
-                <span>{t.footerAddress}</span>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div className={styles.footerBottom}>
-          <p className={styles.footerCopyright}>{t.footerCopyright}</p>
-          <div className={styles.footerBottomLinks}>
-            <Link href="/privacy">{t.footerPrivacy}</Link>
-            <Link href="/terms">{t.footerTerms}</Link>
-          </div>
-        </div>
-      </footer>
+      <Footer currentLang={currentLang} />
     </>
   )
 }
