@@ -14,28 +14,12 @@
     margin-right: auto;
 }
 
-.footerColumn {
-    /* Empty - just for structure */
-}
-
 .footerLogo {
-    font-size: 38px;
-    font-weight: 900;
-    color: #dc2626;
-    letter-spacing: -2px;
-    text-transform: uppercase;
-    font-style: italic;
-    transform: skewX(-8deg);
     margin-bottom: 18px;
 }
 
-.footerLogo span {
-    display: block;
-    font-size: 8px;
-    letter-spacing: 2.5px;
-    color: rgba(255, 255, 255, 0.6);
-    margin-top: -5px;
-    transform: skewX(8deg);
+.footerLogo img {
+    filter: drop-shadow(0 0 15px rgba(220, 38, 38, 0.3));
 }
 
 .footerDescription {
@@ -61,6 +45,7 @@
     border-radius: 50%;
     color: rgba(255, 255, 255, 0.6);
     transition: all 0.3s ease;
+    text-decoration: none;
 }
 
 .footerSocialLink:hover {
@@ -79,6 +64,8 @@
 
 .footerLinks {
     list-style: none;
+    padding: 0;
+    margin: 0;
 }
 
 .footerLinks li {
@@ -98,6 +85,8 @@
 
 .footerContacts {
     list-style: none;
+    padding: 0;
+    margin: 0;
 }
 
 .footerContacts li {
@@ -158,6 +147,11 @@
 @media (max-width: 1024px) {
     .footer {
         padding: 100px 40px;
+    }
+
+    .footerContent {
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
     }
 }
 
