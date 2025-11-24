@@ -105,9 +105,9 @@ export default function Header({ currentLang = 'ru', onLanguageChange }: HeaderP
           </div>
         </div>
 
-        {/* Mobile Toggle */}
+        {/* Burger Menu Toggle */}
         <div 
-          className={`${styles.mobileToggle} ${mobileMenuOpen ? styles.active : ''}`}
+          className={`${styles.burgerMenu} ${mobileMenuOpen ? styles.active : ''}`}
           onClick={toggleMobileMenu}
         >
           <span></span>
@@ -123,11 +123,6 @@ export default function Header({ currentLang = 'ru', onLanguageChange }: HeaderP
 
       {/* Mobile Menu */}
       <div className={`${styles.mobileMenu} ${mobileMenuOpen ? styles.active : ''}`}>
-        <div className={styles.mobileCloseBtn} onClick={closeMobileMenu}>
-          <span></span>
-          <span></span>
-        </div>
-        
         <nav className={styles.mobileNav}>
           <Link href="/exhaust" onClick={closeMobileMenu}>{t.navExhaust}</Link>
           <Link href="/brakes" onClick={closeMobileMenu}>{t.navBrakes}</Link>
