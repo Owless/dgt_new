@@ -84,13 +84,13 @@ export default function Header({ currentLang = 'ru', onLanguageChange }: HeaderP
 
           <div className={styles.headerRight}>
             <div className={styles.socialIcons}>
-              <a href="https://vk.com" target="_blank" rel="noopener noreferrer" aria-label="VK">
+              <a href="https://vk.com" target="_blank" rel="noopener noreferrer">
                 <i className="fab fa-vk"></i>
               </a>
-              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">
                 <i className="fab fa-instagram"></i>
               </a>
-              <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+              <a href="https://youtube.com" target="_blank" rel="noopener noreferrer">
                 <i className="fab fa-youtube"></i>
               </a>
             </div>
@@ -110,7 +110,6 @@ export default function Header({ currentLang = 'ru', onLanguageChange }: HeaderP
           <div 
             className={`${styles.burgerMenu} ${mobileMenuOpen ? styles.active : ''}`}
             onClick={toggleMobileMenu}
-            aria-label="Toggle menu"
           >
             <span></span>
             <span></span>
@@ -146,13 +145,13 @@ export default function Header({ currentLang = 'ru', onLanguageChange }: HeaderP
           </div>
           
           <div className={styles.socialIcons}>
-            <a href="https://vk.com" target="_blank" rel="noopener noreferrer" aria-label="VK">
+            <a href="https://vk.com" target="_blank" rel="noopener noreferrer">
               <i className="fab fa-vk"></i>
             </a>
-            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">
               <i className="fab fa-instagram"></i>
             </a>
-            <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+            <a href="https://youtube.com" target="_blank" rel="noopener noreferrer">
               <i className="fab fa-youtube"></i>
             </a>
           </div>
