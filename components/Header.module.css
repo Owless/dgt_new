@@ -10,10 +10,7 @@
     -webkit-backdrop-filter: blur(20px);
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-}
-
-.header *:not(.fa):not(.fab):not(.fas):not(.far):not(.fal) {
-    font-family: 'Rajdhani', sans-serif !important;
+    font-family: 'Rajdhani', sans-serif;
 }
 
 .header.scrolled {
