@@ -20,18 +20,14 @@ export default function Header({ currentLang = 'ru', onLanguageChange }: HeaderP
       navBrakes: 'Тормозные системы',
       navWheels: 'Кованые диски',
       navSuspension: 'Подвеска',
-      navProjects: 'Проекты',
-      navAbout: 'О нас',
-      phone: '+7 (900) 123-45-67'
+      navProjects: 'Проекты'
     },
     en: {
       navExhaust: 'Exhaust Systems',
       navBrakes: 'Brake Systems',
       navWheels: 'Forged Wheels',
       navSuspension: 'Suspension',
-      navProjects: 'Projects',
-      navAbout: 'About Us',
-      phone: '+7 (900) 123-45-67'
+      navProjects: 'Projects'
     }
   }
 
@@ -78,7 +74,6 @@ export default function Header({ currentLang = 'ru', onLanguageChange }: HeaderP
           <Link href="/wheels">{t.navWheels}</Link>
           <Link href="/suspension">{t.navSuspension}</Link>
           <Link href="/projects">{t.navProjects}</Link>
-          <Link href="/about">{t.navAbout}</Link>
         </nav>
 
         <div className={styles.headerRight}>
@@ -124,7 +119,6 @@ export default function Header({ currentLang = 'ru', onLanguageChange }: HeaderP
           <Link href="/wheels" onClick={toggleMobileMenu}>{t.navWheels}</Link>
           <Link href="/suspension" onClick={toggleMobileMenu}>{t.navSuspension}</Link>
           <Link href="/projects" onClick={toggleMobileMenu}>{t.navProjects}</Link>
-          <Link href="/about" onClick={toggleMobileMenu}>{t.navAbout}</Link>
         </nav>
         <div className={styles.mobileContact}>
           <div className={styles.langToggle} onClick={toggleLanguage}>
