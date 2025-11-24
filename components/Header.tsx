@@ -22,8 +22,7 @@ export default function Header({ currentLang = 'ru', onLanguageChange }: HeaderP
       navSuspension: 'Подвеска',
       navProjects: 'Проекты',
       navAbout: 'О нас',
-      phone: '+7 (900) 123-45-67',
-      contact: 'Связаться'
+      phone: '+7 (900) 123-45-67'
     },
     en: {
       navExhaust: 'Exhaust Systems',
@@ -32,8 +31,7 @@ export default function Header({ currentLang = 'ru', onLanguageChange }: HeaderP
       navSuspension: 'Suspension',
       navProjects: 'Projects',
       navAbout: 'About Us',
-      phone: '+7 (900) 123-45-67',
-      contact: 'Contact'
+      phone: '+7 (900) 123-45-67'
     }
   }
 
@@ -55,6 +53,7 @@ export default function Header({ currentLang = 'ru', onLanguageChange }: HeaderP
 
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!mobileMenuOpen)
+    document.body.style.overflow = !mobileMenuOpen ? 'hidden' : 'auto'
   }
 
   return (
@@ -73,45 +72,38 @@ export default function Header({ currentLang = 'ru', onLanguageChange }: HeaderP
         </Link>
 
         {/* Desktop Navigation */}
-        <nav className={styles.navMain}>
-          <ul className={styles.navLinks}>
-            <li><Link href="/exhaust">{t.navExhaust}</Link></li>
-            <li><Link href="/brakes">{t.navBrakes}</Link></li>
-            <li><Link href="/wheels">{t.navWheels}</Link></li>
-            <li><Link href="/suspension">{t.navSuspension}</Link></li>
-            <li><Link href="/projects">{t.navProjects}</Link></li>
-            <li><Link href="/about">{t.navAbout}</Link></li>
-          </ul>
-
-          <div className={styles.headerContact}>
-            <a href={`tel:${t.phone.replace(/\s/g, '')}`} className={styles.headerPhone}>
-              <span className={styles.phoneIcon}>📞</span>
-              <span>{t.phone}</span>
-            </a>
-
-            <div className={styles.langToggle} onClick={toggleLanguage}>
-              <span className={`${styles.langOption} ${currentLang === 'ru' ? styles.active : ''}`}>
-                RU
-              </span>
-              <span>|</span>
-              <span className={`${styles.langOption} ${currentLang === 'en' ? styles.active : ''}`}>
-                EN
-              </span>
-            </div>
-
-            <div className={styles.socialIcons}>
-              <a href="https://vk.com" target="_blank" rel="noopener noreferrer">
-                <i className="fab fa-vk"></i>
-              </a>
-              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">
-                <i className="fab fa-instagram"></i>
-              </a>
-              <a href="https://youtube.com" target="_blank" rel="noopener noreferrer">
-                <i className="fab fa-youtube"></i>
-              </a>
-            </div>
-          </div>
+        <nav className={styles.nav}>
+          <Link href="/exhaust">{t.navExhaust}</Link>
+          <Link href="/brakes">{t.navBrakes}</Link>
+          <Link href="/wheels">{t.navWheels}</Link>
+          <Link href="/suspension">{t.navSuspension}</Link>
+          <Link href="/projects">{t.navProjects}</Link>
+          <Link href="/about">{t.navAbout}</Link>
         </nav>
+
+        <div className={styles.headerRight}>
+          <div className={styles.socialIcons}>
+            <a href="https://vk.com" target="_blank" rel="noopener noreferrer">
+              <i className="fab fa-vk"></i>
+            </a>
+            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">
+              <i className="fab fa-instagram"></i>
+            </a>
+            <a href="https://youtube.com" target="_blank" rel="noopener noreferrer">
+              <i className="fab fa-youtube"></i>
+            </a>
+          </div>
+
+          <div className={styles.langToggle} onClick={toggleLanguage}>
+            <span className={`${styles.langOption} ${currentLang === 'ru' ? styles.active : ''}`}>
+              RU
+            </span>
+            <span>|</span>
+            <span className={`${styles.langOption} ${currentLang === 'en' ? styles.active : ''}`}>
+              EN
+            </span>
+          </div>
+        </div>
 
         {/* Mobile Toggle */}
         <div 
@@ -126,19 +118,15 @@ export default function Header({ currentLang = 'ru', onLanguageChange }: HeaderP
 
       {/* Mobile Menu */}
       <div className={`${styles.mobileMenu} ${mobileMenuOpen ? styles.active : ''}`}>
-        <ul className={styles.mobileNav}>
-          <li><Link href="/exhaust" onClick={toggleMobileMenu}>{t.navExhaust}</Link></li>
-          <li><Link href="/brakes" onClick={toggleMobileMenu}>{t.navBrakes}</Link></li>
-          <li><Link href="/wheels" onClick={toggleMobileMenu}>{t.navWheels}</Link></li>
-          <li><Link href="/suspension" onClick={toggleMobileMenu}>{t.navSuspension}</Link></li>
-          <li><Link href="/projects" onClick={toggleMobileMenu}>{t.navProjects}</Link></li>
-          <li><Link href="/about" onClick={toggleMobileMenu}>{t.navAbout}</Link></li>
-        </ul>
+        <nav className={styles.mobileNav}>
+          <Link href="/exhaust" onClick={toggleMobileMenu}>{t.navExhaust}</Link>
+          <Link href="/brakes" onClick={toggleMobileMenu}>{t.navBrakes}</Link>
+          <Link href="/wheels" onClick={toggleMobileMenu}>{t.navWheels}</Link>
+          <Link href="/suspension" onClick={toggleMobileMenu}>{t.navSuspension}</Link>
+          <Link href="/projects" onClick={toggleMobileMenu}>{t.navProjects}</Link>
+          <Link href="/about" onClick={toggleMobileMenu}>{t.navAbout}</Link>
+        </nav>
         <div className={styles.mobileContact}>
-          <a href={`tel:${t.phone.replace(/\s/g, '')}`} className={styles.headerPhone}>
-            <span className={styles.phoneIcon}>📞</span>
-            <span>{t.phone}</span>
-          </a>
           <div className={styles.langToggle} onClick={toggleLanguage}>
             <span className={`${styles.langOption} ${currentLang === 'ru' ? styles.active : ''}`}>
               RU
