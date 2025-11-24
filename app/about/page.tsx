@@ -51,6 +51,58 @@ export default function AboutPage() {
         title: 'Готовы начать ваш проект?',
         desc: 'Свяжитесь с нами для консультации и расчета стоимости',
         button: 'Связаться с нами'
+      },
+      breadcrumb: {
+        home: 'Главная',
+        about: 'О нас'
+      }
+    },
+    en: {
+      title: 'About Us',
+      subtitle: 'Premium service history',
+      story: {
+        title: 'Our Story',
+        text1: 'DGT Exhaust System is more than just an auto service. It\'s a team of enthusiasts in love with cars and striving for perfection in every detail.',
+        text2: 'We started our journey with a simple idea: every car deserves an individual approach and premium service. Over the years, we have become a leading center for installing exhaust systems, brakes and suspension for premium cars.',
+        text3: 'Today we are trusted by owners of Porsche, BMW, Mercedes-AMG, Audi and other premium brands. Our reputation is built on quality of work and individual approach to each client.'
+      },
+      values: {
+        title: 'Our Values',
+        quality: {
+          title: 'Quality',
+          desc: 'We work only with proven brands and original components'
+        },
+        expertise: {
+          title: 'Expertise',
+          desc: 'Our specialists regularly undergo training from manufacturers'
+        },
+        individual: {
+          title: 'Individuality',
+          desc: 'Each project is unique, we take into account all customer wishes'
+        },
+        warranty: {
+          title: 'Warranty',
+          desc: 'We provide extended warranty for all types of work'
+        }
+      },
+      team: {
+        title: 'Team of Professionals',
+        desc: 'Behind each project are experienced masters with many years of experience working with premium cars'
+      },
+      stats: {
+        years: 'Years of experience',
+        projects: 'Completed projects',
+        clients: 'Satisfied clients',
+        brands: 'Partner brands'
+      },
+      cta: {
+        title: 'Ready to start your project?',
+        desc: 'Contact us for consultation and cost calculation',
+        button: 'Contact Us'
+      },
+      breadcrumb: {
+        home: 'Home',
+        about: 'About Us'
       }
     }
   }
@@ -73,9 +125,9 @@ export default function AboutPage() {
         </div>
         <div className={styles.heroContent}>
           <div className={styles.breadcrumb}>
-            <Link href="/">Главная</Link>
+            <Link href="/">{t.breadcrumb.home}</Link>
             <span>/</span>
-            <span>О нас</span>
+            <span>{t.breadcrumb.about}</span>
           </div>
           <h1 className={styles.heroTitle}>{t.title}</h1>
           <p className={styles.heroSubtitle}>{t.subtitle}</p>
@@ -88,7 +140,7 @@ export default function AboutPage() {
           <div className={styles.storyGrid}>
             <div className={styles.storyImage}>
               <Image 
-                src="/workshop.jpg" 
+                src="/descarga.png" 
                 alt="Workshop" 
                 fill 
                 style={{ objectFit: 'cover' }} 
@@ -184,7 +236,7 @@ export default function AboutPage() {
           <p className={styles.teamDesc}>{t.team.desc}</p>
           <div className={styles.teamImage}>
             <Image 
-              src="/team.jpg" 
+              src="/main_image.png" 
               alt="Team" 
               fill 
               style={{ objectFit: 'cover' }} 
