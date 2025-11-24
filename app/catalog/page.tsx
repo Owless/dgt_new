@@ -18,15 +18,15 @@ gsap.registerPlugin(ScrollTrigger)
 // 3D Sphere Component
 function AnimatedSphere() {
   return (
-    <Float speed={2} rotationIntensity={1} floatIntensity={2}>
+    <Float speed={1.5} rotationIntensity={0.5} floatIntensity={1}>
       <Sphere args={[1, 64, 64]}>
         <MeshDistortMaterial
           color="#dc2626"
           attach="material"
-          distort={0.4}
-          speed={2}
-          roughness={0.2}
-          metalness={0.8}
+          distort={0.3}
+          speed={1.5}
+          roughness={0.1}
+          metalness={0.9}
         />
       </Sphere>
     </Float>
@@ -36,135 +36,151 @@ function AnimatedSphere() {
 export default function CatalogPage() {
   const [currentLang, setCurrentLang] = useState<'ru' | 'en'>('ru')
   const [activeCard, setActiveCard] = useState<number | null>(null)
+  const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 })
   const containerRef = useRef<HTMLDivElement>(null)
   const heroRef = useRef<HTMLDivElement>(null)
-  const isInView = useInView(containerRef, { once: true, amount: 0.3 })
+  const isInView = useInView(containerRef, { once: true, amount: 0.2 })
 
   const { scrollYProgress } = useScroll({
     target: heroRef,
     offset: ["start start", "end start"]
   })
 
-  const y = useTransform(scrollYProgress, [0, 1], ['0%', '50%'])
-  const opacity = useTransform(scrollYProgress, [0, 1], [1, 0])
-  const scale = useTransform(scrollYProgress, [0, 1], [1, 0.8])
+  const y = useTransform(scrollYProgress, [0, 1], ['0%', '30%'])
+  const opacity = useTransform(scrollYProgress, [0, 0.5, 1], [1, 0.5, 0])
 
   const smoothY = useSpring(y, { stiffness: 100, damping: 30 })
 
   const translations = {
     ru: {
-      pageTitle: 'КАТАЛОГ УСЛУГ',
-      pageSubtitle: 'Премиальное обслуживание вашего автомобиля',
-      centerTitle: 'ПРОЕКТЫ ПОД КЛЮЧ',
-      centerDesc: 'Комплексные решения для вашего автомобиля',
-      centerButton: 'СМОТРЕТЬ ПРОЕКТЫ',
-      viewDetails: 'ПОДРОБНЕЕ',
+      pageTitle: 'КАТАЛОГ',
+      pageSubtitle: 'ПРЕМИАЛЬНЫХ УСЛУГ',
+      centerTitle: 'КОМПЛЕКСНЫЕ ПРОЕКТЫ',
+      centerDesc: 'Индивидуальные решения для вашего автомобиля. От концепции до реализации.',
+      centerButton: 'КОНСУЛЬТАЦИЯ',
+      viewDetails: 'УЗНАТЬ БОЛЬШЕ',
       services: [
         {
           title: 'ВЫХЛОПНЫЕ СИСТЕМЫ',
-          description: 'Премиальные титановые и стальные выхлопные системы от мировых производителей.',
+          subtitle: 'EXHAUST SYSTEMS',
+          description: 'Титановые и стальные системы от ведущих мировых производителей. Инженерное совершенство для максимальной производительности.',
           image: '/vyhlop.png',
           link: '/exhaust',
-          stats: [
-            { label: 'Мощность', value: '+15%', icon: '⚡' },
-            { label: 'Вес', value: '-12 кг', icon: '⚖️' },
-            { label: 'Звук', value: 'Premium', icon: '🔊' }
+          specs: [
+            { label: 'Увеличение мощности', value: '15-25%' },
+            { label: 'Снижение веса', value: '8-15 кг' },
+            { label: 'Материал', value: 'Ti Grade 2' }
           ],
-          color: '#dc2626'
+          color: '#dc2626',
+          gradient: 'linear-gradient(135deg, #dc2626, #991b1b)'
         },
         {
           title: 'ТОРМОЗНЫЕ СИСТЕМЫ',
-          description: 'Высокопроизводительные тормозные системы с карбон-керамическими дисками.',
+          subtitle: 'BRAKE SYSTEMS',
+          description: 'Высокопроизводительные системы с карбон-керамическими дисками и многопоршневыми суппортами. Абсолютный контроль.',
           image: '/disk.png',
           link: '/brakes',
-          stats: [
-            { label: 'Остановка', value: '-30%', icon: '🎯' },
-            { label: 'Надежность', value: '100%', icon: '✓' },
-            { label: 'Температура', value: '1200°C', icon: '🔥' }
+          specs: [
+            { label: 'Эффективность торможения', value: '+40%' },
+            { label: 'Рабочая температура', value: '1200°C' },
+            { label: 'Надежность', value: '100K км' }
           ],
-          color: '#ef4444'
+          color: '#ef4444',
+          gradient: 'linear-gradient(135deg, #ef4444, #dc2626)'
         },
         {
           title: 'КОВАНЫЕ ДИСКИ',
-          description: 'Эксклюзивные кованые диски ручной работы. Легкие, прочные и уникальные.',
+          subtitle: 'FORGED WHEELS',
+          description: 'Эксклюзивные кованые диски ручной работы. Индивидуальный дизайн, невероятная прочность, минимальный вес.',
           image: '/disks.png',
           link: '/wheels',
-          stats: [
-            { label: 'Вес', value: '-40%', icon: '💪' },
-            { label: 'Прочность', value: '+200%', icon: '🛡️' },
-            { label: 'Дизайн', value: 'Custom', icon: '✨' }
+          specs: [
+            { label: 'Снижение веса', value: 'до 40%' },
+            { label: 'Прочность', value: '+200%' },
+            { label: 'Производство', value: 'Custom' }
           ],
-          color: '#f87171'
+          color: '#f87171',
+          gradient: 'linear-gradient(135deg, #f87171, #ef4444)'
         },
         {
           title: 'ПОДВЕСКА',
-          description: 'Профессиональные системы подвески: койловеры, пневмоподвеска, стабилизаторы.',
+          subtitle: 'SUSPENSION',
+          description: 'Профессиональные системы подвески премиум-класса. Койловеры, пневмоподвеска, активная стабилизация.',
           image: '/podveska.png',
           link: '/suspension',
-          stats: [
-            { label: 'Управление', value: '+50%', icon: '🎮' },
-            { label: 'Комфорт', value: 'Max', icon: '☁️' },
-            { label: 'Клиренс', value: '±100мм', icon: '📏' }
+          specs: [
+            { label: 'Улучшение управляемости', value: '+50%' },
+            { label: 'Диапазон клиренса', value: '±100 мм' },
+            { label: 'Регулировка жесткости', value: '32 уровня' }
           ],
-          color: '#fca5a5'
+          color: '#fca5a5',
+          gradient: 'linear-gradient(135deg, #fca5a5, #f87171)'
         }
       ]
     },
     en: {
-      pageTitle: 'SERVICE CATALOG',
-      pageSubtitle: 'Premium service for your vehicle',
-      centerTitle: 'TURNKEY PROJECTS',
-      centerDesc: 'Comprehensive solutions for your car',
-      centerButton: 'VIEW PROJECTS',
-      viewDetails: 'VIEW DETAILS',
+      pageTitle: 'CATALOG',
+      pageSubtitle: 'PREMIUM SERVICES',
+      centerTitle: 'COMPREHENSIVE PROJECTS',
+      centerDesc: 'Individual solutions for your car. From concept to implementation.',
+      centerButton: 'CONSULTATION',
+      viewDetails: 'LEARN MORE',
       services: [
         {
           title: 'EXHAUST SYSTEMS',
-          description: 'Premium titanium and steel exhaust systems from world manufacturers.',
+          subtitle: 'EXHAUST SYSTEMS',
+          description: 'Titanium and steel systems from leading world manufacturers. Engineering perfection for maximum performance.',
           image: '/vyhlop.png',
           link: '/exhaust',
-          stats: [
-            { label: 'Power', value: '+15%', icon: '⚡' },
-            { label: 'Weight', value: '-12 kg', icon: '⚖️' },
-            { label: 'Sound', value: 'Premium', icon: '🔊' }
+          specs: [
+            { label: 'Power increase', value: '15-25%' },
+            { label: 'Weight reduction', value: '8-15 kg' },
+            { label: 'Material', value: 'Ti Grade 2' }
           ],
-          color: '#dc2626'
+          color: '#dc2626',
+          gradient: 'linear-gradient(135deg, #dc2626, #991b1b)'
         },
         {
           title: 'BRAKE SYSTEMS',
-          description: 'High-performance brake systems with carbon-ceramic discs.',
+          subtitle: 'BRAKE SYSTEMS',
+          description: 'High-performance systems with carbon-ceramic discs and multi-piston calipers. Absolute control.',
           image: '/disk.png',
           link: '/brakes',
-          stats: [
-            { label: 'Stopping', value: '-30%', icon: '🎯' },
-            { label: 'Reliability', value: '100%', icon: '✓' },
-            { label: 'Temperature', value: '1200°C', icon: '🔥' }
+          specs: [
+            { label: 'Braking efficiency', value: '+40%' },
+            { label: 'Working temperature', value: '1200°C' },
+            { label: 'Reliability', value: '100K km' }
           ],
-          color: '#ef4444'
+          color: '#ef4444',
+          gradient: 'linear-gradient(135deg, #ef4444, #dc2626)'
         },
         {
           title: 'FORGED WHEELS',
-          description: 'Exclusive handcrafted forged wheels. Lightweight, durable and unique.',
+          subtitle: 'FORGED WHEELS',
+          description: 'Exclusive handcrafted forged wheels. Individual design, incredible strength, minimum weight.',
           image: '/disks.png',
           link: '/wheels',
-          stats: [
-            { label: 'Weight', value: '-40%', icon: '💪' },
-            { label: 'Strength', value: '+200%', icon: '🛡️' },
-            { label: 'Design', value: 'Custom', icon: '✨' }
+          specs: [
+            { label: 'Weight reduction', value: 'up to 40%' },
+            { label: 'Strength', value: '+200%' },
+            { label: 'Production', value: 'Custom' }
           ],
-          color: '#f87171'
+          color: '#f87171',
+          gradient: 'linear-gradient(135deg, #f87171, #ef4444)'
         },
         {
           title: 'SUSPENSION',
-          description: 'Professional suspension systems: coilovers, air suspension, stabilizers.',
+          subtitle: 'SUSPENSION',
+          description: 'Premium professional suspension systems. Coilovers, air suspension, active stabilization.',
           image: '/podveska.png',
           link: '/suspension',
-          stats: [
-            { label: 'Handling', value: '+50%', icon: '🎮' },
-            { label: 'Comfort', value: 'Max', icon: '☁️' },
-            { label: 'Clearance', value: '±100mm', icon: '📏' }
+          specs: [
+            { label: 'Handling improvement', value: '+50%' },
+            { label: 'Clearance range', value: '±100 mm' },
+            { label: 'Stiffness adjustment', value: '32 levels' }
           ],
-          color: '#fca5a5'
+          color: '#fca5a5',
+          gradient: 'linear-gradient(135deg, #fca5a5, #f87171)'
         }
       ]
     }
@@ -172,19 +188,30 @@ export default function CatalogPage() {
 
   const t = translations[currentLang]
 
-  // GSAP animations for center block
+  // Cursor tracking
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      setCursorPosition({ x: e.clientX, y: e.clientY })
+    }
+    window.addEventListener('mousemove', handleMouseMove)
+    return () => window.removeEventListener('mousemove', handleMouseMove)
+  }, [])
+
+  // GSAP animations
   useEffect(() => {
     const ctx = gsap.context(() => {
-      gsap.from('.center-title', {
-        scrollTrigger: {
-          trigger: '.center-title',
-          start: 'top 80%',
-          end: 'top 20%',
-          scrub: 1
-        },
-        opacity: 0,
-        scale: 0.5,
-        duration: 1
+      // Animate numbers
+      gsap.utils.toArray('.stat-number').forEach((elem: any) => {
+        gsap.from(elem, {
+          scrollTrigger: {
+            trigger: elem,
+            start: 'top 85%',
+          },
+          textContent: 0,
+          duration: 2,
+          snap: { textContent: 1 },
+          stagger: 0.1
+        })
       })
     })
 
@@ -197,8 +224,8 @@ export default function CatalogPage() {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.2,
-        delayChildren: 0.3
+        staggerChildren: 0.15,
+        delayChildren: 0.2
       }
     }
   }
@@ -206,17 +233,14 @@ export default function CatalogPage() {
   const cardVariants = {
     hidden: { 
       opacity: 0, 
-      y: 100,
-      scale: 0.8
+      y: 80,
     },
     visible: { 
       opacity: 1, 
       y: 0,
-      scale: 1,
       transition: {
-        type: "spring",
-        stiffness: 100,
-        damping: 15
+        duration: 0.8,
+        ease: [0.22, 1, 0.36, 1]
       }
     }
   }
@@ -225,104 +249,185 @@ export default function CatalogPage() {
     <>
       <Header currentLang={currentLang} onLanguageChange={setCurrentLang} />
       
+      {/* Custom Cursor */}
+      <motion.div
+        className={styles.customCursor}
+        animate={{
+          x: cursorPosition.x - 10,
+          y: cursorPosition.y - 10,
+        }}
+        transition={{ type: "spring", damping: 30, stiffness: 200 }}
+      />
+
       <main className={styles.catalogPage}>
-        {/* Animated Background */}
+        {/* Animated Background Grid */}
+        <div className={styles.bgGrid}>
+          {[...Array(20)].map((_, i) => (
+            <motion.div
+              key={i}
+              className={styles.gridLine}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 0.03 }}
+              transition={{ delay: i * 0.05, duration: 1 }}
+            />
+          ))}
+        </div>
+
+        {/* Animated Background Gradients */}
         <div className={styles.bgAnimation}>
           <div className={styles.bgGradient1}></div>
           <div className={styles.bgGradient2}></div>
-          <div className={styles.bgGradient3}></div>
         </div>
 
         {/* Hero Section with Parallax */}
         <motion.div 
           ref={heroRef}
           className={styles.heroSection}
-          style={{ y: smoothY, opacity, scale }}
+          style={{ y: smoothY, opacity }}
         >
           <div className={styles.hero3D}>
-            <Canvas camera={{ position: [0, 0, 5] }}>
-              <ambientLight intensity={0.5} />
-              <directionalLight position={[10, 10, 5]} intensity={1} />
+            <Canvas camera={{ position: [0, 0, 4.5], fov: 45 }}>
+              <ambientLight intensity={0.3} />
+              <directionalLight position={[5, 5, 5]} intensity={0.8} />
+              <pointLight position={[-5, -5, -5]} intensity={0.5} color="#dc2626" />
               <AnimatedSphere />
-              <OrbitControls enableZoom={false} enablePan={false} />
+              <OrbitControls 
+                enableZoom={false} 
+                enablePan={false}
+                autoRotate
+                autoRotateSpeed={0.5}
+              />
             </Canvas>
           </div>
 
-          <motion.h1 
-            className={styles.pageTitle}
-            initial={{ opacity: 0, y: -50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.2 }}
-          >
-            {t.pageTitle}
-          </motion.h1>
-          
-          <motion.p 
-            className={styles.pageSubtitle}
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.4 }}
-          >
-            {t.pageSubtitle}
-          </motion.p>
+          <motion.div className={styles.heroContent}>
+            <motion.div
+              className={styles.heroLabel}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+            >
+              <span className={styles.labelLine}></span>
+              <span>DGT EXHAUST SYSTEM</span>
+              <span className={styles.labelLine}></span>
+            </motion.div>
+
+            <motion.h1 
+              className={styles.pageTitle}
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, delay: 0.4 }}
+            >
+              {t.pageTitle}
+            </motion.h1>
+            
+            <motion.p 
+              className={styles.pageSubtitle}
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, delay: 0.6 }}
+            >
+              {t.pageSubtitle}
+            </motion.p>
+
+            <motion.div
+              className={styles.heroStats}
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, delay: 0.8 }}
+            >
+              <div className={styles.statBox}>
+                <span className={styles.statNumber}>500+</span>
+                <span className={styles.statLabel}>Проектов</span>
+              </div>
+              <div className={styles.statDivider}></div>
+              <div className={styles.statBox}>
+                <span className={styles.statNumber}>15+</span>
+                <span className={styles.statLabel}>Лет опыта</span>
+              </div>
+              <div className={styles.statDivider}></div>
+              <div className={styles.statBox}>
+                <span className={styles.statNumber}>98%</span>
+                <span className={styles.statLabel}>Довольных клиентов</span>
+              </div>
+            </motion.div>
+          </motion.div>
 
           <motion.div
             className={styles.scrollIndicator}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1, y: [0, 10, 0] }}
             transition={{ 
-              opacity: { delay: 1, duration: 0.5 },
+              opacity: { delay: 1.2, duration: 0.5 },
               y: { repeat: Infinity, duration: 2, ease: "easeInOut" }
             }}
           >
-            <div className={styles.mouse}>
-              <div className={styles.wheel}></div>
-            </div>
+            <span>SCROLL</span>
+            <div className={styles.scrollLine}></div>
           </motion.div>
         </motion.div>
 
         {/* Center Block - Projects */}
         <motion.div 
           className={styles.centerBlock}
-          initial={{ opacity: 0, scale: 0.8 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true, amount: 0.5 }}
-          transition={{ duration: 0.8, type: "spring" }}
+          initial={{ opacity: 0, y: 100 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
         >
           <Tilt
-            tiltMaxAngleX={5}
-            tiltMaxAngleY={5}
+            tiltMaxAngleX={3}
+            tiltMaxAngleY={3}
             glareEnable={true}
-            glareMaxOpacity={0.2}
+            glareMaxOpacity={0.15}
             glareColor="#dc2626"
-            glareBorderRadius="24px"
+            glareBorderRadius="16px"
           >
             <div className={styles.centerContent}>
+              <div className={styles.centerPattern}></div>
               <div className={styles.centerGlow}></div>
               <div className={styles.centerInner}>
+                <motion.div
+                  className={styles.centerLabel}
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1 }}
+                  transition={{ delay: 0.2 }}
+                >
+                  <span className={styles.labelLine}></span>
+                  <span>PREMIUM PROJECTS</span>
+                  <span className={styles.labelLine}></span>
+                </motion.div>
+
                 <motion.h2 
-                  className="center-title"
-                  style={{ fontFamily: 'Rajdhani, sans-serif' }}
+                  className={styles.centerTitle}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.3 }}
                 >
                   {t.centerTitle}
                 </motion.h2>
+
                 <motion.p 
                   className={styles.centerDesc}
                   initial={{ opacity: 0 }}
                   whileInView={{ opacity: 1 }}
-                  transition={{ delay: 0.3 }}
+                  transition={{ delay: 0.4 }}
                 >
                   {t.centerDesc}
                 </motion.p>
+
                 <Link href="/projects">
                   <motion.button
                     className={styles.centerButton}
-                    whileHover={{ scale: 1.05, boxShadow: '0 20px 60px rgba(220, 38, 38, 0.6)' }}
-                    whileTap={{ scale: 0.95 }}
+                    whileHover={{ scale: 1.03 }}
+                    whileTap={{ scale: 0.98 }}
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    transition={{ delay: 0.5 }}
                   >
                     <span>{t.centerButton}</span>
-                    <svg width="20" height="12" viewBox="0 0 20 12" fill="none">
-                      <path d="M1 6H19M19 6L14 1M19 6L14 11" stroke="currentColor" strokeWidth="2"/>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                      <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                     </svg>
                   </motion.button>
                 </Link>
@@ -331,7 +436,7 @@ export default function CatalogPage() {
           </Tilt>
         </motion.div>
 
-        {/* Services Grid with Framer Motion */}
+        {/* Services Grid */}
         <motion.div 
           ref={containerRef}
           className={styles.servicesGrid}
@@ -343,37 +448,40 @@ export default function CatalogPage() {
             <motion.div
               key={index}
               variants={cardVariants}
-              whileHover={{ y: -15 }}
             >
               <Tilt
-                tiltMaxAngleX={10}
-                tiltMaxAngleY={10}
+                tiltMaxAngleX={8}
+                tiltMaxAngleY={8}
                 glareEnable={true}
-                glareMaxOpacity={0.3}
+                glareMaxOpacity={0.2}
                 glareColor={service.color}
-                glareBorderRadius="24px"
-                scale={1.02}
+                glareBorderRadius="16px"
+                scale={1.01}
               >
                 <Link
                   href={service.link}
                   className={styles.serviceCard}
                   onMouseEnter={() => setActiveCard(index)}
                   onMouseLeave={() => setActiveCard(null)}
-                  style={{ '--card-color': service.color } as React.CSSProperties}
+                  style={{ 
+                    '--card-color': service.color,
+                    '--card-gradient': service.gradient
+                  } as React.CSSProperties}
                 >
                   <motion.div 
                     className={styles.cardGlow}
                     animate={activeCard === index ? { 
-                      opacity: 1,
-                      scale: [1, 1.2, 1],
+                      opacity: [0.3, 0.6, 0.3],
                     } : { opacity: 0 }}
-                    transition={{ duration: 2, repeat: Infinity }}
+                    transition={{ duration: 3, repeat: Infinity }}
                   ></motion.div>
+
+                  <div className={styles.cardPattern}></div>
                   
                   <motion.div 
                     className={styles.cardImage}
-                    whileHover={{ scale: 1.1 }}
-                    transition={{ duration: 0.4 }}
+                    animate={activeCard === index ? { scale: 1.08 } : { scale: 1 }}
+                    transition={{ duration: 0.6 }}
                   >
                     <Image 
                       src={service.image} 
@@ -386,46 +494,45 @@ export default function CatalogPage() {
                   </motion.div>
 
                   <div className={styles.cardContent}>
-                    <motion.h3 
-                      className={styles.cardTitle}
-                      style={{ fontFamily: 'Rajdhani, sans-serif' }}
-                    >
-                      {service.title}
-                    </motion.h3>
+                    <div className={styles.cardHeader}>
+                      <div className={styles.cardNumber}>0{index + 1}</div>
+                      <div className={styles.cardSubtitle}>{service.subtitle}</div>
+                    </div>
+
+                    <h3 className={styles.cardTitle}>{service.title}</h3>
                     <p className={styles.cardDescription}>{service.description}</p>
 
-                    <div className={styles.cardStats}>
-                      {service.stats.map((stat, idx) => (
+                    <div className={styles.cardSpecs}>
+                      {service.specs.map((spec, idx) => (
                         <motion.div 
                           key={idx} 
-                          className={styles.statItem}
-                          initial={{ opacity: 0, x: -20 }}
+                          className={styles.specItem}
+                          initial={{ opacity: 0, x: -10 }}
                           whileInView={{ opacity: 1, x: 0 }}
-                          transition={{ delay: idx * 0.1 }}
+                          transition={{ delay: 0.1 * idx }}
                           viewport={{ once: true }}
                         >
-                          <span className={styles.statIcon}>{stat.icon}</span>
-                          <div className={styles.statInfo}>
-                            <span className={styles.statValue}>{stat.value}</span>
-                            <span className={styles.statLabel}>{stat.label}</span>
-                          </div>
+                          <span className={styles.specLabel}>{spec.label}</span>
+                          <div className={styles.specDivider}></div>
+                          <span className={styles.specValue}>{spec.value}</span>
                         </motion.div>
                       ))}
                     </div>
 
                     <motion.div 
                       className={styles.cardButton}
-                      whileHover={{ x: 10 }}
-                      transition={{ type: "spring", stiffness: 400 }}
+                      animate={activeCard === index ? { x: 5 } : { x: 0 }}
+                      transition={{ duration: 0.3 }}
                     >
                       <span>{t.viewDetails}</span>
-                      <svg width="20" height="12" viewBox="0 0 20 12" fill="none">
-                        <path d="M1 6H19M19 6L14 1M19 6L14 11" stroke="currentColor" strokeWidth="2"/>
+                      <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                        <path d="M4 10H16M16 10L10 4M16 10L10 16" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
                       </svg>
                     </motion.div>
                   </div>
 
-                  <div className={styles.cardBorder}></div>
+                  <div className={styles.cardBorderTop}></div>
+                  <div className={styles.cardBorderBottom}></div>
                 </Link>
               </Tilt>
             </motion.div>
