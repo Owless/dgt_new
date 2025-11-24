@@ -145,13 +145,13 @@ export default function Header({ currentLang = 'ru', onLanguageChange }: HeaderP
           </div>
           
           <div className={styles.socialIcons}>
-            <a href="https://vk.com" target="_blank" rel="noopener noreferrer" className={styles.footerSocialLink}>
+            <a href="https://vk.com" target="_blank" rel="noopener noreferrer">
               <i className="fab fa-vk"></i>
             </a>
-            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className={styles.footerSocialLink}>
+            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">
               <i className="fab fa-instagram"></i>
             </a>
-            <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" className={styles.footerSocialLink}>
+            <a href="https://youtube.com" target="_blank" rel="noopener noreferrer">
               <i className="fab fa-youtube"></i>
             </a>
           </div>
