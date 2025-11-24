@@ -44,17 +44,16 @@
 }
 
 .logo {
-    font-size: 42px;
-    font-weight: 900;
-    color: #dc2626;
-    letter-spacing: -2px;
-    text-transform: uppercase;
-    text-shadow: 0 0 30px rgba(220, 38, 38, 0.6);
-    font-style: italic;
-    transform: skewX(-8deg);
-    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
     flex-shrink: 0;
     text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.logo:hover {
+    opacity: 0.8;
+    transform: scale(1.05);
 }
 
 .logo span {
@@ -675,13 +674,6 @@
 }
 
 .footerLogo {
-    font-size: 38px;
-    font-weight: 900;
-    color: #dc2626;
-    letter-spacing: -2px;
-    text-transform: uppercase;
-    font-style: italic;
-    transform: skewX(-8deg);
     margin-bottom: 18px;
 }
 
