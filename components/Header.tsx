@@ -52,6 +52,11 @@ export default function Header({ currentLang = 'ru', onLanguageChange }: HeaderP
     document.body.style.overflow = !mobileMenuOpen ? 'hidden' : 'auto'
   }
 
+  const closeMobileMenu = () => {
+    setMobileMenuOpen(false)
+    document.body.style.overflow = 'auto'
+  }
+
   return (
     <header className={`${styles.header} ${scrolled ? styles.scrolled : ''}`}>
       <div className={styles.headerContainer}>
@@ -111,15 +116,26 @@ export default function Header({ currentLang = 'ru', onLanguageChange }: HeaderP
         </div>
       </div>
 
+      {/* Mobile Menu Overlay */}
+      {mobileMenuOpen && (
+        <div className={styles.mobileOverlay} onClick={closeMobileMenu}></div>
+      )}
+
       {/* Mobile Menu */}
       <div className={`${styles.mobileMenu} ${mobileMenuOpen ? styles.active : ''}`}>
+        <div className={styles.mobileCloseBtn} onClick={closeMobileMenu}>
+          <span></span>
+          <span></span>
+        </div>
+        
         <nav className={styles.mobileNav}>
-          <Link href="/exhaust" onClick={toggleMobileMenu}>{t.navExhaust}</Link>
-          <Link href="/brakes" onClick={toggleMobileMenu}>{t.navBrakes}</Link>
-          <Link href="/wheels" onClick={toggleMobileMenu}>{t.navWheels}</Link>
-          <Link href="/suspension" onClick={toggleMobileMenu}>{t.navSuspension}</Link>
-          <Link href="/projects" onClick={toggleMobileMenu}>{t.navProjects}</Link>
+          <Link href="/exhaust" onClick={closeMobileMenu}>{t.navExhaust}</Link>
+          <Link href="/brakes" onClick={closeMobileMenu}>{t.navBrakes}</Link>
+          <Link href="/wheels" onClick={closeMobileMenu}>{t.navWheels}</Link>
+          <Link href="/suspension" onClick={closeMobileMenu}>{t.navSuspension}</Link>
+          <Link href="/projects" onClick={closeMobileMenu}>{t.navProjects}</Link>
         </nav>
+        
         <div className={styles.mobileContact}>
           <div className={styles.langToggle} onClick={toggleLanguage}>
             <span className={`${styles.langOption} ${currentLang === 'ru' ? styles.active : ''}`}>
@@ -129,6 +145,18 @@ export default function Header({ currentLang = 'ru', onLanguageChange }: HeaderP
             <span className={`${styles.langOption} ${currentLang === 'en' ? styles.active : ''}`}>
               EN
             </span>
+          </div>
+          
+          <div className={styles.socialIcons}>
+            <a href="https://vk.com" target="_blank" rel="noopener noreferrer">
+              <i className="fab fa-vk"></i>
+            </a>
+            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">
+              <i className="fab fa-instagram"></i>
+            </a>
+            <a href="https://youtube.com" target="_blank" rel="noopener noreferrer">
+              <i className="fab fa-youtube"></i>
+            </a>
           </div>
         </div>
       </div>
