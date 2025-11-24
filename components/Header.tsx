@@ -58,63 +58,66 @@ export default function Header({ currentLang = 'ru', onLanguageChange }: HeaderP
   }
 
   return (
-    <header className={`${styles.header} ${scrolled ? styles.scrolled : ''}`}>
-      <div className={styles.headerContainer}>
-        {/* Logo */}
-        <Link href="/" className={styles.logo}>
-          <Image 
-            src="/logo.png" 
-            alt="DGT Exhaust System" 
-            width={120} 
-            height={60}
-            style={{ objectFit: 'contain' }}
-            priority
-          />
-        </Link>
+    <>
+      <header className={`${styles.header} ${scrolled ? styles.scrolled : ''}`}>
+        <div className={styles.headerContainer}>
+          {/* Logo */}
+          <Link href="/" className={styles.logo}>
+            <Image 
+              src="/logo.png" 
+              alt="DGT Exhaust System" 
+              width={120} 
+              height={60}
+              style={{ objectFit: 'contain' }}
+              priority
+            />
+          </Link>
 
-        {/* Desktop Navigation */}
-        <nav className={styles.nav}>
-          <Link href="/exhaust">{t.navExhaust}</Link>
-          <Link href="/brakes">{t.navBrakes}</Link>
-          <Link href="/wheels">{t.navWheels}</Link>
-          <Link href="/suspension">{t.navSuspension}</Link>
-          <Link href="/projects">{t.navProjects}</Link>
-        </nav>
+          {/* Desktop Navigation */}
+          <nav className={styles.nav}>
+            <Link href="/exhaust">{t.navExhaust}</Link>
+            <Link href="/brakes">{t.navBrakes}</Link>
+            <Link href="/wheels">{t.navWheels}</Link>
+            <Link href="/suspension">{t.navSuspension}</Link>
+            <Link href="/projects">{t.navProjects}</Link>
+          </nav>
 
-        <div className={styles.headerRight}>
-          <div className={styles.socialIcons}>
-            <a href="https://vk.com" target="_blank" rel="noopener noreferrer">
-              <i className="fab fa-vk"></i>
-            </a>
-            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">
-              <i className="fab fa-instagram"></i>
-            </a>
-            <a href="https://youtube.com" target="_blank" rel="noopener noreferrer">
-              <i className="fab fa-youtube"></i>
-            </a>
+          <div className={styles.headerRight}>
+            <div className={styles.socialIcons}>
+              <a href="https://vk.com" target="_blank" rel="noopener noreferrer" aria-label="VK">
+                <i className="fab fa-vk"></i>
+              </a>
+              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                <i className="fab fa-instagram"></i>
+              </a>
+              <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+                <i className="fab fa-youtube"></i>
+              </a>
+            </div>
+
+            <div className={styles.langToggle} onClick={toggleLanguage}>
+              <span className={`${styles.langOption} ${currentLang === 'ru' ? styles.active : ''}`}>
+                RU
+              </span>
+              <span className={styles.separator}>|</span>
+              <span className={`${styles.langOption} ${currentLang === 'en' ? styles.active : ''}`}>
+                EN
+              </span>
+            </div>
           </div>
 
-          <div className={styles.langToggle} onClick={toggleLanguage}>
-            <span className={`${styles.langOption} ${currentLang === 'ru' ? styles.active : ''}`}>
-              RU
-            </span>
-            <span>|</span>
-            <span className={`${styles.langOption} ${currentLang === 'en' ? styles.active : ''}`}>
-              EN
-            </span>
+          {/* Burger Menu */}
+          <div 
+            className={`${styles.burgerMenu} ${mobileMenuOpen ? styles.active : ''}`}
+            onClick={toggleMobileMenu}
+            aria-label="Toggle menu"
+          >
+            <span></span>
+            <span></span>
+            <span></span>
           </div>
         </div>
-
-        {/* Burger Menu Toggle */}
-        <div 
-          className={`${styles.burgerMenu} ${mobileMenuOpen ? styles.active : ''}`}
-          onClick={toggleMobileMenu}
-        >
-          <span></span>
-          <span></span>
-          <span></span>
-        </div>
-      </div>
+      </header>
 
       {/* Mobile Menu Overlay */}
       {mobileMenuOpen && (
@@ -131,30 +134,30 @@ export default function Header({ currentLang = 'ru', onLanguageChange }: HeaderP
           <Link href="/projects" onClick={closeMobileMenu}>{t.navProjects}</Link>
         </nav>
         
-        <div className={styles.mobileContact}>
+        <div className={styles.mobileFooter}>
           <div className={styles.langToggle} onClick={toggleLanguage}>
             <span className={`${styles.langOption} ${currentLang === 'ru' ? styles.active : ''}`}>
               RU
             </span>
-            <span>|</span>
+            <span className={styles.separator}>|</span>
             <span className={`${styles.langOption} ${currentLang === 'en' ? styles.active : ''}`}>
               EN
             </span>
           </div>
           
           <div className={styles.socialIcons}>
-            <a href="https://vk.com" target="_blank" rel="noopener noreferrer">
+            <a href="https://vk.com" target="_blank" rel="noopener noreferrer" aria-label="VK">
               <i className="fab fa-vk"></i>
             </a>
-            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">
+            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
               <i className="fab fa-instagram"></i>
             </a>
-            <a href="https://youtube.com" target="_blank" rel="noopener noreferrer">
+            <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
               <i className="fab fa-youtube"></i>
             </a>
           </div>
         </div>
       </div>
-    </header>
+    </>
   )
 }
