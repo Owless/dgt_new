@@ -349,26 +349,76 @@ export default function WheelsPage() {
       <div className={styles.wheelsPage}>
         {/* Hero Section */}
         <section className={styles.hero}>
-        <div className={styles.heroOverlay}></div>
-        <div className={styles.heroImage}>
-          <Image 
-            src="/images/wheels-hero.png" 
-            alt="DGT Forged Wheels" 
-            fill 
-            style={{ objectFit: 'contain' }} 
-            priority
-          />
-        </div>
-        <div className={styles.heroContent}>
-          <div className={styles.breadcrumb}>
-            <Link href="/">{t.breadcrumb.home}</Link>
-            <span>/</span>
-            <span>{t.breadcrumb.wheels}</span>
+          <div className={styles.heroBackground}>
+            <div className={styles.heroImageWrapper}>
+              <Image 
+                src="/images/wheels-hero.png" 
+                alt="DGT Forged Wheels" 
+                fill 
+                style={{ objectFit: 'cover' }} 
+                priority
+              />
+            </div>
+            <div className={styles.heroGradient}></div>
           </div>
-          <h1 className={styles.heroTitle}>{t.title}</h1>
-          <p className={styles.heroSubtitle}>{t.subtitle}</p>
-        </div>
-      </section>
+          
+          <div className={styles.heroContainer}>
+            <div className={styles.heroContent}>
+              <div className={styles.heroBadge}>
+                <span className={styles.badgeLine}></span>
+                <span className={styles.badgeText}>FORGED EXCELLENCE</span>
+                <span className={styles.badgeLine}></span>
+              </div>
+              
+              <h1 className={styles.heroTitle}>
+                <span className={styles.titleMain}>КОВАНЫЕ</span>
+                <span className={styles.titleSub}>ДИСКИ</span>
+              </h1>
+              
+              <p className={styles.heroDescription}>
+                Индивидуальное производство эксклюзивных дисков<br />
+                премиум-класса для вашего автомобиля
+              </p>
+              
+              <div className={styles.heroActions}>
+                <button 
+                  onClick={() => {
+                    const calculatorSection = document.querySelector(`.${styles.calculatorSection}`)
+                    calculatorSection?.scrollIntoView({ behavior: 'smooth' })
+                  }}
+                  className={styles.heroButtonPrimary}
+                >
+                  РАССЧИТАТЬ СТОИМОСТЬ
+                </button>
+                <Link href="/catalog" className={styles.heroButtonSecondary}>
+                  СМОТРЕТЬ КАТАЛОГ
+                </Link>
+              </div>
+              
+              <div className={styles.heroStats}>
+                <div className={styles.statItem}>
+                  <div className={styles.statNumber}>300+</div>
+                  <div className={styles.statLabel}>Моделей дисков</div>
+                </div>
+                <div className={styles.statDivider}></div>
+                <div className={styles.statItem}>
+                  <div className={styles.statNumber}>30</div>
+                  <div className={styles.statLabel}>Дней производство</div>
+                </div>
+                <div className={styles.statDivider}></div>
+                <div className={styles.statItem}>
+                  <div className={styles.statNumber}>3</div>
+                  <div className={styles.statLabel}>Года гарантия</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div className={styles.heroScroll}>
+            <div className={styles.scrollLine}></div>
+            <span className={styles.scrollText}>SCROLL</span>
+          </div>
+        </section>
 
       {/* Calculator Section */}
       <section className={styles.calculatorSection}>
