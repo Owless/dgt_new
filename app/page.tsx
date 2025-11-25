@@ -15,24 +15,37 @@ export default function Home() {
       heroTitle1: 'СЕРВИСНЫЕ УСЛУГИ',
       heroTitle2: 'ДЛЯ АВТОМОБИЛЕЙ',
       heroSubtitle: 'Премиальное обслуживание вашего автомобиля',
-      heroCTA: 'Каталог услуг',
+      heroCTA: 'Наши услуги',
       aboutTitle: 'О нас',
       aboutText1: 'Ночь, пустые улицы, звенящая тишина и твой автомобиль.',
       aboutText2: 'Что выберешь ты — громкий качественный звук или бесшумную езду?',
       aboutText3: 'С выхлопными системами DGT ты почувствуешь себя королём дороги. Ты сам создаешь звук своего настроения.',
       aboutButton: 'ПОДРОБНЕЕ',
+      servicesTitle: 'Наши услуги',
       exhaustTitle: 'Выхлопные системы',
       exhaustDesc: 'Премиальные титановые и стальные выхлопные системы от мировых производителей. Улучшение звука, производительности и снижение веса вашего автомобиля на 8-15 кг.',
       exhaustButton: 'ВЫБРАТЬ СИСТЕМУ',
+      exhaustFeature1: 'Снижение веса до 15 кг',
+      exhaustFeature2: 'Улучшенный звук',
+      exhaustFeature3: '+10-20 л.с.',
       brakesTitle: 'Тормозные системы',
       brakesDesc: 'Высокопроизводительные тормозные системы с многопоршневыми суппортами и карбон-керамическими дисками. Максимальный контроль и безопасность на любой скорости.',
       brakesButton: 'ПОДОБРАТЬ СИСТЕМУ',
+      brakesFeature1: 'Торможение 100-0 за 30м',
+      brakesFeature2: 'Карбон-керамика',
+      brakesFeature3: 'До 8 поршней',
       wheelsTitle: 'Кованые диски',
       wheelsDesc: 'Эксклюзивные кованые диски ручной работы. Индивидуальный дизайн, любые размеры и цвета. Легкие, прочные и уникальные — созданы специально для вашего автомобиля.',
       wheelsButton: 'РАССЧИТАТЬ СТОИМОСТЬ',
+      wheelsFeature1: 'На 30% легче литых',
+      wheelsFeature2: 'Любой дизайн',
+      wheelsFeature3: '3 года гарантия',
       suspensionTitle: 'Подвеска',
       suspensionDesc: 'Профессиональные системы подвески: койловеры, пневмоподвеска, стабилизаторы. Улучшение управляемости, регулировка жесткости и клиренса под любые задачи.',
       suspensionButton: 'СМОТРЕТЬ КАТАЛОГ',
+      suspensionFeature1: 'Регулировка высоты',
+      suspensionFeature2: 'Койловеры/Пневмо',
+      suspensionFeature3: 'Улучшенная управляемость',
       projectsTitle1: 'Проекты',
       projectsTitle2: 'под ключ',
       projectsSubtitle: 'Комплексные решения для популярных моделей. Готовые спек-листы модификаций: от выхлопной системы до полной трансформации автомобиля.',
@@ -46,24 +59,37 @@ export default function Home() {
       heroTitle1: 'AUTOMOTIVE SERVICES',
       heroTitle2: 'FOR YOUR CAR',
       heroSubtitle: 'Premium service for your vehicle',
-      heroCTA: 'Service Catalog',
+      heroCTA: 'Our Services',
       aboutTitle: 'About Us',
       aboutText1: 'Night, empty streets, ringing silence and your car.',
       aboutText2: 'What will you choose — loud quality sound or silent ride?',
       aboutText3: 'With DGT exhaust systems you will feel like the king of the road. You create the sound of your mood.',
       aboutButton: 'LEARN MORE',
+      servicesTitle: 'Our Services',
       exhaustTitle: 'Exhaust Systems',
       exhaustDesc: 'Premium titanium and steel exhaust systems from world manufacturers. Improved sound, performance and weight reduction of your car by 8-15 kg.',
       exhaustButton: 'CHOOSE SYSTEM',
+      exhaustFeature1: 'Weight reduction up to 15kg',
+      exhaustFeature2: 'Enhanced sound',
+      exhaustFeature3: '+10-20 hp',
       brakesTitle: 'Brake Systems',
       brakesDesc: 'High-performance brake systems with multi-piston calipers and carbon-ceramic discs. Maximum control and safety at any speed.',
       brakesButton: 'SELECT SYSTEM',
+      brakesFeature1: 'Braking 100-0 in 30m',
+      brakesFeature2: 'Carbon-ceramic',
+      brakesFeature3: 'Up to 8 pistons',
       wheelsTitle: 'Forged Wheels',
       wheelsDesc: 'Exclusive handcrafted forged wheels. Individual design, any sizes and colors. Lightweight, durable and unique — created specially for your car.',
       wheelsButton: 'CALCULATE COST',
+      wheelsFeature1: '30% lighter than cast',
+      wheelsFeature2: 'Any design',
+      wheelsFeature3: '3 year warranty',
       suspensionTitle: 'Suspension',
       suspensionDesc: 'Professional suspension systems: coilovers, air suspension, stabilizers. Improved handling, adjustable stiffness and clearance for any task.',
       suspensionButton: 'VIEW CATALOG',
+      suspensionFeature1: 'Height adjustment',
+      suspensionFeature2: 'Coilovers/Air',
+      suspensionFeature3: 'Better handling',
       projectsTitle1: 'Turnkey',
       projectsTitle2: 'Projects',
       projectsSubtitle: 'Comprehensive solutions for popular models. Ready spec lists of modifications: from exhaust system to complete car transformation.',
@@ -85,6 +111,11 @@ export default function Home() {
     }, 600)
   }
 
+  const scrollToServices = () => {
+    const servicesSection = document.querySelector('#services')
+    servicesSection?.scrollIntoView({ behavior: 'smooth' })
+  }
+
   return (
     <>
       <Header currentLang={currentLang} onLanguageChange={setCurrentLang} />
@@ -101,9 +132,9 @@ export default function Home() {
               <span className={styles.highlight}>{t.heroTitle2}</span>
             </h1>
             <p className={styles.subtitle}>{t.heroSubtitle}</p>
-            <Link href="/catalog" className={styles.ctaButton}>
+            <button onClick={scrollToServices} className={styles.ctaButton}>
               {t.heroCTA}
-            </Link>
+            </button>
           </div>
         </div>
       </div>
@@ -131,17 +162,36 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Services Header */}
+      <section className={styles.servicesHeader} id="services">
+        <h2 className={styles.servicesHeaderTitle}>{t.servicesTitle}</h2>
+      </section>
+
       <section className={styles.serviceSection} id="exhaust">
         <div className={styles.serviceBgImage} onClick={handleImageClick}>
           <Image src="/vyhlop.png" alt="Exhaust System" fill style={{ objectFit: 'contain' }} />
         </div>
         <div className={styles.serviceOverlay}></div>
+        <div className={styles.smokeEffect}></div>
         <div className={styles.serviceContainer}>
           <div className={styles.serviceContent}>
             <div className={styles.serviceText}>
+              <div className={styles.serviceNumber}>01</div>
               <h2 className={styles.serviceTitle}>{t.exhaustTitle}</h2>
               <p className={styles.serviceDescription}>{t.exhaustDesc}</p>
-              <div className={styles.serviceBrands}>
+              <div className={styles.serviceFeatures}>
+                <div className={styles.featureItem}>
+                  <div className={styles.featureIcon}>⚡</div>
+                  <span>{t.exhaustFeature1}</span>
+                </div>
+                <div className={styles.featureItem}>
+                  <div className={styles.featureIcon}>🔊</div>
+                  <span>{t.exhaustFeature2}</span>
+                </div>
+                <div className={styles.featureItem}>
+                  <div className={styles.featureIcon}>💪</div>
+                  <span>{t.exhaustFeature3}</span>
+                </div>
               </div>
               <Link href="/exhaust" className={styles.serviceButton}>
                 <span>{t.exhaustButton}</span>
@@ -162,9 +212,22 @@ export default function Home() {
         <div className={styles.serviceContainer}>
           <div className={styles.serviceContent}>
             <div className={styles.serviceText}>
+              <div className={styles.serviceNumber}>02</div>
               <h2 className={styles.serviceTitle}>{t.brakesTitle}</h2>
               <p className={styles.serviceDescription}>{t.brakesDesc}</p>
-              <div className={styles.serviceBrands}>
+              <div className={styles.serviceFeatures}>
+                <div className={styles.featureItem}>
+                  <div className={styles.featureIcon}>🎯</div>
+                  <span>{t.brakesFeature1}</span>
+                </div>
+                <div className={styles.featureItem}>
+                  <div className={styles.featureIcon}>💎</div>
+                  <span>{t.brakesFeature2}</span>
+                </div>
+                <div className={styles.featureItem}>
+                  <div className={styles.featureIcon}>🔧</div>
+                  <span>{t.brakesFeature3}</span>
+                </div>
               </div>
               <Link href="/brakes" className={styles.serviceButton}>
                 <span>{t.brakesButton}</span>
@@ -185,9 +248,22 @@ export default function Home() {
         <div className={styles.serviceContainer}>
           <div className={styles.serviceContent}>
             <div className={styles.serviceText}>
+              <div className={styles.serviceNumber}>03</div>
               <h2 className={styles.serviceTitle}>{t.wheelsTitle}</h2>
               <p className={styles.serviceDescription}>{t.wheelsDesc}</p>
-              <div className={styles.serviceBrands}>
+              <div className={styles.serviceFeatures}>
+                <div className={styles.featureItem}>
+                  <div className={styles.featureIcon}>⚖️</div>
+                  <span>{t.wheelsFeature1}</span>
+                </div>
+                <div className={styles.featureItem}>
+                  <div className={styles.featureIcon}>🎨</div>
+                  <span>{t.wheelsFeature2}</span>
+                </div>
+                <div className={styles.featureItem}>
+                  <div className={styles.featureIcon}>✅</div>
+                  <span>{t.wheelsFeature3}</span>
+                </div>
               </div>
               <Link href="/wheels" className={styles.serviceButton}>
                 <span>{t.wheelsButton}</span>
@@ -208,9 +284,22 @@ export default function Home() {
         <div className={styles.serviceContainer}>
           <div className={styles.serviceContent}>
             <div className={styles.serviceText}>
+              <div className={styles.serviceNumber}>04</div>
               <h2 className={styles.serviceTitle}>{t.suspensionTitle}</h2>
               <p className={styles.serviceDescription}>{t.suspensionDesc}</p>
-              <div className={styles.serviceBrands}>
+              <div className={styles.serviceFeatures}>
+                <div className={styles.featureItem}>
+                  <div className={styles.featureIcon}>📏</div>
+                  <span>{t.suspensionFeature1}</span>
+                </div>
+                <div className={styles.featureItem}>
+                  <div className={styles.featureIcon}>🔩</div>
+                  <span>{t.suspensionFeature2}</span>
+                </div>
+                <div className={styles.featureItem}>
+                  <div className={styles.featureIcon}>🏎️</div>
+                  <span>{t.suspensionFeature3}</span>
+                </div>
               </div>
               <Link href="/suspension" className={styles.serviceButton}>
                 <span>{t.suspensionButton}</span>
