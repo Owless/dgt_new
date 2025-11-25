@@ -254,6 +254,37 @@
     text-transform: uppercase;
 }
 
+/* No Brand Section - Before product selection */
+.noBrandSection {
+    margin-top: 80px;
+}
+
+.noBrandCard {
+    padding: 60px;
+    background: linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 24px;
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.noBrandTitle {
+    font-size: 32px;
+    font-weight: 600;
+    margin-bottom: 16px;
+    color: #fff;
+}
+
+.noBrandDesc {
+    font-size: 18px;
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 40px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 .brandCheck {
     position: absolute;
     top: 20px;
@@ -761,6 +792,23 @@
     .brandName {
         font-size: 24px;
         letter-spacing: 3px;
+    }
+
+    .noBrandSection {
+        margin-top: 60px;
+    }
+
+    .noBrandCard {
+        padding: 40px 30px;
+    }
+
+    .noBrandTitle {
+        font-size: 24px;
+    }
+
+    .noBrandDesc {
+        font-size: 16px;
+        margin-bottom: 30px;
     }
 
     .noCarCard {
