@@ -351,272 +351,69 @@ export default function WheelsPage() {
         {/* Hero Section */}
         <section className={styles.hero}>
           <div className={styles.heroBackground}>
-            <div className={styles.heroImageWrapper}>
-              <Image 
-                src="/images/wheels-hero.png" 
-                alt="DGT Forged Wheels" 
-                fill 
-                style={{ objectFit: 'cover' }} 
-                priority
-              />
-            </div>
-            <div className={styles.heroGradient}></div>
+            <div className={styles.gridPattern}></div>
+            <div className={styles.glowOrb1}></div>
+            <div className={styles.glowOrb2}></div>
+            <div className={styles.glowOrb3}></div>
           </div>
           
           <div className={styles.heroContainer}>
             <div className={styles.heroContent}>
-              <div className={styles.heroBadge}>
-                <span className={styles.badgeLine}></span>
-                <span className={styles.badgeText}>FORGED EXCELLENCE</span>
-                <span className={styles.badgeLine}></span>
-              </div>
+              <div className={styles.heroLabel}>PREMIUM FORGED WHEELS</div>
               
               <h1 className={styles.heroTitle}>
-                <span className={styles.titleMain}>КОВАНЫЕ</span>
-                <span className={styles.titleSub}>ДИСКИ</span>
+                Кованые диски<br />
+                премиум класса
               </h1>
               
-              <p className={styles.heroDescription}>
+              <p className={styles.heroText}>
                 Индивидуальное производство эксклюзивных дисков<br />
-                премиум-класса для вашего автомобиля
+                для вашего автомобиля. Любой размер. Любой дизайн.
               </p>
               
-              <div className={styles.heroActions}>
+              <div className={styles.heroButtons}>
                 <button 
                   onClick={() => {
                     const calculatorSection = document.querySelector(`.${styles.calculatorSection}`)
                     calculatorSection?.scrollIntoView({ behavior: 'smooth' })
                   }}
-                  className={styles.heroButtonPrimary}
+                  className={styles.primaryButton}
                 >
-                  РАССЧИТАТЬ СТОИМОСТЬ
+                  Рассчитать стоимость
                 </button>
-                <Link href="/catalog" className={styles.heroButtonSecondary}>
-                  СМОТРЕТЬ КАТАЛОГ
+                <Link href="/catalog" className={styles.secondaryButton}>
+                  Смотреть каталог
                 </Link>
               </div>
-              
-              <div className={styles.heroStats}>
-                <div className={styles.statItem}>
-                  <div className={styles.statNumber}>300+</div>
-                  <div className={styles.statLabel}>Моделей дисков</div>
-                </div>
-                <div className={styles.statDivider}></div>
-                <div className={styles.statItem}>
-                  <div className={styles.statNumber}>30</div>
-                  <div className={styles.statLabel}>Дней производство</div>
-                </div>
-                <div className={styles.statDivider}></div>
-                <div className={styles.statItem}>
-                  <div className={styles.statNumber}>3</div>
-                  <div className={styles.statLabel}>Года гарантия</div>
-                </div>
-              </div>
             </div>
-          </div>
-          
-          <div className={styles.heroScroll}>
-            <div className={styles.scrollLine}></div>
-            <span className={styles.scrollText}>SCROLL</span>
           </div>
         </section>
 
       {/* Calculator Section */}
       <section className={styles.calculatorSection}>
-        <div className={styles.calculatorContainer}>
-          <div className={styles.calculatorHeader}>
-            <div className={styles.calculatorBadge}>
-              <span className={styles.badgeDot}></span>
-              <span>ОНЛАЙН КАЛЬКУЛЯТОР</span>
-              <span className={styles.badgeDot}></span>
-            </div>
-            <h2 className={styles.calculatorMainTitle}>
-              Рассчитайте стоимость<br />
-              <span className={styles.highlightText}>ваших идеальных дисков</span>
-            </h2>
-            <p className={styles.calculatorSubtitle}>
-              Создайте уникальную конфигурацию за 4 простых шага<br />
-              и получите точную цену прямо сейчас
+        <div className={styles.container}>
+          <div className={styles.sectionHeader}>
+            <h2 className={styles.sectionTitle}>Конфигуратор дисков</h2>
+            <p className={styles.sectionSubtitle}>
+              Выберите параметры и получите расчет стоимости за 1 минуту
             </p>
           </div>
 
-          <div className={styles.calculatorLayout}>
-            {/* Live Preview */}
-            <div className={styles.previewSection}>
-              <div className={styles.previewCard}>
-                <div className={styles.previewHeader}>
-                  <div className={styles.previewBadge}>
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                      <path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                    </svg>
-                    <span>LIVE PREVIEW</span>
-                  </div>
-                </div>
-
-                <div className={styles.previewCanvas}>
-                  <div className={styles.carImage}>
-                    <Image 
-                      src="/images/car-side.png" 
-                      alt="Car Preview" 
-                      fill
-                      style={{ objectFit: 'contain' }}
-                    />
-                  </div>
-                  
-                  {/* Front Wheel */}
-                  <div className={styles.wheelFront} data-diameter={params.diameter}>
-                    <div className={styles.wheelRotate}>
-                      <Image 
-                        src={`/images/wheels/${params.type}-${params.design.toLowerCase()}.png`}
-                        alt="Front Wheel"
-                        fill
-                        style={{ objectFit: 'contain' }}
-                      />
-                      <div className={styles.wheelOverlay} data-color={colors.find(c => c.value === params.color)?.value}></div>
-                    </div>
-                  </div>
-
-                  {/* Rear Wheel */}
-                  <div className={styles.wheelRear} data-diameter={params.diameter}>
-                    <div className={styles.wheelRotate}>
-                      <Image 
-                        src={`/images/wheels/${params.type}-${params.design.toLowerCase()}.png`}
-                        alt="Rear Wheel"
-                        fill
-                        style={{ objectFit: 'contain' }}
-                      />
-                      <div className={styles.wheelOverlay} data-color={colors.find(c => c.value === params.color)?.value}></div>
-                    </div>
-                  </div>
-
-                  {/* Effects */}
-                  {params.options.includes('polishing') && (
-                    <div className={styles.polishEffect}></div>
-                  )}
-                  {params.options.includes('chroming') && (
-                    <div className={styles.chromeEffect}></div>
-                  )}
-                </div>
-
-                <div className={styles.previewControls}>
-                  <button className={styles.viewButton} onClick={() => setView('side')}>
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <rect x="3" y="11" width="18" height="11" rx="2" />
-                      <path d="M7 11V7a5 5 0 0110 0v4" />
-                    </svg>
-                    <span>Вид сбоку</span>
-                  </button>
-                  <button className={styles.viewButton} onClick={() => setView('front')}>
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <circle cx="12" cy="12" r="10" />
-                      <circle cx="12" cy="12" r="6" />
-                    </svg>
-                    <span>Вид спереди</span>
-                  </button>
-                  <button className={styles.viewButton} onClick={() => setView('wheel')}>
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
-                    </svg>
-                    <span>Детали диска</span>
-                  </button>
-                </div>
-
-                <div className={styles.previewSpecs}>
-                  <div className={styles.specItem}>
-                    <span className={styles.specLabel}>Диаметр</span>
-                    <span className={styles.specValue}>{params.diameter}"</span>
-                  </div>
-                  <div className={styles.specDivider}></div>
-                  <div className={styles.specItem}>
-                    <span className={styles.specLabel}>Ширина</span>
-                    <span className={styles.specValue}>{params.width}J</span>
-                  </div>
-                  <div className={styles.specDivider}></div>
-                  <div className={styles.specItem}>
-                    <span className={styles.specLabel}>Тип</span>
-                    <span className={styles.specValue}>{params.type === 'mono' ? 'Моноблок' : '2-част'}</span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Quick Info */}
-              <div className={styles.quickInfo}>
-                <div className={styles.infoTitle}>
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <circle cx="12" cy="12" r="10" />
-                    <path d="M12 16v-4M12 8h.01" />
-                  </svg>
-                  Почему выбирают кованые диски?
-                </div>
-                <ul className={styles.infoList}>
-                  <li>
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <path d="M5 13l4 4L19 7" />
-                    </svg>
-                    <span>На 30% легче литых дисков</span>
-                  </li>
-                  <li>
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <path d="M5 13l4 4L19 7" />
-                    </svg>
-                    <span>Повышенная прочность конструкции</span>
-                  </li>
-                  <li>
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <path d="M5 13l4 4L19 7" />
-                    </svg>
-                    <span>Улучшенная управляемость</span>
-                  </li>
-                  <li>
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <path d="M5 13l4 4L19 7" />
-                    </svg>
-                    <span>Снижение расхода топлива</span>
-                  </li>
-                </ul>
-              </div>
-            </div>
-
-            {/* Calculator Card */}
-            <div className={styles.calculatorCard}>
-            <div className={styles.progressBar}>
-              <div className={styles.progressTrack}>
+          <div className={styles.calculatorWrapper}>
+            <div className={styles.calculatorProgress}>
+              <div className={styles.progressLine}>
                 <div 
-                  className={styles.progressFill} 
+                  className={styles.progressActive} 
                   style={{ width: `${(step / 4) * 100}%` }}
                 ></div>
               </div>
-              <div className={styles.progressSteps}>
-                {[1, 2, 3, 4].map((s) => (
-                  <div 
-                    key={s} 
-                    className={`${styles.progressStep} ${step >= s ? styles.activeStep : ''} ${step === s ? styles.currentStep : ''}`}
-                  >
-                    <div className={styles.stepCircle}>{s}</div>
-                    <div className={styles.stepLabel}>
-                      {s === 1 && 'Тип'}
-                      {s === 2 && 'Размеры'}
-                      {s === 3 && 'Опции'}
-                      {s === 4 && 'Результат'}
-                    </div>
-                  </div>
-                ))}
-              </div>
+              <div className={styles.progressLabel}>Шаг {step} из 4</div>
             </div>
 
-            <div className={styles.calculatorContent}>
+            <div className={styles.stepsContainer}>
               {step === 1 && (
-                <div className={styles.stepContent}>
-                  <div className={styles.stepHeader}>
-                    <h3 className={styles.stepTitle}>{t.wheelType}</h3>
-                    <div className={styles.stepBenefit}>
-                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        <path d="M9 12l2 2 4-4m6 2a9 9 0 1 1-18 0 9 9 0 0 1 18 0z" />
-                      </svg>
-                      <span>Бесплатная консультация при заказе</span>
-                    </div>
-                  </div>
+                <div className={styles.step}>
+                  <h3 className={styles.stepTitle}>{t.wheelType}</h3>
                   <div className={styles.wheelTypeGrid}>
                     <label className={`${styles.wheelTypeCard} ${params.type === 'mono' ? styles.active : ''}`}>
                       <input 
@@ -649,16 +446,8 @@ export default function WheelsPage() {
               )}
 
               {step === 2 && (
-                <div className={styles.stepContent}>
-                  <div className={styles.stepHeader}>
-                    <h3 className={styles.stepTitle}>{t.diameter}</h3>
-                    <div className={styles.stepBenefit}>
-                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        <path d="M13 10V3L4 14h7v7l9-11h-7z" />
-                      </svg>
-                      <span>Снижение веса до 30%</span>
-                    </div>
-                  </div>
+                <div className={styles.step}>
+                  <h3 className={styles.stepTitle}>{t.diameter}</h3>
                   <div className={styles.optionsGrid}>
                     {diameters.map(diameter => (
                       <div
@@ -694,16 +483,8 @@ export default function WheelsPage() {
               )}
 
               {step === 3 && (
-                <div className={styles.stepContent}>
-                  <div className={styles.stepHeader}>
-                    <h3 className={styles.stepTitle}>{t.additionalOptions}</h3>
-                    <div className={styles.stepBenefit}>
-                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" />
-                      </svg>
-                      <span>Эксклюзивный дизайн только для вас</span>
-                    </div>
-                  </div>
+                <div className={styles.step}>
+                  <h3 className={styles.stepTitle}>{t.additionalOptions}</h3>
                   <div className={styles.optionsCheckboxGrid}>
                     {additionalOptions.map(option => (
                       <label 
@@ -737,93 +518,51 @@ export default function WheelsPage() {
               )}
 
               {step === 4 && (
-                <div className={styles.resultContent}>
+                <div className={styles.resultStep}>
                   <div className={styles.resultHeader}>
-                    <div className={styles.successBadge}>
-                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        <path d="M9 12l2 2 4-4m6 2a9 9 0 1 1-18 0 9 9 0 0 1 18 0z" />
-                      </svg>
-                      <span>Расчет готов!</span>
-                    </div>
-                    <h3 className={styles.resultTitle}>Ваша уникальная конфигурация</h3>
+                    <h3 className={styles.resultTitle}>Ваша конфигурация готова</h3>
                   </div>
 
-                  <div className={styles.calculatorResults}>
-                    <div className={styles.resultsLeft}>
-                      <div className={styles.resultsBlock}>
-                        <div className={styles.resultsTitle}>{t.selectedParams}</div>
-                        <span className={styles.resultsText}>{getParamSummary()}</span>
+                  <div className={styles.resultCard}>
+                    <div className={styles.resultParams}>
+                      <div className={styles.paramRow}>
+                        <span className={styles.paramLabel}>Конфигурация:</span>
+                        <span className={styles.paramValue}>{getParamSummary()}</span>
                       </div>
-                      <div className={styles.resultsBlock}>
-                        <div className={styles.resultsTitle}>{t.selectedOptions}</div>
-                        <span className={styles.resultsText}>{getOptionsSummary()}</span>
-                      </div>
-                      
-                      <div className={styles.priceSection}>
-                        <div className={styles.resultsPrice}>
-                          <span className={styles.priceAmount}>{calculatedPrice.toLocaleString('ru-RU')}</span> {t.rubles}
-                          <div className={styles.priceLabel}>{t.pricePerWheel}</div>
+                      {params.options.length > 0 && (
+                        <div className={styles.paramRow}>
+                          <span className={styles.paramLabel}>Опции:</span>
+                          <span className={styles.paramValue}>{getOptionsSummary()}</span>
                         </div>
-                        
-                        <div className={styles.priceHighlight}>
-                          <div className={styles.totalPriceBox}>
-                            <div className={styles.totalLabel}>Стоимость комплекта (4 диска)</div>
-                            <div className={styles.totalPrice}>
-                              <span className={styles.totalAmount}>{(calculatedPrice * 4).toLocaleString('ru-RU')}</span> {t.rubles}
-                            </div>
-                          </div>
-                        </div>
+                      )}
+                    </div>
+
+                    <div className={styles.resultPrice}>
+                      <div className={styles.pricePerWheel}>
+                        <span className={styles.priceLabel}>Цена за диск</span>
+                        <span className={styles.priceValue}>{calculatedPrice.toLocaleString('ru-RU')} ₽</span>
+                      </div>
+                      <div className={styles.priceTotal}>
+                        <span className={styles.totalLabel}>Комплект (4 шт)</span>
+                        <span className={styles.totalValue}>{(calculatedPrice * 4).toLocaleString('ru-RU')} ₽</span>
                       </div>
                     </div>
-                  </div>
 
-                  <div className={styles.benefitsList}>
-                    <div className={styles.benefitItem}>
-                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        <path d="M5 13l4 4L19 7" />
-                      </svg>
-                      <span>Гарантия 3 года</span>
-                    </div>
-                    <div className={styles.benefitItem}>
-                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        <path d="M5 13l4 4L19 7" />
-                      </svg>
-                      <span>Бесплатная доставка по РФ</span>
-                    </div>
-                    <div className={styles.benefitItem}>
-                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        <path d="M5 13l4 4L19 7" />
-                      </svg>
-                      <span>Производство 30 дней</span>
-                    </div>
-                    <div className={styles.benefitItem}>
-                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        <path d="M5 13l4 4L19 7" />
-                      </svg>
-                      <span>Эксклюзивный дизайн</span>
+                    <div className={styles.resultFeatures}>
+                      <div className={styles.feature}>✓ Гарантия 3 года</div>
+                      <div className={styles.feature}>✓ Доставка по РФ</div>
+                      <div className={styles.feature}>✓ Производство 30 дней</div>
                     </div>
                   </div>
 
-                  <div className={styles.urgencyBox}>
-                    <div className={styles.urgencyIcon}>⚡</div>
-                    <div className={styles.urgencyText}>
-                      <strong>Специальное предложение!</strong> Закажите сегодня и получите скидку 5% на покраску
-                    </div>
-                  </div>
-
-                  <div className={styles.resultButtons}>
-                    <Link href="/contacts" className={styles.orderButton}>
-                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        <path d="M3 3h18v18H3V3zm9 9l-3-3m3 3l3-3m-3 3v9" />
-                      </svg>
-                      {t.orderNow}
+                  <div className={styles.resultActions}>
+                    <Link href="/contacts" className={styles.orderBtn}>
+                      Оформить заказ
                     </Link>
-                    <button onClick={handleReset} className={styles.resetButton}>
-                      {t.reset}
+                    <button onClick={handleReset} className={styles.resetBtn}>
+                      Начать заново
                     </button>
                   </div>
-
-                  <div className={styles.disclaimer}>{t.disclaimer}</div>
                 </div>
               )}
 
@@ -845,8 +584,20 @@ export default function WheelsPage() {
                   </button>
                 </div>
               )}
+
+              {step < 4 && (
+                <div className={styles.stepNav}>
+                  {step > 1 && (
+                    <button onClick={handlePrev} className={styles.navPrev}>
+                      ← Назад
+                    </button>
+                  )}
+                  <button onClick={handleNext} className={styles.navNext}>
+                    {step === 3 ? 'Рассчитать' : 'Далее'} →
+                  </button>
+                </div>
+              )}
             </div>
-          </div>
           </div>
         </div>
       </section>
