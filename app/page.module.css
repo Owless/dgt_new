@@ -388,40 +388,6 @@
     animation: fadeIn 0.8s ease-out 0.4s both;
 }
 
-/* Service Features */
-.serviceFeatures {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    margin-bottom: 45px;
-    animation: fadeIn 0.8s ease-out 0.6s both;
-}
-
-.featureItem {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 12px 20px;
-    background: rgba(220, 38, 38, 0.1);
-    border: 1px solid rgba(220, 38, 38, 0.3);
-    border-radius: 50px;
-    font-size: 14px;
-    color: rgba(255, 255, 255, 0.9);
-    transition: all 0.3s ease;
-}
-
-.featureItem:hover {
-    background: rgba(220, 38, 38, 0.2);
-    border-color: rgba(220, 38, 38, 0.5);
-    transform: translateY(-3px);
-    box-shadow: 0 5px 20px rgba(220, 38, 38, 0.3);
-}
-
-.featureIcon {
-    font-size: 20px;
-    filter: grayscale(0.3);
-}
-
 .serviceButton {
     display: inline-flex;
     align-items: center;
@@ -825,15 +791,6 @@
 
     .serviceOverlay {
         background: linear-gradient(90deg, rgba(0, 0, 0, 0.97) 0%, rgba(0, 0, 0, 0.85) 60%, rgba(0, 0, 0, 0.5) 100%) !important;
-    }
-
-    .serviceFeatures {
-        gap: 15px;
-    }
-
-    .featureItem {
-        padding: 10px 16px;
-        font-size: 13px;
     }
 
     .projectsTitle {
