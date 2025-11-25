@@ -1,273 +1,255 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
-import styles from './wheels.module.css'
+import styles from './brakes.module.css'
 
-export default function WheelsPage() {
+export default function BrakesPage() {
   const [currentLang, setCurrentLang] = useState<'ru' | 'en'>('ru')
-  const [wheelType, setWheelType] = useState<'mono' | 'two'>('mono')
-  const [diameter, setDiameter] = useState<number>(18)
-  const [width, setWidth] = useState<number>(8)
-  const [selectedOptions, setSelectedOptions] = useState<string[]>(['polish'])
-  const [calculatorOpen, setCalculatorOpen] = useState(false)
-  const [showResults, setShowResults] = useState(false)
+  const [selectedBrand, setSelectedBrand] = useState<string | null>(null)
+  const [selectedWheelSize, setSelectedWheelSize] = useState<string | null>(null)
 
   const translations = {
     ru: {
       hero: {
-        label: 'Forged Wheels',
-        title: 'Кованые',
-        titleAccent: 'диски',
-        description: 'Собственное производство DGT. Эксклюзивные кованые диски по индивидуальным параметрам'
+        label: 'Brake Systems',
+        title: 'Тормозные',
+        titleAccent: 'системы',
+        description: 'Собственное производство DGT. Высокоэффективные тормозные системы с карбон-керамическими дисками'
       },
-      calculator: {
-        title: 'Рассчитайте стоимость',
-        subtitle: 'ваших новых дисков',
-        calculate: 'Рассчитать стоимость'
+      brands: {
+        title: 'Выберите марку автомобиля',
+        subtitle: 'Мы работаем с премиальными брендами',
+        noBrandTitle: 'Не нашли свою марку?',
+        noBrandDesc: 'Свяжитесь с менеджером, мы работаем с любыми марками автомобилей',
+        contactButton: 'Связаться с менеджером'
       },
-      types: {
-        title: 'Выберите тип диска',
-        mono: 'Моноблоки',
-        monoDesc: 'Из цельных болванок кованого алюминия мы создаём лёгкие и прочные диски',
-        two: 'Двухсоставные',
-        twoDesc: 'Возможно изготовление необходимых форм обода и центра диска в любой комбинации цветов'
+      wheelSize: {
+        title: 'Выберите минимальный размер колесных дисков',
+        subtitle: 'Тормозная система должна поместиться под ваши диски'
       },
-      params: {
-        title: 'Укажите диаметр и ширину',
-        diameterTitle: 'Выберите диаметр',
-        widthTitle: 'Выберите ширину диска (J)',
-        diameter: 'Диаметр',
-        width: 'Ширина'
+      products: {
+        title: 'Тормозные системы для',
+        selectBrand: 'Выберите марку автомобиля выше',
+        selectWheelSize: 'Выберите размер дисков выше',
+        from: 'от',
+        noSystemTitle: 'Не нашли подходящую систему?',
+        noSystemDesc: 'Мы изготовим тормозную систему под вашу марку, модель и размер дисков. Свяжитесь с менеджером для индивидуального расчета.'
       },
-      options: {
-        title: 'Дополнительные опции',
-        polish: 'Полировка дисков',
-        polishDesc: 'Придаст дискам уникальный вид',
-        brushing: 'Браширование',
-        brushingDesc: 'Ручная шлифовка с покрытием лаком',
-        chrome: 'Хромирование',
-        chromeDesc: 'Индивидуальность и неповторимость',
-        painting: 'Сложная покраска',
-        paintingDesc: 'Покраска в несколько цветов'
-      },
-      results: {
-        selected: 'Выбранные параметры:',
-        selectedOptions: 'Выбранные опции:',
-        onePrice: 'стоимость одного диска',
-        totalPrice: 'стоимость комплекта (4 диска)',
-        note: 'Стоимость указана предварительной согласно расчётам, и не является публичной офертой.',
-        orderButton: 'Оформить заказ'
+      specs: {
+        disks: 'Диски',
+        pistons: 'Поршни',
+        minWheel: 'Мин. диски',
+        weight: 'Вес',
+        cooling: 'Охлаждение'
       },
       features: {
-        title: 'Преимущества кованых дисков',
+        title: 'Преимущества наших систем',
         item1: {
-          title: 'Прочность',
-          desc: 'В 3 раза прочнее литых дисков'
+          title: 'Тормозной путь',
+          desc: 'Сокращение тормозного пути на 20-30%'
         },
         item2: {
-          title: 'Лёгкость',
-          desc: 'На 20-30% легче стандартных дисков'
+          title: 'Устойчивость',
+          desc: 'Отсутствие перегрева при интенсивной эксплуатации'
         },
         item3: {
-          title: 'Уникальность',
-          desc: 'Изготовление по индивидуальным параметрам'
+          title: 'Долговечность',
+          desc: 'Карбон-керамические диски служат до 300,000 км'
         },
         item4: {
           title: 'Гарантия',
-          desc: '2 года гарантии на все диски'
+          desc: '3 года гарантии на все компоненты'
         }
-      },
-      contact: {
-        title: 'Нужна консультация?',
-        desc: 'Свяжитесь с менеджером для подбора дисков под ваш автомобиль',
-        button: 'Связаться с менеджером'
       }
     },
     en: {
       hero: {
-        label: 'Forged Wheels',
-        title: 'Forged',
-        titleAccent: 'Wheels',
-        description: 'DGT own production. Exclusive forged wheels with custom parameters'
+        label: 'Brake Systems',
+        title: 'Brake',
+        titleAccent: 'Systems',
+        description: 'DGT own production. High-performance brake systems with carbon-ceramic discs'
       },
-      calculator: {
-        title: 'Calculate the cost',
-        subtitle: 'of your new wheels',
-        calculate: 'Calculate cost'
+      brands: {
+        title: 'Select your car brand',
+        subtitle: 'We work with premium brands',
+        noBrandTitle: 'Can\'t find your brand?',
+        noBrandDesc: 'Contact our manager, we work with any car brands',
+        contactButton: 'Contact Manager'
       },
-      types: {
-        title: 'Select wheel type',
-        mono: 'Monoblock',
-        monoDesc: 'Light and strong wheels from solid forged aluminum blanks',
-        two: 'Two-piece',
-        twoDesc: 'Manufacturing of rim and center in any color combination'
+      wheelSize: {
+        title: 'Select minimum wheel size',
+        subtitle: 'Brake system must fit under your wheels'
       },
-      params: {
-        title: 'Specify diameter and width',
-        diameterTitle: 'Select diameter',
-        widthTitle: 'Select wheel width (J)',
-        diameter: 'Diameter',
-        width: 'Width'
+      products: {
+        title: 'Brake systems for',
+        selectBrand: 'Select car brand above',
+        selectWheelSize: 'Select wheel size above',
+        from: 'from',
+        noSystemTitle: 'Didn\'t find a suitable system?',
+        noSystemDesc: 'We will manufacture a brake system for your brand, model and wheel size. Contact our manager for individual calculation.'
       },
-      options: {
-        title: 'Additional options',
-        polish: 'Wheel polishing',
-        polishDesc: 'Give wheels a unique look',
-        brushing: 'Brushing',
-        brushingDesc: 'Hand sanding with lacquer coating',
-        chrome: 'Chrome plating',
-        chromeDesc: 'Individuality and uniqueness',
-        painting: 'Complex painting',
-        paintingDesc: 'Multi-color painting'
-      },
-      results: {
-        selected: 'Selected parameters:',
-        selectedOptions: 'Selected options:',
-        onePrice: 'cost of one wheel',
-        totalPrice: 'set cost (4 wheels)',
-        note: 'The cost is preliminary according to calculations and is not a public offer.',
-        orderButton: 'Place order'
+      specs: {
+        disks: 'Discs',
+        pistons: 'Pistons',
+        minWheel: 'Min. wheels',
+        weight: 'Weight',
+        cooling: 'Cooling'
       },
       features: {
-        title: 'Forged wheels advantages',
+        title: 'System advantages',
         item1: {
-          title: 'Strength',
-          desc: '3 times stronger than cast wheels'
+          title: 'Braking distance',
+          desc: 'Reducing braking distance by 20-30%'
         },
         item2: {
-          title: 'Lightness',
-          desc: '20-30% lighter than standard wheels'
+          title: 'Stability',
+          desc: 'No overheating during intensive use'
         },
         item3: {
-          title: 'Uniqueness',
-          desc: 'Manufacturing to individual parameters'
+          title: 'Durability',
+          desc: 'Carbon-ceramic discs last up to 300,000 km'
         },
         item4: {
           title: 'Warranty',
-          desc: '2 years warranty on all wheels'
+          desc: '3 years warranty on all components'
         }
-      },
-      contact: {
-        title: 'Need consultation?',
-        desc: 'Contact our manager to select wheels for your car',
-        button: 'Contact Manager'
       }
     }
   }
 
   const t = translations[currentLang]
 
-  // Available diameters
-  const diameters = [16, 17, 18, 19, 20, 21, 22, 23, 24]
+  // Brands data
+  const brands = [
+    { id: 'porsche', name: 'PORSCHE' },
+    { id: 'bmw', name: 'BMW' },
+    { id: 'mercedes', name: 'MERCEDES-AMG' },
+    { id: 'audi', name: 'AUDI' },
+    { id: 'lamborghini', name: 'LAMBORGHINI' },
+    { id: 'ferrari', name: 'FERRARI' }
+  ]
 
-  // Width ranges by diameter
-  const widthRanges: Record<number, { min: number; max: number }> = {
-    16: { min: 6, max: 7 },
-    17: { min: 7.5, max: 12 },
-    18: { min: 7.5, max: 13 },
-    19: { min: 8, max: 12 },
-    20: { min: 8, max: 14 },
-    21: { min: 8, max: 13 },
-    22: { min: 8, max: 12 },
-    23: { min: 10, max: 13 },
-    24: { min: 10, max: 12 }
+  // Wheel sizes
+  const wheelSizes = [
+    { id: '18', name: '18"', label: '18 дюймов' },
+    { id: '19', name: '19"', label: '19 дюймов' },
+    { id: '20', name: '20"', label: '20 дюймов' },
+    { id: '21', name: '21"', label: '21 дюйм' },
+    { id: '22', name: '22"', label: '22 дюйма' }
+  ]
+
+  // Brake systems data by brand and wheel size
+  const brakeSystems: Record<string, Record<string, any[]>> = {
+    porsche: {
+      '18': [
+        { id: 1, name: 'DGT Carbon Sport', model: '911 Carrera', price: '580000', disks: '350mm', pistons: '6', minWheel: '18"', weight: '-8 кг', cooling: 'Вентилируемые' }
+      ],
+      '19': [
+        { id: 2, name: 'DGT Carbon Pro', model: '911 GT3', price: '750000', disks: '380mm', pistons: '6', minWheel: '19"', weight: '-10 кг', cooling: 'Карбон-керамика' },
+        { id: 3, name: 'DGT Steel Performance', model: 'Cayenne', price: '420000', disks: '360mm', pistons: '6', minWheel: '19"', weight: '-6 кг', cooling: 'Вентилируемые' }
+      ],
+      '20': [
+        { id: 4, name: 'DGT Carbon Elite', model: 'Panamera Turbo', price: '820000', disks: '410mm', pistons: '8', minWheel: '20"', weight: '-12 кг', cooling: 'Карбон-керамика' }
+      ]
+    },
+    bmw: {
+      '18': [
+        { id: 5, name: 'DGT Steel Sport', model: 'M3', price: '380000', disks: '360mm', pistons: '6', minWheel: '18"', weight: '-7 кг', cooling: 'Вентилируемые' }
+      ],
+      '19': [
+        { id: 6, name: 'DGT Carbon Sport', model: 'M3 Competition', price: '680000', disks: '380mm', pistons: '6', minWheel: '19"', weight: '-9 кг', cooling: 'Карбон-керамика' },
+        { id: 7, name: 'DGT Carbon Pro', model: 'M5 Competition', price: '720000', disks: '395mm', pistons: '6', minWheel: '19"', weight: '-10 кг', cooling: 'Карбон-керамика' }
+      ],
+      '20': [
+        { id: 8, name: 'DGT Carbon Elite', model: 'X5M Competition', price: '780000', disks: '400mm', pistons: '8', minWheel: '20"', weight: '-11 кг', cooling: 'Карбон-керамика' }
+      ]
+    },
+    mercedes: {
+      '19': [
+        { id: 9, name: 'DGT Carbon Sport', model: 'C63 AMG', price: '650000', disks: '360mm', pistons: '6', minWheel: '19"', weight: '-8 кг', cooling: 'Карбон-керамика' }
+      ],
+      '20': [
+        { id: 10, name: 'DGT Carbon Pro', model: 'GT 63 S', price: '850000', disks: '390mm', pistons: '6', minWheel: '20"', weight: '-10 кг', cooling: 'Карбон-керамика' },
+        { id: 11, name: 'DGT Carbon Elite', model: 'G63 AMG', price: '920000', disks: '400mm', pistons: '8', minWheel: '20"', weight: '-12 кг', cooling: 'Карбон-керамика' }
+      ],
+      '21': [
+        { id: 12, name: 'DGT Carbon Ultimate', model: 'AMG GT Black Series', price: '1100000', disks: '420mm', pistons: '8', minWheel: '21"', weight: '-13 кг', cooling: 'Карбон-керамика' }
+      ]
+    },
+    audi: {
+      '18': [
+        { id: 13, name: 'DGT Steel Performance', model: 'S4', price: '360000', disks: '350mm', pistons: '6', minWheel: '18"', weight: '-6 кг', cooling: 'Вентилируемые' }
+      ],
+      '19': [
+        { id: 14, name: 'DGT Carbon Sport', model: 'RS6 Avant', price: '720000', disks: '390mm', pistons: '6', minWheel: '19"', weight: '-9 кг', cooling: 'Карбон-керамика' }
+      ],
+      '20': [
+        { id: 15, name: 'DGT Carbon Pro', model: 'RS Q8', price: '780000', disks: '400mm', pistons: '8', minWheel: '20"', weight: '-11 кг', cooling: 'Карбон-керамика' }
+      ],
+      '21': [
+        { id: 16, name: 'DGT Carbon Elite', model: 'RS7 Performance', price: '880000', disks: '420mm', pistons: '8', minWheel: '21"', weight: '-12 кг', cooling: 'Карбон-керамика' }
+      ]
+    },
+    lamborghini: {
+      '19': [
+        { id: 17, name: 'DGT Carbon Pro', model: 'Huracán', price: '950000', disks: '380mm', pistons: '6', minWheel: '19"', weight: '-10 кг', cooling: 'Карбон-керамика' }
+      ],
+      '20': [
+        { id: 18, name: 'DGT Carbon Elite', model: 'Huracán STO', price: '1150000', disks: '398mm', pistons: '6', minWheel: '20"', weight: '-12 кг', cooling: 'Карбон-керамика' }
+      ],
+      '21': [
+        { id: 19, name: 'DGT Carbon Ultimate', model: 'Aventador SVJ', price: '1350000', disks: '420mm', pistons: '8', minWheel: '21"', weight: '-14 кг', cooling: 'Карбон-керамика' }
+      ],
+      '22': [
+        { id: 20, name: 'DGT Carbon Race', model: 'Urus Performante', price: '1200000', disks: '440mm', pistons: '10', minWheel: '22"', weight: '-15 кг', cooling: 'Карбон-керамика' }
+      ]
+    },
+    ferrari: {
+      '19': [
+        { id: 21, name: 'DGT Carbon Pro', model: 'Roma', price: '980000', disks: '390mm', pistons: '6', minWheel: '19"', weight: '-11 кг', cooling: 'Карбон-керамика' }
+      ],
+      '20': [
+        { id: 22, name: 'DGT Carbon Elite', model: 'F8 Tributo', price: '1180000', disks: '398mm', pistons: '6', minWheel: '20"', weight: '-12 кг', cooling: 'Карбон-керамика' }
+      ],
+      '21': [
+        { id: 23, name: 'DGT Carbon Ultimate', model: 'SF90 Stradale', price: '1450000', disks: '420mm', pistons: '8', minWheel: '21"', weight: '-13 кг', cooling: 'Карбон-керамика' }
+      ],
+      '22': [
+        { id: 24, name: 'DGT Carbon Race', model: '812 Competizione', price: '1580000', disks: '440mm', pistons: '8', minWheel: '22"', weight: '-14 кг', cooling: 'Карбон-керамика' }
+      ]
+    }
   }
 
-  // Base prices for monoblock (4 wheels set)
-  const monoPrices: Record<number, number> = {
-    16: 135000,
-    17: 145000,
-    18: 162000,
-    19: 179000,
-    20: 215000,
-    21: 235000,
-    22: 245000,
-    23: 300000,
-    24: 350000
-  }
-
-  // Base prices for two-piece (4 wheels set)
-  const twoPrices: Record<number, number> = {
-    18: 220000,
-    19: 225000,
-    20: 246000,
-    21: 284000,
-    22: 318000,
-    24: 378000,
-    26: 430000
-  }
-
-  // Option prices (per set)
-  const optionPrices: Record<string, number> = {
-    polish: 20000,
-    brushing: 25000,
-    chrome: 80000,
-    painting: 35000
-  }
-
-  // Calculate total price
-  const calculatePrice = () => {
-    let basePrice = wheelType === 'mono' ? monoPrices[diameter] || 0 : twoPrices[diameter] || 0
+  const handleBrandSelect = (brandId: string) => {
+    setSelectedBrand(brandId)
+    setSelectedWheelSize(null) // Reset wheel size when brand changes
     
-    // Add width coefficient (wider = more expensive)
-    const range = widthRanges[diameter]
-    if (range) {
-      const widthCoef = (width - range.min) / (range.max - range.min)
-      basePrice += basePrice * widthCoef * 0.15 // Up to 15% increase for max width
-    }
-
-    // Add options
-    selectedOptions.forEach(option => {
-      basePrice += optionPrices[option] || 0
-    })
-
-    return Math.round(basePrice)
-  }
-
-  const totalPrice = calculatePrice()
-  const oneWheelPrice = Math.round(totalPrice / 4)
-
-  const handleOptionToggle = (option: string) => {
-    setSelectedOptions(prev => 
-      prev.includes(option) 
-        ? prev.filter(o => o !== option)
-        : [...prev, option]
-    )
-  }
-
-  const handleCalculate = (e: React.FormEvent) => {
-    e.preventDefault()
-    setShowResults(true)
-  }
-
-  // Update width when diameter changes
-  useEffect(() => {
-    const range = widthRanges[diameter]
-    if (range && (width < range.min || width > range.max)) {
-      setWidth(range.min)
-    }
-  }, [diameter])
-
-  const getSelectedParams = () => {
-    return `${t.types[wheelType]}, ${diameter}", ${width}J`
-  }
-
-  const getSelectedOptionsText = () => {
-    if (selectedOptions.length === 0) return 'Нет'
-    return selectedOptions.map(opt => {
-      switch(opt) {
-        case 'polish': return t.options.polish
-        case 'brushing': return t.options.brushing
-        case 'chrome': return t.options.chrome
-        case 'painting': return t.options.painting
-        default: return ''
+    setTimeout(() => {
+      const wheelSizeSection = document.querySelector('#wheel-size-section')
+      if (wheelSizeSection) {
+        wheelSizeSection.scrollIntoView({ behavior: 'smooth', block: 'start' })
       }
-    }).join(', ')
+    }, 100)
   }
+
+  const handleWheelSizeSelect = (sizeId: string) => {
+    setSelectedWheelSize(sizeId)
+    
+    setTimeout(() => {
+      const productsSection = document.querySelector('#products-section')
+      if (productsSection) {
+        productsSection.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      }
+    }, 100)
+  }
+
+  const selectedProducts = selectedBrand && selectedWheelSize 
+    ? (brakeSystems[selectedBrand]?.[selectedWheelSize] || [])
+    : []
 
   return (
     <>
@@ -290,189 +272,243 @@ export default function WheelsPage() {
         </div>
       </section>
 
-      {/* Calculator Section */}
-      <section className={styles.calculatorSection}>
+      {/* Brands Selector */}
+      <section className={styles.brandsSection}>
         <div className={styles.container}>
-          <div className={styles.calculator}>
-            <div 
-              className={`${styles.calculatorTop} ${calculatorOpen ? styles.calculatorTopOpen : ''}`}
-              onClick={() => setCalculatorOpen(!calculatorOpen)}
-            >
-              <div className={styles.calculatorTopHeadline}>
-                <span>{t.calculator.title}</span><br />
-                {t.calculator.subtitle}
+          <div className={styles.brandsHeader}>
+            <h2 className={styles.brandsTitle}>{t.brands.title}</h2>
+            <p className={styles.brandsSubtitle}>{t.brands.subtitle}</p>
+          </div>
+
+          <div className={styles.brandsGrid}>
+            {brands.map((brand) => (
+              <button
+                key={brand.id}
+                className={`${styles.brandCard} ${selectedBrand === brand.id ? styles.brandCardActive : ''}`}
+                onClick={() => handleBrandSelect(brand.id)}
+              >
+                <div className={styles.brandImagePlaceholder}>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                    <path d="M5 17h14v-6l-2-2h-3l-1-2H9L8 9H6L4 11v6z"/>
+                    <circle cx="9" cy="17" r="2"/>
+                    <circle cx="15" cy="17" r="2"/>
+                  </svg>
+                  <span>{brand.name}</span>
+                </div>
+                <div className={styles.brandLogo}>
+                  <span className={styles.brandName}>{brand.name}</span>
+                </div>
+                {selectedBrand === brand.id && (
+                  <div className={styles.brandCheck}>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
+                      <path d="M5 13l4 4L19 7"/>
+                    </svg>
+                  </div>
+                )}
+              </button>
+            ))}
+          </div>
+
+          {/* No Brand CTA */}
+          {!selectedBrand && (
+            <div className={styles.noBrandSection}>
+              <div className={styles.noBrandCard}>
+                <h3 className={styles.noBrandTitle}>{t.brands.noBrandTitle}</h3>
+                <p className={styles.noBrandDesc}>{t.brands.noBrandDesc}</p>
+                <a 
+                  href="https://t.me/dgt_manager" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className={styles.contactButton}
+                >
+                  <span>{t.brands.contactButton}</span>
+                  <svg width="20" height="12" viewBox="0 0 20 12" fill="none">
+                    <path d="M1 6H19M19 6L14 1M19 6L14 11" stroke="currentColor" strokeWidth="1.5"/>
+                  </svg>
+                </a>
               </div>
-              <div className={styles.calculatorTopBtn}>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M6 9l6 6 6-6"/>
+            </div>
+          )}
+        </div>
+      </section>
+
+      {/* Wheel Size Selector - Shows only when brand is selected */}
+      {selectedBrand && (
+        <section className={styles.wheelSizeSection} id="wheel-size-section">
+          <div className={styles.container}>
+            <div className={styles.wheelSizeHeader}>
+              <h2 className={styles.wheelSizeTitle}>{t.wheelSize.title}</h2>
+              <p className={styles.wheelSizeSubtitle}>{t.wheelSize.subtitle}</p>
+            </div>
+
+            <div className={styles.wheelSizeGrid}>
+              {wheelSizes.map((size) => (
+                <button
+                  key={size.id}
+                  className={`${styles.wheelSizeCard} ${selectedWheelSize === size.id ? styles.wheelSizeCardActive : ''}`}
+                  onClick={() => handleWheelSizeSelect(size.id)}
+                >
+                  <div className={styles.wheelSizeIcon}>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                      <circle cx="12" cy="12" r="10"/>
+                      <circle cx="12" cy="12" r="6"/>
+                      <circle cx="12" cy="12" r="2"/>
+                      <path d="M12 2v4M12 18v4M2 12h4M18 12h4"/>
+                      <path d="M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>
+                    </svg>
+                  </div>
+                  <div className={styles.wheelSizeName}>{size.name}</div>
+                  <div className={styles.wheelSizeLabel}>{size.label}</div>
+                  {selectedWheelSize === size.id && (
+                    <div className={styles.wheelSizeCheck}>
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
+                        <path d="M5 13l4 4L19 7"/>
+                      </svg>
+                    </div>
+                  )}
+                </button>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Products Section */}
+      <section className={styles.productsSection} id="products-section">
+        <div className={styles.container}>
+          {selectedBrand && selectedWheelSize ? (
+            selectedProducts.length > 0 ? (
+              <>
+                <h2 className={styles.productsTitle}>
+                  {t.products.title} {brands.find(b => b.id === selectedBrand)?.name} ({selectedWheelSize}")
+                </h2>
+                <div className={styles.productsGrid}>
+                  {selectedProducts.map((product) => (
+                    <div key={product.id} className={styles.productCard}>
+                      <div className={styles.productImage}>
+                        <div className={styles.productBadge}>
+                          <svg viewBox="0 0 24 24" fill="currentColor">
+                            <circle cx="12" cy="12" r="10"/>
+                            <circle cx="12" cy="12" r="6"/>
+                            <circle cx="12" cy="12" r="2"/>
+                          </svg>
+                          <span>Производство DGT</span>
+                        </div>
+                        <div className={styles.productImagePlaceholder}>
+                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                            <circle cx="12" cy="12" r="10"/>
+                            <circle cx="12" cy="12" r="6"/>
+                            <circle cx="12" cy="12" r="2"/>
+                          </svg>
+                          <span className={styles.placeholderText}>{product.name}</span>
+                          <span className={styles.placeholderModel}>{product.model}</span>
+                        </div>
+                      </div>
+                      <div className={styles.productContent}>
+                        <div className={styles.productHeader}>
+                          <h3 className={styles.productName}>{product.name}</h3>
+                          <p className={styles.productModel}>{product.model}</p>
+                        </div>
+                        
+                        <div className={styles.productSpecs}>
+                          <div className={styles.specItem}>
+                            <span className={styles.specLabel}>{t.specs.disks}:</span>
+                            <span className={styles.specValue}>{product.disks}</span>
+                          </div>
+                          <div className={styles.specItem}>
+                            <span className={styles.specLabel}>{t.specs.pistons}:</span>
+                            <span className={styles.specValue}>{product.pistons}</span>
+                          </div>
+                          <div className={styles.specItem}>
+                            <span className={styles.specLabel}>{t.specs.minWheel}:</span>
+                            <span className={styles.specValue}>{product.minWheel}</span>
+                          </div>
+                          <div className={styles.specItem}>
+                            <span className={styles.specLabel}>{t.specs.cooling}:</span>
+                            <span className={styles.specValue}>{product.cooling}</span>
+                          </div>
+                        </div>
+
+                        <div className={styles.productFooter}>
+                          <div className={styles.productPrice}>
+                            <span className={styles.priceLabel}>{t.products.from}</span>
+                            <span className={styles.priceValue}>
+                              {parseInt(product.price).toLocaleString('ru-RU')} ₽
+                            </span>
+                          </div>
+                          <a 
+                            href="https://t.me/dgt_manager"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className={styles.orderButton}
+                          >
+                            Заказать
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                {/* No System CTA */}
+                <div className={styles.noSystemSection}>
+                  <div className={styles.noSystemCard}>
+                    <h3 className={styles.noSystemTitle}>{t.products.noSystemTitle}</h3>
+                    <p className={styles.noSystemDesc}>{t.products.noSystemDesc}</p>
+                    <a 
+                      href="https://t.me/dgt_manager" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className={styles.contactButton}
+                    >
+                      <span>{t.brands.contactButton}</span>
+                      <svg width="20" height="12" viewBox="0 0 20 12" fill="none">
+                        <path d="M1 6H19M19 6L14 1M19 6L14 11" stroke="currentColor" strokeWidth="1.5"/>
+                      </svg>
+                    </a>
+                  </div>
+                </div>
+              </>
+            ) : (
+              <div className={styles.emptyState}>
+                <div className={styles.emptyIcon}>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                    <circle cx="12" cy="12" r="10"/>
+                    <circle cx="12" cy="12" r="6"/>
+                  </svg>
+                </div>
+                <p className={styles.emptyText}>
+                  Для данной комбинации нет готовых систем.
+                  <br/>Свяжитесь с менеджером для индивидуального изготовления.
+                </p>
+                <a 
+                  href="https://t.me/dgt_manager" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className={styles.contactButton}
+                  style={{ marginTop: '30px' }}
+                >
+                  <span>{t.brands.contactButton}</span>
+                  <svg width="20" height="12" viewBox="0 0 20 12" fill="none">
+                    <path d="M1 6H19M19 6L14 1M19 6L14 11" stroke="currentColor" strokeWidth="1.5"/>
+                  </svg>
+                </a>
+              </div>
+            )
+          ) : (
+            <div className={styles.emptyState}>
+              <div className={styles.emptyIcon}>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                  <circle cx="12" cy="12" r="10"/>
+                  <circle cx="12" cy="12" r="6"/>
+                  <circle cx="12" cy="12" r="2"/>
                 </svg>
               </div>
+              <p className={styles.emptyText}>
+                {!selectedBrand ? t.products.selectBrand : t.products.selectWheelSize}
+              </p>
             </div>
-
-            <div className={`${styles.calculatorBody} ${calculatorOpen ? styles.calculatorBodyOpen : ''}`}>
-              <form onSubmit={handleCalculate}>
-                {/* Type Selection */}
-                <div className={styles.calculatorBlock}>
-                  <div className={styles.calculatorTitle}>{t.types.title}</div>
-                  <div className={styles.calculatorLabel}>
-                    <label className={wheelType === 'mono' ? styles.labelActive : ''}>
-                      <input 
-                        type="radio" 
-                        name="type" 
-                        value="mono"
-                        checked={wheelType === 'mono'}
-                        onChange={(e) => setWheelType('mono')}
-                      />
-                      <span>{t.types.mono}</span>
-                      {t.types.monoDesc}
-                    </label>
-                    <label className={wheelType === 'two' ? styles.labelActive : ''}>
-                      <input 
-                        type="radio" 
-                        name="type" 
-                        value="two"
-                        checked={wheelType === 'two'}
-                        onChange={(e) => setWheelType('two')}
-                      />
-                      <span>{t.types.two}</span>
-                      {t.types.twoDesc}
-                    </label>
-                  </div>
-                </div>
-
-                {/* Diameter and Width */}
-                <div className={styles.calculatorBlock}>
-                  <div className={styles.calculatorTitle}>{t.params.title}</div>
-                  
-                  <div className={styles.calculatorSubtitle}>{t.params.diameterTitle}</div>
-                  <div className={styles.diameterGrid}>
-                    {diameters.map(d => (
-                      <button
-                        key={d}
-                        type="button"
-                        className={`${styles.diameterButton} ${diameter === d ? styles.diameterButtonActive : ''}`}
-                        onClick={() => setDiameter(d)}
-                      >
-                        {d}"
-                      </button>
-                    ))}
-                  </div>
-
-                  <div className={styles.calculatorRange}>
-                    <div className={styles.calculatorSubtitle}>{t.params.widthTitle}</div>
-                    <div className={styles.rangeValue}>{width}J</div>
-                    <input
-                      type="range"
-                      min={widthRanges[diameter]?.min || 6}
-                      max={widthRanges[diameter]?.max || 12}
-                      step="0.5"
-                      value={width}
-                      onChange={(e) => setWidth(parseFloat(e.target.value))}
-                      className={styles.rangeInput}
-                    />
-                    <div className={styles.rangeLabels}>
-                      <span>{widthRanges[diameter]?.min}J</span>
-                      <span>{widthRanges[diameter]?.max}J</span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Options */}
-                <div className={styles.calculatorBlock}>
-                  <div className={styles.calculatorTitle}>{t.options.title}</div>
-                  <div className={styles.optionsGrid}>
-                    <label className={selectedOptions.includes('polish') ? styles.optionActive : ''}>
-                      <input
-                        type="checkbox"
-                        checked={selectedOptions.includes('polish')}
-                        onChange={() => handleOptionToggle('polish')}
-                      />
-                      <span className={styles.optionName}>{t.options.polish}</span>
-                      <span className={styles.optionDesc}>{t.options.polishDesc}</span>
-                    </label>
-
-                    <label className={selectedOptions.includes('brushing') ? styles.optionActive : ''}>
-                      <input
-                        type="checkbox"
-                        checked={selectedOptions.includes('brushing')}
-                        onChange={() => handleOptionToggle('brushing')}
-                      />
-                      <span className={styles.optionName}>{t.options.brushing}</span>
-                      <span className={styles.optionDesc}>{t.options.brushingDesc}</span>
-                    </label>
-
-                    <label className={selectedOptions.includes('chrome') ? styles.optionActive : ''}>
-                      <input
-                        type="checkbox"
-                        checked={selectedOptions.includes('chrome')}
-                        onChange={() => handleOptionToggle('chrome')}
-                      />
-                      <span className={styles.optionName}>{t.options.chrome}</span>
-                      <span className={styles.optionDesc}>{t.options.chromeDesc}</span>
-                    </label>
-
-                    <label className={selectedOptions.includes('painting') ? styles.optionActive : ''}>
-                      <input
-                        type="checkbox"
-                        checked={selectedOptions.includes('painting')}
-                        onChange={() => handleOptionToggle('painting')}
-                      />
-                      <span className={styles.optionName}>{t.options.painting}</span>
-                      <span className={styles.optionDesc}>{t.options.paintingDesc}</span>
-                    </label>
-                  </div>
-
-                  <div className={styles.calculatorSubmit}>
-                    <button type="submit" className={styles.calculateButton}>
-                      {t.calculator.calculate}
-                    </button>
-                  </div>
-                </div>
-              </form>
-            </div>
-
-            {/* Results */}
-            {showResults && (
-              <div className={styles.calculatorBottom}>
-                <div className={styles.calculatorResults}>
-                  <div className={styles.resultsLeft}>
-                    <div className={styles.resultsBlock}>
-                      <div className={styles.resultsTitle}>{t.results.selected}</div>
-                      <span>{getSelectedParams()}</span>
-                    </div>
-                    <div className={styles.resultsBlock}>
-                      <div className={styles.resultsTitle}>{t.results.selectedOptions}</div>
-                      <span>{getSelectedOptionsText()}</span>
-                    </div>
-                    <div className={styles.resultsPrice}>
-                      <span>{oneWheelPrice.toLocaleString('ru-RU')}</span> ₽
-                      <div className={styles.resultsTitle}>{t.results.onePrice}</div>
-                    </div>
-                  </div>
-                  <div className={styles.resultsRight}>
-                    <div className={styles.resultsTotal}>
-                      <span>{totalPrice.toLocaleString('ru-RU')}</span> ₽
-                    </div>
-                    <div className={styles.resultsNote}>{t.results.totalPrice}</div>
-                  </div>
-                </div>
-                <div className={styles.calculatorNote}>{t.results.note}</div>
-                <div className={styles.calculatorOrder}>
-                  <a 
-                    href="https://t.me/dgt_manager"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={styles.orderButton}
-                  >
-                    {t.results.orderButton}
-                    <svg width="20" height="12" viewBox="0 0 20 12" fill="none">
-                      <path d="M1 6H19M19 6L14 1M19 6L14 11" stroke="currentColor" strokeWidth="1.5"/>
-                    </svg>
-                  </a>
-                </div>
-              </div>
-            )}
-          </div>
+          )}
         </div>
       </section>
 
@@ -484,7 +520,7 @@ export default function WheelsPage() {
             <div className={styles.featureCard}>
               <div className={styles.featureIcon}>
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                  <path d="M9 12l2 2 4-4m6 2a9 9 0 1 1-18 0 9 9 0 0 1 18 0z"/>
+                  <path d="M13 10V3L4 14h7v7l9-11h-7z"/>
                 </svg>
               </div>
               <h3 className={styles.featureTitle}>{t.features.item1.title}</h3>
@@ -494,7 +530,7 @@ export default function WheelsPage() {
             <div className={styles.featureCard}>
               <div className={styles.featureIcon}>
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                  <path d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                  <path d="M9 12l2 2 4-4m6 2a9 9 0 1 1-18 0 9 9 0 0 1 18 0z"/>
                 </svg>
               </div>
               <h3 className={styles.featureTitle}>{t.features.item2.title}</h3>
@@ -504,9 +540,8 @@ export default function WheelsPage() {
             <div className={styles.featureCard}>
               <div className={styles.featureIcon}>
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                  <path d="M12 2L2 7l10 5 10-5-10-5z"/>
-                  <path d="M2 17l10 5 10-5"/>
-                  <path d="M2 12l10 5 10-5"/>
+                  <circle cx="12" cy="12" r="10"/>
+                  <path d="M12 6v6l4 2"/>
                 </svg>
               </div>
               <h3 className={styles.featureTitle}>{t.features.item3.title}</h3>
@@ -522,27 +557,6 @@ export default function WheelsPage() {
               <h3 className={styles.featureTitle}>{t.features.item4.title}</h3>
               <p className={styles.featureDesc}>{t.features.item4.desc}</p>
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Contact Section */}
-      <section className={styles.contactSection}>
-        <div className={styles.container}>
-          <div className={styles.contactCard}>
-            <h3 className={styles.contactTitle}>{t.contact.title}</h3>
-            <p className={styles.contactDesc}>{t.contact.desc}</p>
-            <a 
-              href="https://t.me/dgt_manager"
-              target="_blank"
-              rel="noopener noreferrer"
-              className={styles.contactButton}
-            >
-              <span>{t.contact.button}</span>
-              <svg width="20" height="12" viewBox="0 0 20 12" fill="none">
-                <path d="M1 6H19M19 6L14 1M19 6L14 11" stroke="currentColor" strokeWidth="1.5"/>
-              </svg>
-            </a>
           </div>
         </div>
       </section>
