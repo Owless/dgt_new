@@ -179,20 +179,6 @@ export default function Home() {
               <div className={styles.serviceNumber}>01</div>
               <h2 className={styles.serviceTitle}>{t.exhaustTitle}</h2>
               <p className={styles.serviceDescription}>{t.exhaustDesc}</p>
-              <div className={styles.serviceFeatures}>
-                <div className={styles.featureItem}>
-                  <div className={styles.featureIcon}>⚡</div>
-                  <span>{t.exhaustFeature1}</span>
-                </div>
-                <div className={styles.featureItem}>
-                  <div className={styles.featureIcon}>🔊</div>
-                  <span>{t.exhaustFeature2}</span>
-                </div>
-                <div className={styles.featureItem}>
-                  <div className={styles.featureIcon}>💪</div>
-                  <span>{t.exhaustFeature3}</span>
-                </div>
-              </div>
               <Link href="/exhaust" className={styles.serviceButton}>
                 <span>{t.exhaustButton}</span>
                 <svg width="20" height="12" viewBox="0 0 20 12" fill="none">
@@ -215,20 +201,6 @@ export default function Home() {
               <div className={styles.serviceNumber}>02</div>
               <h2 className={styles.serviceTitle}>{t.brakesTitle}</h2>
               <p className={styles.serviceDescription}>{t.brakesDesc}</p>
-              <div className={styles.serviceFeatures}>
-                <div className={styles.featureItem}>
-                  <div className={styles.featureIcon}>🎯</div>
-                  <span>{t.brakesFeature1}</span>
-                </div>
-                <div className={styles.featureItem}>
-                  <div className={styles.featureIcon}>💎</div>
-                  <span>{t.brakesFeature2}</span>
-                </div>
-                <div className={styles.featureItem}>
-                  <div className={styles.featureIcon}>🔧</div>
-                  <span>{t.brakesFeature3}</span>
-                </div>
-              </div>
               <Link href="/brakes" className={styles.serviceButton}>
                 <span>{t.brakesButton}</span>
                 <svg width="20" height="12" viewBox="0 0 20 12" fill="none">
@@ -251,20 +223,6 @@ export default function Home() {
               <div className={styles.serviceNumber}>03</div>
               <h2 className={styles.serviceTitle}>{t.wheelsTitle}</h2>
               <p className={styles.serviceDescription}>{t.wheelsDesc}</p>
-              <div className={styles.serviceFeatures}>
-                <div className={styles.featureItem}>
-                  <div className={styles.featureIcon}>⚖️</div>
-                  <span>{t.wheelsFeature1}</span>
-                </div>
-                <div className={styles.featureItem}>
-                  <div className={styles.featureIcon}>🎨</div>
-                  <span>{t.wheelsFeature2}</span>
-                </div>
-                <div className={styles.featureItem}>
-                  <div className={styles.featureIcon}>✅</div>
-                  <span>{t.wheelsFeature3}</span>
-                </div>
-              </div>
               <Link href="/wheels" className={styles.serviceButton}>
                 <span>{t.wheelsButton}</span>
                 <svg width="20" height="12" viewBox="0 0 20 12" fill="none">
@@ -287,20 +245,6 @@ export default function Home() {
               <div className={styles.serviceNumber}>04</div>
               <h2 className={styles.serviceTitle}>{t.suspensionTitle}</h2>
               <p className={styles.serviceDescription}>{t.suspensionDesc}</p>
-              <div className={styles.serviceFeatures}>
-                <div className={styles.featureItem}>
-                  <div className={styles.featureIcon}>📏</div>
-                  <span>{t.suspensionFeature1}</span>
-                </div>
-                <div className={styles.featureItem}>
-                  <div className={styles.featureIcon}>🔩</div>
-                  <span>{t.suspensionFeature2}</span>
-                </div>
-                <div className={styles.featureItem}>
-                  <div className={styles.featureIcon}>🏎️</div>
-                  <span>{t.suspensionFeature3}</span>
-                </div>
-              </div>
               <Link href="/suspension" className={styles.serviceButton}>
                 <span>{t.suspensionButton}</span>
                 <svg width="20" height="12" viewBox="0 0 20 12" fill="none">
