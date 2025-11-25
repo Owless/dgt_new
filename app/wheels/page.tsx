@@ -21,6 +21,7 @@ interface WheelParams {
 export default function WheelsPage() {
   const [currentLang, setCurrentLang] = useState<'ru' | 'en'>('ru')
   const [step, setStep] = useState(1)
+  const [view, setView] = useState<'side' | 'front' | 'wheel'>('side')
   const [params, setParams] = useState<WheelParams>({
     type: 'mono',
     diameter: 19,
@@ -439,7 +440,146 @@ export default function WheelsPage() {
             </p>
           </div>
 
-          <div className={styles.calculatorCard}>
+          <div className={styles.calculatorLayout}>
+            {/* Live Preview */}
+            <div className={styles.previewSection}>
+              <div className={styles.previewCard}>
+                <div className={styles.previewHeader}>
+                  <div className={styles.previewBadge}>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                      <path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                    </svg>
+                    <span>LIVE PREVIEW</span>
+                  </div>
+                </div>
+
+                <div className={styles.previewCanvas}>
+                  <div className={styles.carImage}>
+                    <Image 
+                      src="/images/car-side.png" 
+                      alt="Car Preview" 
+                      fill
+                      style={{ objectFit: 'contain' }}
+                    />
+                  </div>
+                  
+                  {/* Front Wheel */}
+                  <div className={styles.wheelFront} data-diameter={params.diameter}>
+                    <div className={styles.wheelRotate}>
+                      <Image 
+                        src={`/images/wheels/${params.type}-${params.design.toLowerCase()}.png`}
+                        alt="Front Wheel"
+                        fill
+                        style={{ objectFit: 'contain' }}
+                      />
+                      <div className={styles.wheelOverlay} data-color={colors.find(c => c.value === params.color)?.value}></div>
+                    </div>
+                  </div>
+
+                  {/* Rear Wheel */}
+                  <div className={styles.wheelRear} data-diameter={params.diameter}>
+                    <div className={styles.wheelRotate}>
+                      <Image 
+                        src={`/images/wheels/${params.type}-${params.design.toLowerCase()}.png`}
+                        alt="Rear Wheel"
+                        fill
+                        style={{ objectFit: 'contain' }}
+                      />
+                      <div className={styles.wheelOverlay} data-color={colors.find(c => c.value === params.color)?.value}></div>
+                    </div>
+                  </div>
+
+                  {/* Effects */}
+                  {params.options.includes('polishing') && (
+                    <div className={styles.polishEffect}></div>
+                  )}
+                  {params.options.includes('chroming') && (
+                    <div className={styles.chromeEffect}></div>
+                  )}
+                </div>
+
+                <div className={styles.previewControls}>
+                  <button className={styles.viewButton} onClick={() => setView('side')}>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <rect x="3" y="11" width="18" height="11" rx="2" />
+                      <path d="M7 11V7a5 5 0 0110 0v4" />
+                    </svg>
+                    <span>Вид сбоку</span>
+                  </button>
+                  <button className={styles.viewButton} onClick={() => setView('front')}>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <circle cx="12" cy="12" r="10" />
+                      <circle cx="12" cy="12" r="6" />
+                    </svg>
+                    <span>Вид спереди</span>
+                  </button>
+                  <button className={styles.viewButton} onClick={() => setView('wheel')}>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
+                    </svg>
+                    <span>Детали диска</span>
+                  </button>
+                </div>
+
+                <div className={styles.previewSpecs}>
+                  <div className={styles.specItem}>
+                    <span className={styles.specLabel}>Диаметр</span>
+                    <span className={styles.specValue}>{params.diameter}"</span>
+                  </div>
+                  <div className={styles.specDivider}></div>
+                  <div className={styles.specItem}>
+                    <span className={styles.specLabel}>Ширина</span>
+                    <span className={styles.specValue}>{params.width}J</span>
+                  </div>
+                  <div className={styles.specDivider}></div>
+                  <div className={styles.specItem}>
+                    <span className={styles.specLabel}>Тип</span>
+                    <span className={styles.specValue}>{params.type === 'mono' ? 'Моноблок' : '2-част'}</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Quick Info */}
+              <div className={styles.quickInfo}>
+                <div className={styles.infoTitle}>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <circle cx="12" cy="12" r="10" />
+                    <path d="M12 16v-4M12 8h.01" />
+                  </svg>
+                  Почему выбирают кованые диски?
+                </div>
+                <ul className={styles.infoList}>
+                  <li>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <path d="M5 13l4 4L19 7" />
+                    </svg>
+                    <span>На 30% легче литых дисков</span>
+                  </li>
+                  <li>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <path d="M5 13l4 4L19 7" />
+                    </svg>
+                    <span>Повышенная прочность конструкции</span>
+                  </li>
+                  <li>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <path d="M5 13l4 4L19 7" />
+                    </svg>
+                    <span>Улучшенная управляемость</span>
+                  </li>
+                  <li>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <path d="M5 13l4 4L19 7" />
+                    </svg>
+                    <span>Снижение расхода топлива</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            {/* Calculator Card */}
+            <div className={styles.calculatorCard}>
             <div className={styles.progressBar}>
               <div className={styles.progressTrack}>
                 <div 
@@ -706,6 +846,7 @@ export default function WheelsPage() {
                 </div>
               )}
             </div>
+          </div>
           </div>
         </div>
       </section>
