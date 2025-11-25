@@ -22,9 +22,9 @@ export default function ExhaustPage() {
       brands: {
         title: 'Выберите марку автомобиля',
         subtitle: 'Мы работаем с премиальными брендами',
-        noCarTitle: 'Не нашли свою марку?',
-        noCarDesc: 'Свяжитесь с менеджером для индивидуального подбора',
-        contactButton: 'Написать в Telegram'
+        noCarTitle: 'Не нашли подходящую систему?',
+        noCarDesc: 'Мы изготовим выхлопную систему под вашу марку и модель автомобиля. Свяжитесь с менеджером для индивидуального расчета.',
+        contactButton: 'Связаться с менеджером'
       },
       products: {
         title: 'Выхлопные системы для',
@@ -69,9 +69,9 @@ export default function ExhaustPage() {
       brands: {
         title: 'Select your car brand',
         subtitle: 'We work with premium brands',
-        noCarTitle: 'Can\'t find your brand?',
-        noCarDesc: 'Contact our manager for individual selection',
-        contactButton: 'Message on Telegram'
+        noCarTitle: 'Didn\'t find a suitable system?',
+        noCarDesc: 'We will manufacture an exhaust system for your car brand and model. Contact our manager for individual calculation.',
+        contactButton: 'Contact Manager'
       },
       products: {
         title: 'Exhaust systems for',
@@ -408,6 +408,14 @@ export default function ExhaustPage() {
                 className={`${styles.brandCard} ${selectedBrand === brand.id ? styles.brandCardActive : ''}`}
                 onClick={() => setSelectedBrand(brand.id)}
               >
+                <div className={styles.brandImagePlaceholder}>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                    <path d="M5 17h14v-6l-2-2h-3l-1-2H9L8 9H6L4 11v6z"/>
+                    <circle cx="9" cy="17" r="2"/>
+                    <circle cx="15" cy="17" r="2"/>
+                  </svg>
+                  <span>{brand.name}</span>
+                </div>
                 <div className={styles.brandLogo}>
                   <span className={styles.brandName}>{brand.name}</span>
                 </div>
@@ -420,25 +428,6 @@ export default function ExhaustPage() {
                 )}
               </button>
             ))}
-          </div>
-
-          {/* No Car CTA */}
-          <div className={styles.noCarSection}>
-            <div className={styles.noCarCard}>
-              <h3 className={styles.noCarTitle}>{t.brands.noCarTitle}</h3>
-              <p className={styles.noCarDesc}>{t.brands.noCarDesc}</p>
-              <a 
-                href="https://t.me/dgt_manager" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className={styles.telegramButton}
-              >
-                <svg viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.14.18-.357.295-.6.295-.002 0-.003 0-.005 0l.213-3.054 5.56-5.022c.24-.213-.054-.334-.373-.121l-6.869 4.326-2.96-.924c-.64-.203-.658-.64.135-.954l11.566-4.458c.538-.196 1.006.128.832.941z"/>
-                </svg>
-                <span>{t.brands.contactButton}</span>
-              </a>
-            </div>
           </div>
         </div>
       </section>
@@ -464,7 +453,13 @@ export default function ExhaustPage() {
                         <span>Производство DGT</span>
                       </div>
                       <div className={styles.productImagePlaceholder}>
-                        {product.name}
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                          <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                          <path d="M2 17l10 5 10-5"/>
+                          <path d="M2 12l10 5 10-5"/>
+                        </svg>
+                        <span className={styles.placeholderText}>{product.name}</span>
+                        <span className={styles.placeholderModel}>{product.model}</span>
                       </div>
                     </div>
                     <div className={styles.productContent}>
@@ -511,6 +506,25 @@ export default function ExhaustPage() {
                     </div>
                   </div>
                 ))}
+              </div>
+
+              {/* No System CTA - After viewing products */}
+              <div className={styles.noSystemSection}>
+                <div className={styles.noSystemCard}>
+                  <h3 className={styles.noSystemTitle}>{t.brands.noCarTitle}</h3>
+                  <p className={styles.noSystemDesc}>{t.brands.noCarDesc}</p>
+                  <a 
+                    href="https://t.me/dgt_manager" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className={styles.contactButton}
+                  >
+                    <span>{t.brands.contactButton}</span>
+                    <svg width="20" height="12" viewBox="0 0 20 12" fill="none">
+                      <path d="M1 6H19M19 6L14 1M19 6L14 11" stroke="currentColor" strokeWidth="1.5"/>
+                    </svg>
+                  </a>
+                </div>
               </div>
             </>
           ) : (
