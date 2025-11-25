@@ -1,639 +1,553 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import Link from 'next/link'
 import Image from 'next/image'
+import Link from 'next/link'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import styles from './wheels.module.css'
 
-interface WheelParams {
-  type: 'mono' | 'two'
-  diameter: number
-  width: number
-  et: number
-  pcd: string
-  color: string
-  design: string
-  options: string[]
-}
-
 export default function WheelsPage() {
   const [currentLang, setCurrentLang] = useState<'ru' | 'en'>('ru')
-  const [step, setStep] = useState(1)
-  const [view, setView] = useState<'side' | 'front' | 'wheel'>('side')
-  const [params, setParams] = useState<WheelParams>({
-    type: 'mono',
-    diameter: 19,
-    width: 8.5,
-    et: 35,
-    pcd: '5x112',
-    color: 'Глянцевый черный',
-    design: 'Спортивный',
-    options: []
-  })
-  const [calculatedPrice, setCalculatedPrice] = useState(0)
+  const [wheelType, setWheelType] = useState<'mono' | 'two'>('mono')
+  const [diameter, setDiameter] = useState<number>(18)
+  const [width, setWidth] = useState<number>(8)
+  const [selectedOptions, setSelectedOptions] = useState<string[]>(['polish'])
+  const [calculatorOpen, setCalculatorOpen] = useState(false)
+  const [showResults, setShowResults] = useState(false)
 
   const translations = {
     ru: {
-      title: 'Кованые диски',
-      subtitle: 'Производство уникальных дисков для автомобиля под ваши параметры',
-      breadcrumb: {
-        home: 'Главная',
-        wheels: 'Кованые диски'
+      hero: {
+        label: 'Forged Wheels',
+        title: 'Кованые',
+        titleAccent: 'диски',
+        description: 'Собственное производство DGT. Эксклюзивные кованые диски по индивидуальным параметрам'
       },
-      calculator: 'Рассчитайте стоимость ваших новых дисков',
-      step: 'Шаг',
-      of: 'из',
-      wheelType: 'Выберите тип диска',
-      monoblock: 'Моноблоки',
-      monoblockDesc: 'Из цельных болванок кованого алюминия мы создаём лёгкие и прочные диски.',
-      twopiece: 'Двухсоставные',
-      twopieceDesc: 'Возможно изготовление необходимых форм обода и центра диска в любой комбинации цветов.',
-      diameter: 'Выберите диаметр',
-      width: 'Выберите ширину диска (J)',
-      et: 'Вылет (ET)',
-      pcd: 'Разболтовка (PCD)',
-      color: 'Цвет покрытия',
-      design: 'Дизайн',
-      additionalOptions: 'Дополнительные опции',
-      polishing: 'Полировка дисков',
-      polishingDesc: 'Придаст дискам уникальный вид, возможно применение для отдельных элементов диска.',
-      brushing: 'Браширование',
-      brushingDesc: 'Ручная шлифовка с последующим покрытием тонирующим лаком.',
-      chroming: 'Хромирование',
-      chromingDesc: 'Придаст индивидуальности и неповторимости автомобилю.',
-      complexPainting: 'Сложная покраска',
-      complexPaintingDesc: 'Покраска в несколько цветов, сатиновые цвета.',
-      nextStep: 'Далее',
-      prevStep: 'Назад',
-      calculate: 'Рассчитать стоимость',
-      priceTitle: 'Стоимость комплекта (4 диска)',
-      pricePerWheel: 'стоимость одного диска',
-      orderNow: 'Оформить заказ',
-      reset: 'Начать заново',
-      inches: 'дюймов',
-      mm: 'мм',
-      rubles: 'руб.',
-      selectedParams: 'Выбранные параметры:',
-      selectedOptions: 'Выбранные опции:',
-      disclaimer: 'Стоимость указана предварительной согласно расчётам, и не является публичной офертой. Для точного расчёта оформите запрос нашему менеджеру.',
+      calculator: {
+        title: 'Рассчитайте стоимость',
+        subtitle: 'ваших новых дисков',
+        calculate: 'Рассчитать стоимость'
+      },
+      types: {
+        title: 'Выберите тип диска',
+        mono: 'Моноблоки',
+        monoDesc: 'Из цельных болванок кованого алюминия мы создаём лёгкие и прочные диски',
+        two: 'Двухсоставные',
+        twoDesc: 'Возможно изготовление необходимых форм обода и центра диска в любой комбинации цветов'
+      },
+      params: {
+        title: 'Укажите диаметр и ширину',
+        diameterTitle: 'Выберите диаметр',
+        widthTitle: 'Выберите ширину диска (J)',
+        diameter: 'Диаметр',
+        width: 'Ширина'
+      },
+      options: {
+        title: 'Дополнительные опции',
+        polish: 'Полировка дисков',
+        polishDesc: 'Придаст дискам уникальный вид',
+        brushing: 'Браширование',
+        brushingDesc: 'Ручная шлифовка с покрытием лаком',
+        chrome: 'Хромирование',
+        chromeDesc: 'Индивидуальность и неповторимость',
+        painting: 'Сложная покраска',
+        paintingDesc: 'Покраска в несколько цветов'
+      },
+      results: {
+        selected: 'Выбранные параметры:',
+        selectedOptions: 'Выбранные опции:',
+        onePrice: 'стоимость одного диска',
+        totalPrice: 'стоимость комплекта (4 диска)',
+        note: 'Стоимость указана предварительной согласно расчётам, и не является публичной офертой.',
+        orderButton: 'Оформить заказ'
+      },
       features: {
         title: 'Преимущества кованых дисков',
-        weight: 'Снижение веса до 30%',
-        strength: 'Увеличенная прочность',
-        design: 'Любой дизайн',
-        warranty: 'Гарантия качества'
-      },
-      process: {
-        title: 'Как заказать диски под любые параметры',
-        subtitle: 'Компания DGT специализируется на изготовлении кованых дисков по индивидуальным проектам',
-        step1: {
-          title: 'Вы подбираете модель дисков из каталога, либо связываетесь с нами для заказа уникального дизайна',
-          button: 'Каталог дисков',
-          note: 'Более 300 моделей'
+        item1: {
+          title: 'Прочность',
+          desc: 'В 3 раза прочнее литых дисков'
         },
-        step2: {
-          title: 'После уточнения и согласования всех деталей оформляется заказ на производство',
-          button: 'Производство',
-          note: 'Производство любой модели за 30 дней'
+        item2: {
+          title: 'Лёгкость',
+          desc: 'На 20-30% легче стандартных дисков'
         },
-        step3: {
-          title: 'Через 6-8 недель Вы получаете свои новые уникальные и эксклюзивные диски',
-          button: 'Условия доставки',
-          note: 'Доставка по всей России'
+        item3: {
+          title: 'Уникальность',
+          desc: 'Изготовление по индивидуальным параметрам'
+        },
+        item4: {
+          title: 'Гарантия',
+          desc: '2 года гарантии на все диски'
         }
+      },
+      contact: {
+        title: 'Нужна консультация?',
+        desc: 'Свяжитесь с менеджером для подбора дисков под ваш автомобиль',
+        button: 'Связаться с менеджером'
       }
     },
     en: {
-      title: 'Forged Wheels',
-      subtitle: 'Custom wheel manufacturing for your car',
-      breadcrumb: {
-        home: 'Home',
-        wheels: 'Forged Wheels'
+      hero: {
+        label: 'Forged Wheels',
+        title: 'Forged',
+        titleAccent: 'Wheels',
+        description: 'DGT own production. Exclusive forged wheels with custom parameters'
       },
-      calculator: 'Calculate the cost of your new wheels',
-      step: 'Step',
-      of: 'of',
-      wheelType: 'Select wheel type',
-      monoblock: 'Monoblock',
-      monoblockDesc: 'We create light and strong wheels from solid forged aluminum billets.',
-      twopiece: 'Two-piece',
-      twopieceDesc: 'Possible to manufacture the required rim and center shapes in any color combination.',
-      diameter: 'Select diameter',
-      width: 'Select wheel width (J)',
-      et: 'Offset (ET)',
-      pcd: 'Bolt Pattern (PCD)',
-      color: 'Finish Color',
-      design: 'Design',
-      additionalOptions: 'Additional options',
-      polishing: 'Wheel Polishing',
-      polishingDesc: 'Gives wheels a unique look, can be applied to individual wheel elements.',
-      brushing: 'Brushing',
-      brushingDesc: 'Hand polishing followed by tinting lacquer coating.',
-      chroming: 'Chrome Plating',
-      chromingDesc: 'Gives individuality and uniqueness to the car.',
-      complexPainting: 'Complex Painting',
-      complexPaintingDesc: 'Multi-color painting, satin colors.',
-      nextStep: 'Next',
-      prevStep: 'Back',
-      calculate: 'Calculate Price',
-      priceTitle: 'Total price (4 wheels)',
-      pricePerWheel: 'price per wheel',
-      orderNow: 'Order Now',
-      reset: 'Start Over',
-      inches: 'inches',
-      mm: 'mm',
-      rubles: 'rub.',
-      selectedParams: 'Selected parameters:',
-      selectedOptions: 'Selected options:',
-      disclaimer: 'The price is preliminary according to calculations and is not a public offer. For an accurate calculation, submit a request to our manager.',
+      calculator: {
+        title: 'Calculate the cost',
+        subtitle: 'of your new wheels',
+        calculate: 'Calculate cost'
+      },
+      types: {
+        title: 'Select wheel type',
+        mono: 'Monoblock',
+        monoDesc: 'Light and strong wheels from solid forged aluminum blanks',
+        two: 'Two-piece',
+        twoDesc: 'Manufacturing of rim and center in any color combination'
+      },
+      params: {
+        title: 'Specify diameter and width',
+        diameterTitle: 'Select diameter',
+        widthTitle: 'Select wheel width (J)',
+        diameter: 'Diameter',
+        width: 'Width'
+      },
+      options: {
+        title: 'Additional options',
+        polish: 'Wheel polishing',
+        polishDesc: 'Give wheels a unique look',
+        brushing: 'Brushing',
+        brushingDesc: 'Hand sanding with lacquer coating',
+        chrome: 'Chrome plating',
+        chromeDesc: 'Individuality and uniqueness',
+        painting: 'Complex painting',
+        paintingDesc: 'Multi-color painting'
+      },
+      results: {
+        selected: 'Selected parameters:',
+        selectedOptions: 'Selected options:',
+        onePrice: 'cost of one wheel',
+        totalPrice: 'set cost (4 wheels)',
+        note: 'The cost is preliminary according to calculations and is not a public offer.',
+        orderButton: 'Place order'
+      },
       features: {
-        title: 'Forged Wheels Benefits',
-        weight: 'Weight reduction up to 30%',
-        strength: 'Increased strength',
-        design: 'Any design',
-        warranty: 'Quality guarantee'
-      },
-      process: {
-        title: 'How to order wheels for any parameters',
-        subtitle: 'DGT specializes in manufacturing forged wheels for individual projects',
-        step1: {
-          title: 'You select a wheel model from the catalog, or contact us to order a unique design',
-          button: 'Wheel Catalog',
-          note: 'More than 300 models'
+        title: 'Forged wheels advantages',
+        item1: {
+          title: 'Strength',
+          desc: '3 times stronger than cast wheels'
         },
-        step2: {
-          title: 'After clarifying and agreeing on all details, a production order is placed',
-          button: 'Production',
-          note: 'Production of any model in 30 days'
+        item2: {
+          title: 'Lightness',
+          desc: '20-30% lighter than standard wheels'
         },
-        step3: {
-          title: 'In 6-8 weeks you will receive your new unique and exclusive wheels',
-          button: 'Delivery Terms',
-          note: 'Delivery throughout Russia'
+        item3: {
+          title: 'Uniqueness',
+          desc: 'Manufacturing to individual parameters'
+        },
+        item4: {
+          title: 'Warranty',
+          desc: '2 years warranty on all wheels'
         }
+      },
+      contact: {
+        title: 'Need consultation?',
+        desc: 'Contact our manager to select wheels for your car',
+        button: 'Contact Manager'
       }
     }
   }
 
   const t = translations[currentLang]
 
-  const diameters = [16, 17, 18, 19, 20, 21, 22, 23, 24, 26]
-  const widths = [6.0, 6.5, 7.0, 7.5, 8.0, 8.5, 9.0, 9.5, 10.0, 10.5, 11.0, 11.5, 12.0, 12.5, 13.0, 13.5, 14.0, 14.5, 15.0, 15.5, 16.0]
-  const ets = Array.from({ length: 29 }, (_, i) => -15 + i * 5) // от -15 до 70 с шагом 5
-  const pcds = ['5x100', '5x108', '5x112', '5x114.3', '5x120', '5x127', '5x130', '5x139.7', '6x114.3', '6x139.7']
+  // Available diameters
+  const diameters = [16, 17, 18, 19, 20, 21, 22, 23, 24]
 
-  const colors = [
-    { value: 'black-gloss', label: currentLang === 'ru' ? 'Глянцевый черный' : 'Gloss Black' },
-    { value: 'black-matte', label: currentLang === 'ru' ? 'Матовый черный' : 'Matte Black' },
-    { value: 'silver', label: currentLang === 'ru' ? 'Серебристый' : 'Silver' },
-    { value: 'anthracite', label: currentLang === 'ru' ? 'Антрацит' : 'Anthracite' },
-    { value: 'bronze', label: currentLang === 'ru' ? 'Бронза' : 'Bronze' },
-    { value: 'gold', label: currentLang === 'ru' ? 'Золото' : 'Gold' },
-    { value: 'white', label: currentLang === 'ru' ? 'Белый' : 'White' },
-    { value: 'custom', label: currentLang === 'ru' ? 'Индивидуальный цвет' : 'Custom Color' }
-  ]
+  // Width ranges by diameter
+  const widthRanges: Record<number, { min: number; max: number }> = {
+    16: { min: 6, max: 7 },
+    17: { min: 7.5, max: 12 },
+    18: { min: 7.5, max: 13 },
+    19: { min: 8, max: 12 },
+    20: { min: 8, max: 14 },
+    21: { min: 8, max: 13 },
+    22: { min: 8, max: 12 },
+    23: { min: 10, max: 13 },
+    24: { min: 10, max: 12 }
+  }
 
-  const designs = [
-    { value: 'sport', label: currentLang === 'ru' ? 'Спортивный' : 'Sport' },
-    { value: 'classic', label: currentLang === 'ru' ? 'Классический' : 'Classic' },
-    { value: 'modern', label: currentLang === 'ru' ? 'Современный' : 'Modern' },
-    { value: 'aggressive', label: currentLang === 'ru' ? 'Агрессивный' : 'Aggressive' },
-    { value: 'elegant', label: currentLang === 'ru' ? 'Элегантный' : 'Elegant' }
-  ]
+  // Base prices for monoblock (4 wheels set)
+  const monoPrices: Record<number, number> = {
+    16: 135000,
+    17: 145000,
+    18: 162000,
+    19: 179000,
+    20: 215000,
+    21: 235000,
+    22: 245000,
+    23: 300000,
+    24: 350000
+  }
 
-  const additionalOptions = [
-    { 
-      value: 'polishing', 
-      label: t.polishing,
-      description: t.polishingDesc,
-      price: 8000,
-      image: '/images/polishing.jpg'
-    },
-    { 
-      value: 'brushing', 
-      label: t.brushing,
-      description: t.brushingDesc,
-      price: 10000,
-      image: '/images/brushing.jpg'
-    },
-    { 
-      value: 'chroming', 
-      label: t.chroming,
-      description: t.chromingDesc,
-      price: 15000,
-      image: '/images/chroming.jpg'
-    },
-    { 
-      value: 'complex-painting', 
-      label: t.complexPainting,
-      description: t.complexPaintingDesc,
-      price: 12000,
-      image: '/images/complex-painting.jpg'
-    }
-  ]
+  // Base prices for two-piece (4 wheels set)
+  const twoPrices: Record<number, number> = {
+    18: 220000,
+    19: 225000,
+    20: 246000,
+    21: 284000,
+    22: 318000,
+    24: 378000,
+    26: 430000
+  }
 
+  // Option prices (per set)
+  const optionPrices: Record<string, number> = {
+    polish: 20000,
+    brushing: 25000,
+    chrome: 80000,
+    painting: 35000
+  }
+
+  // Calculate total price
   const calculatePrice = () => {
-    let basePrice = 35000
-
-    // Тип диска
-    const typeMultiplier = params.type === 'mono' ? 1.0 : 1.35
-
-    // Цена зависит от диаметра
-    const diameterPrices: { [key: number]: number } = {
-      16: 135000,
-      17: 145000,
-      18: 162000,
-      19: 179000,
-      20: 215000,
-      21: 235000,
-      22: 245000,
-      23: 300000,
-      24: 350000,
-      26: 430000
+    let basePrice = wheelType === 'mono' ? monoPrices[diameter] || 0 : twoPrices[diameter] || 0
+    
+    // Add width coefficient (wider = more expensive)
+    const range = widthRanges[diameter]
+    if (range) {
+      const widthCoef = (width - range.min) / (range.max - range.min)
+      basePrice += basePrice * widthCoef * 0.15 // Up to 15% increase for max width
     }
 
-    basePrice = (diameterPrices[params.diameter] || 200000) / 4 * typeMultiplier
-
-    // Цена зависит от ширины
-    if (params.width >= 12.0) {
-      basePrice *= 1.3
-    } else if (params.width >= 10.0) {
-      basePrice *= 1.2
-    } else if (params.width >= 9.0) {
-      basePrice *= 1.1
-    }
-
-    // Доплата за специальные цвета
-    const colorValue = colors.find(c => c.value === params.color)?.value
-    if (colorValue === 'bronze' || colorValue === 'gold') {
-      basePrice += 8000
-    } else if (colorValue === 'custom') {
-      basePrice += 15000
-    }
-
-    // Доплата за сложный дизайн
-    if (params.design === 'aggressive' || params.design === 'elegant') {
-      basePrice += 5000
-    }
-
-    // Дополнительные опции
-    params.options.forEach(option => {
-      const opt = additionalOptions.find(o => o.value === option)
-      if (opt) {
-        basePrice += opt.price
-      }
+    // Add options
+    selectedOptions.forEach(option => {
+      basePrice += optionPrices[option] || 0
     })
 
     return Math.round(basePrice)
   }
 
+  const totalPrice = calculatePrice()
+  const oneWheelPrice = Math.round(totalPrice / 4)
+
+  const handleOptionToggle = (option: string) => {
+    setSelectedOptions(prev => 
+      prev.includes(option) 
+        ? prev.filter(o => o !== option)
+        : [...prev, option]
+    )
+  }
+
+  const handleCalculate = (e: React.FormEvent) => {
+    e.preventDefault()
+    setShowResults(true)
+  }
+
+  // Update width when diameter changes
   useEffect(() => {
-    if (step === 4) {
-      setCalculatedPrice(calculatePrice())
+    const range = widthRanges[diameter]
+    if (range && (width < range.min || width > range.max)) {
+      setWidth(range.min)
     }
-  }, [step, params])
+  }, [diameter])
 
-  const handleNext = () => {
-    if (step < 4) {
-      setStep(step + 1)
-    }
+  const getSelectedParams = () => {
+    return `${t.types[wheelType]}, ${diameter}", ${width}J`
   }
 
-  const handlePrev = () => {
-    if (step > 1) {
-      setStep(step - 1)
-    }
-  }
-
-  const handleReset = () => {
-    setStep(1)
-    setParams({
-      type: 'mono',
-      diameter: 19,
-      width: 8.5,
-      et: 35,
-      pcd: '5x112',
-      color: 'Глянцевый черный',
-      design: 'Спортивный',
-      options: []
-    })
-    setCalculatedPrice(0)
-  }
-
-  const toggleOption = (option: string) => {
-    setParams(prev => ({
-      ...prev,
-      options: prev.options.includes(option)
-        ? prev.options.filter(o => o !== option)
-        : [...prev.options, option]
-    }))
-  }
-
-  const getParamSummary = () => {
-    const typeLabel = params.type === 'mono' ? t.monoblock : t.twopiece
-    return `${typeLabel}, ${params.diameter}" × ${params.width}J, ET ${params.et}, ${params.pcd}`
-  }
-
-  const getOptionsSummary = () => {
-    if (params.options.length === 0) return currentLang === 'ru' ? 'Не выбрано' : 'None selected'
-    return params.options
-      .map(opt => additionalOptions.find(o => o.value === opt)?.label)
-      .join(', ')
+  const getSelectedOptionsText = () => {
+    if (selectedOptions.length === 0) return 'Нет'
+    return selectedOptions.map(opt => {
+      switch(opt) {
+        case 'polish': return t.options.polish
+        case 'brushing': return t.options.brushing
+        case 'chrome': return t.options.chrome
+        case 'painting': return t.options.painting
+        default: return ''
+      }
+    }).join(', ')
   }
 
   return (
     <>
       <Header currentLang={currentLang} onLanguageChange={setCurrentLang} />
-      
-      <div className={styles.wheelsPage}>
-        {/* Hero Section */}
-        <section className={styles.hero}>
-          <div className={styles.heroBackground}>
-            <div className={styles.gridPattern}></div>
-            <div className={styles.glowOrb1}></div>
-            <div className={styles.glowOrb2}></div>
-            <div className={styles.glowOrb3}></div>
-          </div>
-          
-          <div className={styles.heroContainer}>
-            <div className={styles.heroContent}>
-              <div className={styles.heroLabel}>PREMIUM FORGED WHEELS</div>
-              
-              <h1 className={styles.heroTitle}>
-                Кованые диски<br />
-                премиум класса
-              </h1>
-              
-              <p className={styles.heroText}>
-                Индивидуальное производство эксклюзивных дисков<br />
-                для вашего автомобиля. Любой размер. Любой дизайн.
-              </p>
-              
-              <div className={styles.heroButtons}>
-                <button 
-                  onClick={() => {
-                    const calculatorSection = document.querySelector(`.${styles.calculatorSection}`)
-                    calculatorSection?.scrollIntoView({ behavior: 'smooth' })
-                  }}
-                  className={styles.primaryButton}
-                >
-                  Рассчитать стоимость
-                </button>
-                <Link href="/catalog" className={styles.secondaryButton}>
-                  Смотреть каталог
-                </Link>
-              </div>
-            </div>
-          </div>
-        </section>
+
+      {/* Hero Section */}
+      <section className={styles.hero}>
+        <div className={styles.heroBackground}>
+          <div className={styles.gridPattern}></div>
+          <div className={styles.glowOrb1}></div>
+          <div className={styles.glowOrb2}></div>
+        </div>
+        <div className={styles.heroContent}>
+          <div className={styles.heroLabel}>{t.hero.label}</div>
+          <h1 className={styles.heroTitle}>
+            {t.hero.title}
+            <span className={styles.heroTitleAccent}> {t.hero.titleAccent}</span>
+          </h1>
+          <p className={styles.heroDescription}>{t.hero.description}</p>
+        </div>
+      </section>
 
       {/* Calculator Section */}
       <section className={styles.calculatorSection}>
         <div className={styles.container}>
-          <div className={styles.sectionHeader}>
-            <h2 className={styles.sectionTitle}>Конфигуратор дисков</h2>
-            <p className={styles.sectionSubtitle}>
-              Выберите параметры и получите расчет стоимости за 1 минуту
-            </p>
-          </div>
-
-          <div className={styles.calculatorWrapper}>
-            <div className={styles.calculatorProgress}>
-              <div className={styles.progressLine}>
-                <div 
-                  className={styles.progressActive} 
-                  style={{ width: `${(step / 4) * 100}%` }}
-                ></div>
+          <div className={styles.calculator}>
+            <div 
+              className={`${styles.calculatorTop} ${calculatorOpen ? styles.calculatorTopOpen : ''}`}
+              onClick={() => setCalculatorOpen(!calculatorOpen)}
+            >
+              <div className={styles.calculatorTopHeadline}>
+                <span>{t.calculator.title}</span><br />
+                {t.calculator.subtitle}
               </div>
-              <div className={styles.progressLabel}>Шаг {step} из 4</div>
+              <div className={styles.calculatorTopBtn}>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M6 9l6 6 6-6"/>
+                </svg>
+              </div>
             </div>
 
-            <div className={styles.stepsContainer}>
-              {step === 1 && (
-                <div className={styles.step}>
-                  <h3 className={styles.stepTitle}>{t.wheelType}</h3>
-                  <div className={styles.wheelTypeGrid}>
-                    <label className={`${styles.wheelTypeCard} ${params.type === 'mono' ? styles.active : ''}`}>
+            <div className={`${styles.calculatorBody} ${calculatorOpen ? styles.calculatorBodyOpen : ''}`}>
+              <form onSubmit={handleCalculate}>
+                {/* Type Selection */}
+                <div className={styles.calculatorBlock}>
+                  <div className={styles.calculatorTitle}>{t.types.title}</div>
+                  <div className={styles.calculatorLabel}>
+                    <label className={wheelType === 'mono' ? styles.labelActive : ''}>
                       <input 
                         type="radio" 
                         name="type" 
-                        value="mono" 
-                        checked={params.type === 'mono'}
-                        onChange={(e) => setParams({ ...params, type: 'mono' })}
+                        value="mono"
+                        checked={wheelType === 'mono'}
+                        onChange={(e) => setWheelType('mono')}
                       />
-                      <div className={styles.wheelTypeContent}>
-                        <span className={styles.wheelTypeLabel}>{t.monoblock}</span>
-                        <p className={styles.wheelTypeDesc}>{t.monoblockDesc}</p>
-                      </div>
+                      <span>{t.types.mono}</span>
+                      {t.types.monoDesc}
                     </label>
-                    <label className={`${styles.wheelTypeCard} ${params.type === 'two' ? styles.active : ''}`}>
+                    <label className={wheelType === 'two' ? styles.labelActive : ''}>
                       <input 
                         type="radio" 
                         name="type" 
-                        value="two" 
-                        checked={params.type === 'two'}
-                        onChange={(e) => setParams({ ...params, type: 'two' })}
+                        value="two"
+                        checked={wheelType === 'two'}
+                        onChange={(e) => setWheelType('two')}
                       />
-                      <div className={styles.wheelTypeContent}>
-                        <span className={styles.wheelTypeLabel}>{t.twopiece}</span>
-                        <p className={styles.wheelTypeDesc}>{t.twopieceDesc}</p>
-                      </div>
+                      <span>{t.types.two}</span>
+                      {t.types.twoDesc}
                     </label>
                   </div>
                 </div>
-              )}
 
-              {step === 2 && (
-                <div className={styles.step}>
-                  <h3 className={styles.stepTitle}>{t.diameter}</h3>
-                  <div className={styles.optionsGrid}>
-                    {diameters.map(diameter => (
-                      <div
-                        key={diameter}
-                        className={`${styles.optionCard} ${params.diameter === diameter ? styles.active : ''}`}
-                        onClick={() => setParams({ ...params, diameter })}
+                {/* Diameter and Width */}
+                <div className={styles.calculatorBlock}>
+                  <div className={styles.calculatorTitle}>{t.params.title}</div>
+                  
+                  <div className={styles.calculatorSubtitle}>{t.params.diameterTitle}</div>
+                  <div className={styles.diameterGrid}>
+                    {diameters.map(d => (
+                      <button
+                        key={d}
+                        type="button"
+                        className={`${styles.diameterButton} ${diameter === d ? styles.diameterButtonActive : ''}`}
+                        onClick={() => setDiameter(d)}
                       >
-                        <div className={styles.optionValue}>{diameter}"</div>
-                      </div>
+                        {d}"
+                      </button>
                     ))}
                   </div>
 
-                  <div className={styles.stepDivider}></div>
-
-                  <h3 className={styles.stepTitle}>{t.width}</h3>
-                  <div className={styles.rangeWrapper}>
-                    <div className={styles.rangeValue}>{params.width}J</div>
+                  <div className={styles.calculatorRange}>
+                    <div className={styles.calculatorSubtitle}>{t.params.widthTitle}</div>
+                    <div className={styles.rangeValue}>{width}J</div>
                     <input
                       type="range"
-                      min={widths[0]}
-                      max={widths[widths.length - 1]}
-                      step={0.5}
-                      value={params.width}
-                      onChange={(e) => setParams({ ...params, width: parseFloat(e.target.value) })}
-                      className={styles.rangeSlider}
+                      min={widthRanges[diameter]?.min || 6}
+                      max={widthRanges[diameter]?.max || 12}
+                      step="0.5"
+                      value={width}
+                      onChange={(e) => setWidth(parseFloat(e.target.value))}
+                      className={styles.rangeInput}
                     />
                     <div className={styles.rangeLabels}>
-                      <span>{widths[0]}J</span>
-                      <span>{widths[widths.length - 1]}J</span>
+                      <span>{widthRanges[diameter]?.min}J</span>
+                      <span>{widthRanges[diameter]?.max}J</span>
                     </div>
                   </div>
                 </div>
-              )}
 
-              {step === 3 && (
-                <div className={styles.step}>
-                  <h3 className={styles.stepTitle}>{t.additionalOptions}</h3>
-                  <div className={styles.optionsCheckboxGrid}>
-                    {additionalOptions.map(option => (
-                      <label 
-                        key={option.value}
-                        className={`${styles.optionCheckbox} ${params.options.includes(option.value) ? styles.active : ''}`}
-                      >
-                        <input
-                          type="checkbox"
-                          checked={params.options.includes(option.value)}
-                          onChange={() => toggleOption(option.value)}
-                        />
-                        <div className={styles.optionCheckboxContent}>
-                          <div className={styles.optionCheckboxHeader}>
-                            <span className={styles.optionCheckboxLabel}>{option.label}</span>
-                            <div className={styles.optionTooltip}>
-                              <svg className={styles.infoIcon} viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                                <circle cx="12" cy="12" r="10"/>
-                                <path d="M12 16v-4M12 8h.01"/>
-                              </svg>
-                              <div className={styles.optionTooltipContent}>
-                                <p>{option.description}</p>
-                                <div className={styles.optionPrice}>+{option.price.toLocaleString()} {t.rubles}</div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </label>
-                    ))}
-                  </div>
-                </div>
-              )}
+                {/* Options */}
+                <div className={styles.calculatorBlock}>
+                  <div className={styles.calculatorTitle}>{t.options.title}</div>
+                  <div className={styles.optionsGrid}>
+                    <label className={selectedOptions.includes('polish') ? styles.optionActive : ''}>
+                      <input
+                        type="checkbox"
+                        checked={selectedOptions.includes('polish')}
+                        onChange={() => handleOptionToggle('polish')}
+                      />
+                      <span className={styles.optionName}>{t.options.polish}</span>
+                      <span className={styles.optionDesc}>{t.options.polishDesc}</span>
+                    </label>
 
-              {step === 4 && (
-                <div className={styles.resultStep}>
-                  <div className={styles.resultHeader}>
-                    <h3 className={styles.resultTitle}>Ваша конфигурация готова</h3>
-                  </div>
+                    <label className={selectedOptions.includes('brushing') ? styles.optionActive : ''}>
+                      <input
+                        type="checkbox"
+                        checked={selectedOptions.includes('brushing')}
+                        onChange={() => handleOptionToggle('brushing')}
+                      />
+                      <span className={styles.optionName}>{t.options.brushing}</span>
+                      <span className={styles.optionDesc}>{t.options.brushingDesc}</span>
+                    </label>
 
-                  <div className={styles.resultCard}>
-                    <div className={styles.resultParams}>
-                      <div className={styles.paramRow}>
-                        <span className={styles.paramLabel}>Конфигурация:</span>
-                        <span className={styles.paramValue}>{getParamSummary()}</span>
-                      </div>
-                      {params.options.length > 0 && (
-                        <div className={styles.paramRow}>
-                          <span className={styles.paramLabel}>Опции:</span>
-                          <span className={styles.paramValue}>{getOptionsSummary()}</span>
-                        </div>
-                      )}
-                    </div>
+                    <label className={selectedOptions.includes('chrome') ? styles.optionActive : ''}>
+                      <input
+                        type="checkbox"
+                        checked={selectedOptions.includes('chrome')}
+                        onChange={() => handleOptionToggle('chrome')}
+                      />
+                      <span className={styles.optionName}>{t.options.chrome}</span>
+                      <span className={styles.optionDesc}>{t.options.chromeDesc}</span>
+                    </label>
 
-                    <div className={styles.resultPrice}>
-                      <div className={styles.pricePerWheel}>
-                        <span className={styles.priceLabel}>Цена за диск</span>
-                        <span className={styles.priceValue}>{calculatedPrice.toLocaleString('ru-RU')} ₽</span>
-                      </div>
-                      <div className={styles.priceTotal}>
-                        <span className={styles.totalLabel}>Комплект (4 шт)</span>
-                        <span className={styles.totalValue}>{(calculatedPrice * 4).toLocaleString('ru-RU')} ₽</span>
-                      </div>
-                    </div>
-
-                    <div className={styles.resultFeatures}>
-                      <div className={styles.feature}>✓ Гарантия 3 года</div>
-                      <div className={styles.feature}>✓ Доставка по РФ</div>
-                      <div className={styles.feature}>✓ Производство 30 дней</div>
-                    </div>
+                    <label className={selectedOptions.includes('painting') ? styles.optionActive : ''}>
+                      <input
+                        type="checkbox"
+                        checked={selectedOptions.includes('painting')}
+                        onChange={() => handleOptionToggle('painting')}
+                      />
+                      <span className={styles.optionName}>{t.options.painting}</span>
+                      <span className={styles.optionDesc}>{t.options.paintingDesc}</span>
+                    </label>
                   </div>
 
-                  <div className={styles.resultActions}>
-                    <Link href="/contacts" className={styles.orderBtn}>
-                      Оформить заказ
-                    </Link>
-                    <button onClick={handleReset} className={styles.resetBtn}>
-                      Начать заново
+                  <div className={styles.calculatorSubmit}>
+                    <button type="submit" className={styles.calculateButton}>
+                      {t.calculator.calculate}
                     </button>
                   </div>
                 </div>
-              )}
+              </form>
+            </div>
 
-              {step < 4 && (
-                <div className={styles.navigationButtons}>
-                  {step > 1 && (
-                    <button onClick={handlePrev} className={styles.prevButton}>
-                      <svg width="20" height="12" viewBox="0 0 20 12" fill="none">
-                        <path d="M19 6H1M1 6L6 1M1 6L6 11" stroke="currentColor" strokeWidth="1.5"/>
-                      </svg>
-                      {t.prevStep}
-                    </button>
-                  )}
-                  <button onClick={handleNext} className={styles.nextButton}>
-                    {step === 3 ? t.calculate : t.nextStep}
+            {/* Results */}
+            {showResults && (
+              <div className={styles.calculatorBottom}>
+                <div className={styles.calculatorResults}>
+                  <div className={styles.resultsLeft}>
+                    <div className={styles.resultsBlock}>
+                      <div className={styles.resultsTitle}>{t.results.selected}</div>
+                      <span>{getSelectedParams()}</span>
+                    </div>
+                    <div className={styles.resultsBlock}>
+                      <div className={styles.resultsTitle}>{t.results.selectedOptions}</div>
+                      <span>{getSelectedOptionsText()}</span>
+                    </div>
+                    <div className={styles.resultsPrice}>
+                      <span>{oneWheelPrice.toLocaleString('ru-RU')}</span> ₽
+                      <div className={styles.resultsTitle}>{t.results.onePrice}</div>
+                    </div>
+                  </div>
+                  <div className={styles.resultsRight}>
+                    <div className={styles.resultsTotal}>
+                      <span>{totalPrice.toLocaleString('ru-RU')}</span> ₽
+                    </div>
+                    <div className={styles.resultsNote}>{t.results.totalPrice}</div>
+                  </div>
+                </div>
+                <div className={styles.calculatorNote}>{t.results.note}</div>
+                <div className={styles.calculatorOrder}>
+                  <a 
+                    href="https://t.me/dgt_manager"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={styles.orderButton}
+                  >
+                    {t.results.orderButton}
                     <svg width="20" height="12" viewBox="0 0 20 12" fill="none">
                       <path d="M1 6H19M19 6L14 1M19 6L14 11" stroke="currentColor" strokeWidth="1.5"/>
                     </svg>
-                  </button>
+                  </a>
                 </div>
-              )}
-
-              {step < 4 && (
-                <div className={styles.stepNav}>
-                  {step > 1 && (
-                    <button onClick={handlePrev} className={styles.navPrev}>
-                      ← Назад
-                    </button>
-                  )}
-                  <button onClick={handleNext} className={styles.navNext}>
-                    {step === 3 ? 'Рассчитать' : 'Далее'} →
-                  </button>
-                </div>
-              )}
-            </div>
+              </div>
+            )}
           </div>
         </div>
       </section>
 
-      {/* Process Section */}
-      <section className={styles.processSection}>
+      {/* Features Section */}
+      <section className={styles.featuresSection}>
         <div className={styles.container}>
-          <div className={styles.processTop}>
-            <h2 className={styles.processHeadline}>{t.process.title}</h2>
-            <p className={styles.processInfo}>{t.process.subtitle}</p>
-          </div>
-          <div className={styles.stepsList}>
-            <div className={styles.processStep}>
-              <div className={styles.stepNumber}>1</div>
-              <div className={styles.stepText}>{t.process.step1.title}</div>
-              <Link href="/catalog" className={styles.stepButton}>{t.process.step1.button}</Link>
-              <div className={styles.stepNote}>{t.process.step1.note}</div>
+          <h2 className={styles.featuresTitle}>{t.features.title}</h2>
+          <div className={styles.featuresGrid}>
+            <div className={styles.featureCard}>
+              <div className={styles.featureIcon}>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                  <path d="M9 12l2 2 4-4m6 2a9 9 0 1 1-18 0 9 9 0 0 1 18 0z"/>
+                </svg>
+              </div>
+              <h3 className={styles.featureTitle}>{t.features.item1.title}</h3>
+              <p className={styles.featureDesc}>{t.features.item1.desc}</p>
             </div>
-            <div className={styles.processStep}>
-              <div className={styles.stepNumber}>2</div>
-              <div className={styles.stepText}>{t.process.step2.title}</div>
-              <Link href="/production" className={styles.stepButton}>{t.process.step2.button}</Link>
-              <div className={styles.stepNote}>{t.process.step2.note}</div>
+
+            <div className={styles.featureCard}>
+              <div className={styles.featureIcon}>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                  <path d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                </svg>
+              </div>
+              <h3 className={styles.featureTitle}>{t.features.item2.title}</h3>
+              <p className={styles.featureDesc}>{t.features.item2.desc}</p>
             </div>
-            <div className={styles.processStep}>
-              <div className={styles.stepNumber}>3</div>
-              <div className={styles.stepText}>{t.process.step3.title}</div>
-              <Link href="/delivery" className={styles.stepButton}>{t.process.step3.button}</Link>
-              <div className={styles.stepNote}>{t.process.step3.note}</div>
+
+            <div className={styles.featureCard}>
+              <div className={styles.featureIcon}>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                  <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                  <path d="M2 17l10 5 10-5"/>
+                  <path d="M2 12l10 5 10-5"/>
+                </svg>
+              </div>
+              <h3 className={styles.featureTitle}>{t.features.item3.title}</h3>
+              <p className={styles.featureDesc}>{t.features.item3.desc}</p>
+            </div>
+
+            <div className={styles.featureCard}>
+              <div className={styles.featureIcon}>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                  <path d="M9 12l2 2 4-4m6 2a9 9 0 1 1-18 0 9 9 0 0 1 18 0z"/>
+                </svg>
+              </div>
+              <h3 className={styles.featureTitle}>{t.features.item4.title}</h3>
+              <p className={styles.featureDesc}>{t.features.item4.desc}</p>
             </div>
           </div>
         </div>
       </section>
-    </div>
 
-    <Footer currentLang={currentLang} />
-  </>
+      {/* Contact Section */}
+      <section className={styles.contactSection}>
+        <div className={styles.container}>
+          <div className={styles.contactCard}>
+            <h3 className={styles.contactTitle}>{t.contact.title}</h3>
+            <p className={styles.contactDesc}>{t.contact.desc}</p>
+            <a 
+              href="https://t.me/dgt_manager"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.contactButton}
+            >
+              <span>{t.contact.button}</span>
+              <svg width="20" height="12" viewBox="0 0 20 12" fill="none">
+                <path d="M1 6H19M19 6L14 1M19 6L14 11" stroke="currentColor" strokeWidth="1.5"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <Footer currentLang={currentLang} />
+    </>
   )
 }
