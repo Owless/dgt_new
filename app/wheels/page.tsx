@@ -422,14 +422,24 @@ export default function WheelsPage() {
 
       {/* Calculator Section */}
       <section className={styles.calculatorSection}>
-        <div className={styles.container}>
-          <div className={styles.calculatorTop}>
-            <div className={styles.calculatorHeadline}>
-              <span>{t.calculator}</span>
+        <div className={styles.calculatorContainer}>
+          <div className={styles.calculatorHeader}>
+            <div className={styles.calculatorBadge}>
+              <span className={styles.badgeDot}></span>
+              <span>ОНЛАЙН КАЛЬКУЛЯТОР</span>
+              <span className={styles.badgeDot}></span>
             </div>
+            <h2 className={styles.calculatorMainTitle}>
+              Рассчитайте стоимость<br />
+              <span className={styles.highlightText}>ваших идеальных дисков</span>
+            </h2>
+            <p className={styles.calculatorSubtitle}>
+              Создайте уникальную конфигурацию за 4 простых шага<br />
+              и получите точную цену прямо сейчас
+            </p>
           </div>
 
-          <div className={styles.calculatorBody}>
+          <div className={styles.calculatorCard}>
             <div className={styles.progressBar}>
               <div className={styles.progressTrack}>
                 <div 
@@ -437,15 +447,36 @@ export default function WheelsPage() {
                   style={{ width: `${(step / 4) * 100}%` }}
                 ></div>
               </div>
-              <div className={styles.progressText}>
-                {t.step} {step} {t.of} 4
+              <div className={styles.progressSteps}>
+                {[1, 2, 3, 4].map((s) => (
+                  <div 
+                    key={s} 
+                    className={`${styles.progressStep} ${step >= s ? styles.activeStep : ''} ${step === s ? styles.currentStep : ''}`}
+                  >
+                    <div className={styles.stepCircle}>{s}</div>
+                    <div className={styles.stepLabel}>
+                      {s === 1 && 'Тип'}
+                      {s === 2 && 'Размеры'}
+                      {s === 3 && 'Опции'}
+                      {s === 4 && 'Результат'}
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
 
             <div className={styles.calculatorContent}>
               {step === 1 && (
                 <div className={styles.stepContent}>
-                  <h3 className={styles.stepTitle}>{t.wheelType}</h3>
+                  <div className={styles.stepHeader}>
+                    <h3 className={styles.stepTitle}>{t.wheelType}</h3>
+                    <div className={styles.stepBenefit}>
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <path d="M9 12l2 2 4-4m6 2a9 9 0 1 1-18 0 9 9 0 0 1 18 0z" />
+                      </svg>
+                      <span>Бесплатная консультация при заказе</span>
+                    </div>
+                  </div>
                   <div className={styles.wheelTypeGrid}>
                     <label className={`${styles.wheelTypeCard} ${params.type === 'mono' ? styles.active : ''}`}>
                       <input 
@@ -479,7 +510,15 @@ export default function WheelsPage() {
 
               {step === 2 && (
                 <div className={styles.stepContent}>
-                  <h3 className={styles.stepTitle}>{t.diameter}</h3>
+                  <div className={styles.stepHeader}>
+                    <h3 className={styles.stepTitle}>{t.diameter}</h3>
+                    <div className={styles.stepBenefit}>
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <path d="M13 10V3L4 14h7v7l9-11h-7z" />
+                      </svg>
+                      <span>Снижение веса до 30%</span>
+                    </div>
+                  </div>
                   <div className={styles.optionsGrid}>
                     {diameters.map(diameter => (
                       <div
@@ -516,7 +555,15 @@ export default function WheelsPage() {
 
               {step === 3 && (
                 <div className={styles.stepContent}>
-                  <h3 className={styles.stepTitle}>{t.additionalOptions}</h3>
+                  <div className={styles.stepHeader}>
+                    <h3 className={styles.stepTitle}>{t.additionalOptions}</h3>
+                    <div className={styles.stepBenefit}>
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" />
+                      </svg>
+                      <span>Эксклюзивный дизайн только для вас</span>
+                    </div>
+                  </div>
                   <div className={styles.optionsCheckboxGrid}>
                     {additionalOptions.map(option => (
                       <label 
@@ -551,6 +598,16 @@ export default function WheelsPage() {
 
               {step === 4 && (
                 <div className={styles.resultContent}>
+                  <div className={styles.resultHeader}>
+                    <div className={styles.successBadge}>
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <path d="M9 12l2 2 4-4m6 2a9 9 0 1 1-18 0 9 9 0 0 1 18 0z" />
+                      </svg>
+                      <span>Расчет готов!</span>
+                    </div>
+                    <h3 className={styles.resultTitle}>Ваша уникальная конфигурация</h3>
+                  </div>
+
                   <div className={styles.calculatorResults}>
                     <div className={styles.resultsLeft}>
                       <div className={styles.resultsBlock}>
@@ -561,29 +618,72 @@ export default function WheelsPage() {
                         <div className={styles.resultsTitle}>{t.selectedOptions}</div>
                         <span className={styles.resultsText}>{getOptionsSummary()}</span>
                       </div>
-                      <div className={styles.resultsPrice}>
-                        <span className={styles.priceAmount}>{calculatedPrice.toLocaleString('ru-RU')}</span> {t.rubles}
-                        <div className={styles.priceLabel}>{t.pricePerWheel}</div>
+                      
+                      <div className={styles.priceSection}>
+                        <div className={styles.resultsPrice}>
+                          <span className={styles.priceAmount}>{calculatedPrice.toLocaleString('ru-RU')}</span> {t.rubles}
+                          <div className={styles.priceLabel}>{t.pricePerWheel}</div>
+                        </div>
+                        
+                        <div className={styles.priceHighlight}>
+                          <div className={styles.totalPriceBox}>
+                            <div className={styles.totalLabel}>Стоимость комплекта (4 диска)</div>
+                            <div className={styles.totalPrice}>
+                              <span className={styles.totalAmount}>{(calculatedPrice * 4).toLocaleString('ru-RU')}</span> {t.rubles}
+                            </div>
+                          </div>
+                        </div>
                       </div>
-                    </div>
-                    <div className={styles.resultsRight}>
-                      <div className={styles.resultsTotal}>
-                        <span className={styles.totalAmount}>{(calculatedPrice * 4).toLocaleString('ru-RU')}</span> {t.rubles}
-                      </div>
-                      <div className={styles.resultsNote}>{t.priceTitle}</div>
                     </div>
                   </div>
 
-                  <div className={styles.disclaimer}>{t.disclaimer}</div>
+                  <div className={styles.benefitsList}>
+                    <div className={styles.benefitItem}>
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <path d="M5 13l4 4L19 7" />
+                      </svg>
+                      <span>Гарантия 3 года</span>
+                    </div>
+                    <div className={styles.benefitItem}>
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <path d="M5 13l4 4L19 7" />
+                      </svg>
+                      <span>Бесплатная доставка по РФ</span>
+                    </div>
+                    <div className={styles.benefitItem}>
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <path d="M5 13l4 4L19 7" />
+                      </svg>
+                      <span>Производство 30 дней</span>
+                    </div>
+                    <div className={styles.benefitItem}>
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <path d="M5 13l4 4L19 7" />
+                      </svg>
+                      <span>Эксклюзивный дизайн</span>
+                    </div>
+                  </div>
+
+                  <div className={styles.urgencyBox}>
+                    <div className={styles.urgencyIcon}>⚡</div>
+                    <div className={styles.urgencyText}>
+                      <strong>Специальное предложение!</strong> Закажите сегодня и получите скидку 5% на покраску
+                    </div>
+                  </div>
 
                   <div className={styles.resultButtons}>
                     <Link href="/contacts" className={styles.orderButton}>
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <path d="M3 3h18v18H3V3zm9 9l-3-3m3 3l3-3m-3 3v9" />
+                      </svg>
                       {t.orderNow}
                     </Link>
                     <button onClick={handleReset} className={styles.resetButton}>
                       {t.reset}
                     </button>
                   </div>
+
+                  <div className={styles.disclaimer}>{t.disclaimer}</div>
                 </div>
               )}
 
@@ -605,48 +705,6 @@ export default function WheelsPage() {
                   </button>
                 </div>
               )}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Features Section */}
-      <section className={styles.featuresSection}>
-        <div className={styles.container}>
-          <h2 className={styles.sectionTitle}>{t.features.title}</h2>
-          <div className={styles.featuresGrid}>
-            <div className={styles.featureCard}>
-              <div className={styles.featureIcon}>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                  <path d="M13 10V3L4 14h7v7l9-11h-7z" />
-                </svg>
-              </div>
-              <div className={styles.featureTitle}>{t.features.weight}</div>
-            </div>
-            <div className={styles.featureCard}>
-              <div className={styles.featureIcon}>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                  <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" />
-                </svg>
-              </div>
-              <div className={styles.featureTitle}>{t.features.strength}</div>
-            </div>
-            <div className={styles.featureCard}>
-              <div className={styles.featureIcon}>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                  <circle cx="12" cy="12" r="10" />
-                  <path d="M12 2v20M2 12h20" />
-                </svg>
-              </div>
-              <div className={styles.featureTitle}>{t.features.design}</div>
-            </div>
-            <div className={styles.featureCard}>
-              <div className={styles.featureIcon}>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                  <path d="M9 12l2 2 4-4m6 2a9 9 0 1 1-18 0 9 9 0 0 1 18 0z" />
-                </svg>
-              </div>
-              <div className={styles.featureTitle}>{t.features.warranty}</div>
             </div>
           </div>
         </div>
