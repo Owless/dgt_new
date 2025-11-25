@@ -18,12 +18,8 @@ interface WheelParams {
   options: string[]
 }
 
-interface WheelsPageProps {
-  currentLang?: 'ru' | 'en'
-}
-
-export default function WheelsPage({ currentLang: initialLang = 'ru' }: WheelsPageProps) {
-  const [currentLang, setCurrentLang] = useState<'ru' | 'en'>(initialLang)
+export default function WheelsPage() {
+  const [currentLang, setCurrentLang] = useState<'ru' | 'en'>('ru')
   const [step, setStep] = useState(1)
   const [params, setParams] = useState<WheelParams>({
     type: 'mono',
