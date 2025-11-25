@@ -377,6 +377,398 @@
   font-weight: 300;
 }
 
+/* Calculator Layout with Live Preview */
+.calculatorLayout {
+  display: grid;
+  grid-template-columns: 500px 1fr;
+  gap: 40px;
+  position: relative;
+  z-index: 1;
+}
+
+/* Live Preview Section */
+.previewSection {
+  position: sticky;
+  top: 100px;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.previewCard {
+  background: linear-gradient(135deg, rgba(15, 15, 15, 0.95), rgba(20, 20, 20, 0.9));
+  border: 1px solid rgba(220, 38, 38, 0.2);
+  border-radius: 20px;
+  padding: 30px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+  position: relative;
+}
+
+.previewHeader {
+  margin-bottom: 25px;
+  display: flex;
+  justify-content: center;
+}
+
+.previewBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  background: rgba(220, 38, 38, 0.15);
+  border: 1px solid rgba(220, 38, 38, 0.3);
+  border-radius: 50px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  color: #dc2626;
+  text-transform: uppercase;
+}
+
+.previewBadge svg {
+  width: 16px;
+  height: 16px;
+}
+
+.previewCanvas {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: linear-gradient(135deg, #0a0a0a 0%, #050505 100%);
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  margin-bottom: 25px;
+}
+
+.carImage {
+  position: absolute;
+  inset: 0;
+  opacity: 0.9;
+  filter: brightness(0.8);
+  z-index: 1;
+}
+
+.wheelFront,
+.wheelRear {
+  position: absolute;
+  width: 28%;
+  height: 28%;
+  z-index: 2;
+  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.8));
+}
+
+.wheelFront {
+  bottom: 18%;
+  left: 15%;
+}
+
+.wheelRear {
+  bottom: 18%;
+  right: 12%;
+}
+
+/* Dynamic sizing based on diameter */
+.wheelFront[data-diameter="16"],
+.wheelRear[data-diameter="16"] {
+  width: 24%;
+  height: 24%;
+}
+
+.wheelFront[data-diameter="17"],
+.wheelRear[data-diameter="17"] {
+  width: 25%;
+  height: 25%;
+}
+
+.wheelFront[data-diameter="18"],
+.wheelRear[data-diameter="18"] {
+  width: 26%;
+  height: 26%;
+}
+
+.wheelFront[data-diameter="19"],
+.wheelRear[data-diameter="19"] {
+  width: 28%;
+  height: 28%;
+}
+
+.wheelFront[data-diameter="20"],
+.wheelRear[data-diameter="20"] {
+  width: 30%;
+  height: 30%;
+}
+
+.wheelFront[data-diameter="21"],
+.wheelRear[data-diameter="21"] {
+  width: 32%;
+  height: 32%;
+}
+
+.wheelFront[data-diameter="22"],
+.wheelRear[data-diameter="22"] {
+  width: 34%;
+  height: 34%;
+}
+
+.wheelFront[data-diameter="23"],
+.wheelRear[data-diameter="23"] {
+  width: 36%;
+  height: 36%;
+}
+
+.wheelFront[data-diameter="24"],
+.wheelRear[data-diameter="24"] {
+  width: 38%;
+  height: 38%;
+}
+
+.wheelFront[data-diameter="26"],
+.wheelRear[data-diameter="26"] {
+  width: 42%;
+  height: 42%;
+}
+
+.wheelRotate {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  animation: wheelSpin 3s linear infinite;
+}
+
+@keyframes wheelSpin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.wheelOverlay {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  mix-blend-mode: overlay;
+  pointer-events: none;
+  transition: all 0.5s ease;
+}
+
+/* Color overlays */
+.wheelOverlay[data-color="black-gloss"] {
+  background: radial-gradient(circle, rgba(0, 0, 0, 0.3), transparent);
+}
+
+.wheelOverlay[data-color="black-matte"] {
+  background: radial-gradient(circle, rgba(0, 0, 0, 0.5), transparent);
+  mix-blend-mode: multiply;
+}
+
+.wheelOverlay[data-color="silver"] {
+  background: radial-gradient(circle, rgba(192, 192, 192, 0.4), transparent);
+}
+
+.wheelOverlay[data-color="anthracite"] {
+  background: radial-gradient(circle, rgba(58, 58, 58, 0.4), transparent);
+}
+
+.wheelOverlay[data-color="bronze"] {
+  background: radial-gradient(circle, rgba(205, 127, 50, 0.4), transparent);
+}
+
+.wheelOverlay[data-color="gold"] {
+  background: radial-gradient(circle, rgba(255, 215, 0, 0.3), transparent);
+}
+
+.wheelOverlay[data-color="white"] {
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.3), transparent);
+}
+
+.wheelOverlay[data-color="custom"] {
+  background: conic-gradient(
+    from 0deg,
+    rgba(220, 38, 38, 0.3),
+    rgba(239, 68, 68, 0.3),
+    rgba(249, 115, 22, 0.3),
+    rgba(16, 185, 129, 0.3),
+    rgba(59, 130, 246, 0.3),
+    rgba(139, 92, 246, 0.3),
+    rgba(220, 38, 38, 0.3)
+  );
+}
+
+.polishEffect {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(45deg, transparent 40%, rgba(255, 255, 255, 0.1) 50%, transparent 60%);
+  animation: shine 3s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 3;
+}
+
+@keyframes shine {
+  0%, 100% {
+    transform: translateX(-100%);
+  }
+  50% {
+    transform: translateX(100%);
+  }
+}
+
+.chromeEffect {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.3), transparent 50%);
+  pointer-events: none;
+  z-index: 3;
+  animation: chromePulse 2s ease-in-out infinite;
+}
+
+@keyframes chromePulse {
+  0%, 100% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+.previewControls {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.viewButton {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 15px 10px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.viewButton svg {
+  width: 24px;
+  height: 24px;
+  color: rgba(255, 255, 255, 0.4);
+  transition: all 0.3s ease;
+}
+
+.viewButton:hover {
+  background: rgba(220, 38, 38, 0.1);
+  border-color: rgba(220, 38, 38, 0.3);
+  color: #dc2626;
+}
+
+.viewButton:hover svg {
+  color: #dc2626;
+  transform: scale(1.1);
+}
+
+.previewSpecs {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.specItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.specLabel {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.specValue {
+  font-size: 20px;
+  font-weight: 300;
+  color: #dc2626;
+  letter-spacing: 1px;
+}
+
+.specDivider {
+  width: 1px;
+  height: 40px;
+  background: linear-gradient(180deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+}
+
+/* Quick Info */
+.quickInfo {
+  background: rgba(15, 15, 15, 0.95);
+  border: 1px solid rgba(220, 38, 38, 0.2);
+  border-radius: 15px;
+  padding: 25px;
+}
+
+.infoTitle {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  color: #fff;
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.infoTitle svg {
+  width: 20px;
+  height: 20px;
+  color: #dc2626;
+}
+
+.infoList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.infoList li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.5;
+}
+
+.infoList li svg {
+  width: 18px;
+  height: 18px;
+  color: #22c55e;
+  flex-shrink: 0;
+}
+
 .calculatorCard {
   background: linear-gradient(135deg, rgba(220, 38, 38, 0.05), rgba(15, 15, 15, 0.8));
   border: 1px solid rgba(220, 38, 38, 0.2);
@@ -1285,6 +1677,20 @@
     font-size: 36px;
   }
 
+  .calculatorLayout {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  .previewSection {
+    position: relative;
+    top: 0;
+  }
+
+  .previewCard {
+    padding: 25px;
+  }
+
   .wheelTypeGrid {
     grid-template-columns: 1fr;
   }
@@ -1383,6 +1789,49 @@
 
   .heroScroll {
     display: none;
+  }
+
+  .calculatorLayout {
+    grid-template-columns: 1fr;
+  }
+
+  .previewSection {
+    position: relative;
+    top: 0;
+    order: -1;
+  }
+
+  .previewCard {
+    padding: 20px;
+  }
+
+  .previewCanvas {
+    aspect-ratio: 4 / 3;
+  }
+
+  .previewControls {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .viewButton {
+    flex-direction: row;
+    justify-content: center;
+    padding: 12px 20px;
+  }
+
+  .previewSpecs {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .specDivider {
+    width: 100%;
+    height: 1px;
+  }
+
+  .quickInfo {
+    padding: 20px;
   }
 
   .calculatorContainer {
