@@ -17,7 +17,7 @@ export default function ExhaustPage() {
         label: 'Exhaust Systems',
         title: 'Выхлопные',
         titleAccent: 'системы',
-        description: 'Премиальные титановые и стальные выхлопные системы от мировых производителей'
+        description: 'Собственное производство DGT. Титановые и стальные системы премиум-класса с управляемыми заслонками'
       },
       brands: {
         title: 'Выберите марку автомобиля',
@@ -64,7 +64,7 @@ export default function ExhaustPage() {
         label: 'Exhaust Systems',
         title: 'Exhaust',
         titleAccent: 'Systems',
-        description: 'Premium titanium and steel exhaust systems from world manufacturers'
+        description: 'DGT own production. Premium titanium and steel systems with controlled valves'
       },
       brands: {
         title: 'Select your car brand',
@@ -120,162 +120,252 @@ export default function ExhaustPage() {
     { id: 'ferrari', name: 'FERRARI', logo: '/brands/ferrari.png' }
   ]
 
-  // Exhaust systems data by brand
+  // Exhaust systems data by brand - DGT Production
   const exhaustSystems: Record<string, any[]> = {
     porsche: [
       {
         id: 1,
-        name: 'Akrapovic Evolution',
+        name: 'DGT Titanium Pro',
         model: '911 GT3 (992)',
-        image: '/exhausts/akrapovic-porsche.jpg',
-        price: '850000',
-        material: 'Титан',
-        weight: '-12 кг',
-        power: '+15 л.с.',
+        image: '/exhausts/dgt-porsche-1.jpg',
+        price: '450000',
+        material: 'Титан Grade 2',
+        weight: '-14 кг',
+        power: '+18 л.с.',
         sound: 'Спортивный',
-        valve: 'Да'
+        valve: 'Да',
+        production: 'Россия'
       },
       {
         id: 2,
-        name: 'Capristo Valved',
+        name: 'DGT Steel Sport',
         model: 'Cayenne Turbo',
-        image: '/exhausts/capristo-porsche.jpg',
-        price: '620000',
-        material: 'Нержавейка',
-        weight: '-8 кг',
-        power: '+12 л.с.',
+        image: '/exhausts/dgt-porsche-2.jpg',
+        price: '320000',
+        material: 'Нержавейка 304',
+        weight: '-10 кг',
+        power: '+15 л.с.',
+        sound: 'Глубокий',
+        valve: 'Да',
+        production: 'Россия'
+      },
+      {
+        id: 3,
+        name: 'DGT Titanium Race',
+        model: 'Panamera Turbo',
+        image: '/exhausts/dgt-porsche-3.jpg',
+        price: '520000',
+        material: 'Титан Grade 5',
+        weight: '-13 кг',
+        power: '+20 л.с.',
         sound: 'Агрессивный',
-        valve: 'Да'
+        valve: 'Да',
+        production: 'Россия'
       }
     ],
     bmw: [
       {
-        id: 3,
-        name: 'Akrapovic Slip-On',
+        id: 4,
+        name: 'DGT Titanium Sport',
         model: 'M3 Competition (G80)',
-        image: '/exhausts/akrapovic-bmw.jpg',
-        price: '420000',
-        material: 'Титан',
-        weight: '-10 кг',
-        power: '+18 л.с.',
+        image: '/exhausts/dgt-bmw-1.jpg',
+        price: '380000',
+        material: 'Титан Grade 2',
+        weight: '-12 кг',
+        power: '+20 л.с.',
         sound: 'Спортивный',
-        valve: 'Нет'
+        valve: 'Да',
+        production: 'Россия'
       },
       {
-        id: 4,
-        name: 'Eisenmann Race',
+        id: 5,
+        name: 'DGT Steel Performance',
         model: 'M5 Competition',
-        image: '/exhausts/eisenmann-bmw.jpg',
-        price: '380000',
-        material: 'Нержавейка',
-        weight: '-7 кг',
-        power: '+14 л.с.',
+        image: '/exhausts/dgt-bmw-2.jpg',
+        price: '340000',
+        material: 'Нержавейка 304',
+        weight: '-9 кг',
+        power: '+16 л.с.',
         sound: 'Глубокий',
-        valve: 'Да'
+        valve: 'Да',
+        production: 'Россия'
+      },
+      {
+        id: 6,
+        name: 'DGT Titanium Elite',
+        model: 'X5M Competition',
+        image: '/exhausts/dgt-bmw-3.jpg',
+        price: '420000',
+        material: 'Титан Grade 2',
+        weight: '-11 кг',
+        power: '+18 л.с.',
+        sound: 'Агрессивный',
+        valve: 'Да',
+        production: 'Россия'
       }
     ],
     mercedes: [
       {
-        id: 5,
-        name: 'iPE Valvetronic',
-        model: 'AMG GT 63 S',
-        image: '/exhausts/ipe-mercedes.jpg',
-        price: '720000',
-        material: 'Титан',
-        weight: '-13 кг',
-        power: '+20 л.с.',
+        id: 7,
+        name: 'DGT Titanium AMG',
+        model: 'GT 63 S 4MATIC+',
+        image: '/exhausts/dgt-mercedes-1.jpg',
+        price: '480000',
+        material: 'Титан Grade 2',
+        weight: '-15 кг',
+        power: '+22 л.с.',
         sound: 'Агрессивный',
-        valve: 'Да'
+        valve: 'Да',
+        production: 'Россия'
       },
       {
-        id: 6,
-        name: 'Brabus Signature',
+        id: 8,
+        name: 'DGT Steel AMG Sport',
         model: 'C63 AMG',
-        image: '/exhausts/brabus-mercedes.jpg',
-        price: '580000',
-        material: 'Нержавейка',
-        weight: '-9 кг',
-        power: '+16 л.с.',
+        image: '/exhausts/dgt-mercedes-2.jpg',
+        price: '360000',
+        material: 'Нержавейка 304',
+        weight: '-10 кг',
+        power: '+17 л.с.',
         sound: 'Спортивный',
-        valve: 'Да'
+        valve: 'Да',
+        production: 'Россия'
+      },
+      {
+        id: 9,
+        name: 'DGT Titanium G-Class',
+        model: 'G63 AMG',
+        image: '/exhausts/dgt-mercedes-3.jpg',
+        price: '540000',
+        material: 'Титан Grade 5',
+        weight: '-12 кг',
+        power: '+19 л.с.',
+        sound: 'Глубокий',
+        valve: 'Да',
+        production: 'Россия'
       }
     ],
     audi: [
       {
-        id: 7,
-        name: 'Milltek Sport',
+        id: 10,
+        name: 'DGT Titanium RS',
         model: 'RS6 Avant (C8)',
-        image: '/exhausts/milltek-audi.jpg',
-        price: '450000',
-        material: 'Нержавейка',
-        weight: '-11 кг',
-        power: '+17 л.с.',
+        image: '/exhausts/dgt-audi-1.jpg',
+        price: '420000',
+        material: 'Титан Grade 2',
+        weight: '-13 кг',
+        power: '+19 л.с.',
         sound: 'Спортивный',
-        valve: 'Нет'
+        valve: 'Да',
+        production: 'Россия'
       },
       {
-        id: 8,
-        name: 'Akrapovic Evolution',
+        id: 11,
+        name: 'DGT Steel Sport',
         model: 'RS Q8',
-        image: '/exhausts/akrapovic-audi.jpg',
-        price: '680000',
-        material: 'Титан',
-        weight: '-14 кг',
-        power: '+19 л.с.',
+        image: '/exhausts/dgt-audi-2.jpg',
+        price: '390000',
+        material: 'Нержавейка 304',
+        weight: '-11 кг',
+        power: '+17 л.с.',
         sound: 'Глубокий',
-        valve: 'Да'
+        valve: 'Да',
+        production: 'Россия'
+      },
+      {
+        id: 12,
+        name: 'DGT Titanium Performance',
+        model: 'RS7 Sportback',
+        image: '/exhausts/dgt-audi-3.jpg',
+        price: '460000',
+        material: 'Титан Grade 2',
+        weight: '-14 кг',
+        power: '+21 л.с.',
+        sound: 'Агрессивный',
+        valve: 'Да',
+        production: 'Россия'
       }
     ],
     lamborghini: [
       {
-        id: 9,
-        name: 'Capristo Valved',
+        id: 13,
+        name: 'DGT Titanium Supercar',
         model: 'Huracán EVO',
-        image: '/exhausts/capristo-lambo.jpg',
-        price: '980000',
-        material: 'Титан',
-        weight: '-15 кг',
-        power: '+22 л.с.',
+        image: '/exhausts/dgt-lambo-1.jpg',
+        price: '580000',
+        material: 'Титан Grade 5',
+        weight: '-16 кг',
+        power: '+25 л.с.',
         sound: 'Экстремальный',
-        valve: 'Да'
+        valve: 'Да',
+        production: 'Россия'
       },
       {
-        id: 10,
-        name: 'iPE Innotech',
+        id: 14,
+        name: 'DGT Titanium SUV',
         model: 'Urus',
-        image: '/exhausts/ipe-lambo.jpg',
-        price: '820000',
-        material: 'Титан',
-        weight: '-12 кг',
-        power: '+18 л.с.',
+        image: '/exhausts/dgt-lambo-2.jpg',
+        price: '520000',
+        material: 'Титан Grade 2',
+        weight: '-13 кг',
+        power: '+20 л.с.',
         sound: 'Агрессивный',
-        valve: 'Да'
+        valve: 'Да',
+        production: 'Россия'
+      },
+      {
+        id: 15,
+        name: 'DGT Titanium Race',
+        model: 'Aventador SVJ',
+        image: '/exhausts/dgt-lambo-3.jpg',
+        price: '650000',
+        material: 'Титан Grade 5',
+        weight: '-17 кг',
+        power: '+28 л.с.',
+        sound: 'Гоночный',
+        valve: 'Да',
+        production: 'Россия'
       }
     ],
     ferrari: [
       {
-        id: 11,
-        name: 'Akrapovic Slip-On',
+        id: 16,
+        name: 'DGT Titanium Supercar',
         model: 'F8 Tributo',
-        image: '/exhausts/akrapovic-ferrari.jpg',
-        price: '1150000',
-        material: 'Титан',
-        weight: '-16 кг',
-        power: '+25 л.с.',
+        image: '/exhausts/dgt-ferrari-1.jpg',
+        price: '620000',
+        material: 'Титан Grade 5',
+        weight: '-15 кг',
+        power: '+26 л.с.',
         sound: 'Гоночный',
-        valve: 'Да'
+        valve: 'Да',
+        production: 'Россия'
       },
       {
-        id: 12,
-        name: 'Novitec Race',
+        id: 17,
+        name: 'DGT Titanium GT',
         model: 'Roma',
-        image: '/exhausts/novitec-ferrari.jpg',
-        price: '920000',
-        material: 'Нержавейка',
-        weight: '-10 кг',
-        power: '+20 л.с.',
+        image: '/exhausts/dgt-ferrari-2.jpg',
+        price: '560000',
+        material: 'Титан Grade 2',
+        weight: '-12 кг',
+        power: '+22 л.с.',
         sound: 'Спортивный',
-        valve: 'Да'
+        valve: 'Да',
+        production: 'Россия'
+      },
+      {
+        id: 18,
+        name: 'DGT Titanium Elite',
+        model: 'SF90 Stradale',
+        image: '/exhausts/dgt-ferrari-3.jpg',
+        price: '720000',
+        material: 'Титан Grade 5',
+        weight: '-14 кг',
+        power: '+30 л.с.',
+        sound: 'Экстремальный',
+        valve: 'Да',
+        production: 'Россия'
       }
     ]
   }
@@ -365,6 +455,14 @@ export default function ExhaustPage() {
                 {selectedProducts.map((product) => (
                   <div key={product.id} className={styles.productCard}>
                     <div className={styles.productImage}>
+                      <div className={styles.productBadge}>
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                          <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                          <path d="M2 17l10 5 10-5"/>
+                          <path d="M2 12l10 5 10-5"/>
+                        </svg>
+                        <span>Производство DGT</span>
+                      </div>
                       <div className={styles.productImagePlaceholder}>
                         {product.name}
                       </div>
