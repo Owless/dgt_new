@@ -446,24 +446,26 @@ export default function ExhaustPage() {
             ))}
           </div>
 
-          {/* No Brand CTA - Shows when NO brand selected */}
-          <div className={styles.noBrandSection}>
-            <div className={styles.noBrandCard}>
-              <h3 className={styles.noBrandTitle}>{t.brands.noBrandTitle}</h3>
-              <p className={styles.noBrandDesc}>{t.brands.noBrandDesc}</p>
-              <a 
-                href="https://t.me/dgt_manager" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className={styles.contactButton}
-              >
-                <span>{t.brands.contactButton}</span>
-                <svg width="20" height="12" viewBox="0 0 20 12" fill="none">
-                  <path d="M1 6H19M19 6L14 1M19 6L14 11" stroke="currentColor" strokeWidth="1.5"/>
-                </svg>
-              </a>
+          {/* No Brand CTA - Shows ONLY when NO brand selected */}
+          {!selectedBrand && (
+            <div className={styles.noBrandSection}>
+              <div className={styles.noBrandCard}>
+                <h3 className={styles.noBrandTitle}>{t.brands.noBrandTitle}</h3>
+                <p className={styles.noBrandDesc}>{t.brands.noBrandDesc}</p>
+                <a 
+                  href="https://t.me/dgt_manager" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className={styles.contactButton}
+                >
+                  <span>{t.brands.contactButton}</span>
+                  <svg width="20" height="12" viewBox="0 0 20 12" fill="none">
+                    <path d="M1 6H19M19 6L14 1M19 6L14 11" stroke="currentColor" strokeWidth="1.5"/>
+                  </svg>
+                </a>
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </section>
 
