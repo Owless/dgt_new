@@ -173,6 +173,37 @@
     justify-content: center;
 }
 
+.brandImagePlaceholder {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    opacity: 0.15;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+
+.brandImagePlaceholder svg {
+    width: 80px;
+    height: 80px;
+    color: #fff;
+}
+
+.brandImagePlaceholder span {
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #fff;
+}
+
+.brandCard:hover .brandImagePlaceholder {
+    opacity: 0.25;
+}
+
 .brandCard::before {
     content: '';
     position: absolute;
@@ -211,6 +242,8 @@
 
 .brandLogo {
     padding: 40px;
+    position: relative;
+    z-index: 1;
 }
 
 .brandName {
@@ -252,56 +285,107 @@
     color: #fff;
 }
 
-/* No Car Section */
-.noCarSection {
-    max-width: 800px;
-    margin: 0 auto;
+/* No System Section - After Products */
+.noSystemSection {
+    margin-top: 80px;
 }
 
-.noCarCard {
-    padding: 60px;
-    background: linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 24px;
+.noSystemCard {
+    padding: 80px 60px;
+    background: linear-gradient(135deg, rgba(220,38,38,0.1), rgba(220,38,38,0.05));
+    border: 2px solid rgba(220, 38, 38, 0.3);
+    border-radius: 32px;
     text-align: center;
+    position: relative;
+    overflow: hidden;
 }
 
-.noCarTitle {
-    font-size: 32px;
+.noSystemCard::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, rgba(220,38,38,0.8), transparent);
+}
+
+.noSystemCard::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 50% 0%, rgba(220,38,38,0.15), transparent 60%);
+    pointer-events: none;
+}
+
+.noSystemTitle {
+    font-size: 36px;
     font-weight: 600;
-    margin-bottom: 16px;
+    margin-bottom: 20px;
     color: #fff;
+    position: relative;
+    z-index: 1;
 }
 
-.noCarDesc {
+.noSystemDesc {
     font-size: 18px;
-    color: rgba(255, 255, 255, 0.6);
-    margin-bottom: 40px;
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 50px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    z-index: 1;
 }
 
-.telegramButton {
+.contactButton {
     display: inline-flex;
     align-items: center;
     gap: 12px;
-    padding: 18px 40px;
-    background: linear-gradient(135deg, #0088cc, #006699);
+    padding: 20px 50px;
+    background: linear-gradient(135deg, #dc2626, #ef4444);
     color: #fff;
     text-decoration: none;
-    font-size: 16px;
-    font-weight: 600;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
     border-radius: 50px;
     transition: all 0.4s ease;
-    box-shadow: 0 10px 30px rgba(0,136,204,0.3);
+    box-shadow: 0 10px 30px rgba(220,38,38,0.4);
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
 }
 
-.telegramButton:hover {
+.contactButton::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 0.5s ease;
+}
+
+.contactButton:hover {
     transform: translateY(-3px);
-    box-shadow: 0 15px 40px rgba(0,136,204,0.5);
+    box-shadow: 0 15px 40px rgba(220,38,38,0.6);
 }
 
-.telegramButton svg {
-    width: 24px;
-    height: 24px;
+.contactButton:hover::before {
+    left: 100%;
+}
+
+.contactButton svg {
+    width: 20px;
+    height: 12px;
+    transition: transform 0.3s ease;
+}
+
+.contactButton:hover svg {
+    transform: translateX(5px);
 }
 
 /* Products Section */
@@ -378,13 +462,33 @@
     position: absolute;
     inset: 0;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    font-size: 24px;
-    font-weight: 600;
-    color: rgba(255,255,255,0.3);
-    text-align: center;
+    gap: 16px;
     padding: 40px;
+}
+
+.productImagePlaceholder svg {
+    width: 80px;
+    height: 80px;
+    color: rgba(220, 38, 38, 0.4);
+    filter: drop-shadow(0 4px 8px rgba(220, 38, 38, 0.3));
+}
+
+.placeholderText {
+    font-size: 20px;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.5);
+    text-align: center;
+    letter-spacing: 1px;
+}
+
+.placeholderModel {
+    font-size: 14px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.3);
+    text-align: center;
 }
 
 .productContent {
@@ -711,5 +815,27 @@
 
     .featuresGrid {
         grid-template-columns: 1fr;
+    }
+
+    .noSystemSection {
+        margin-top: 60px;
+    }
+
+    .noSystemCard {
+        padding: 50px 30px;
+    }
+
+    .noSystemTitle {
+        font-size: 28px;
+    }
+
+    .noSystemDesc {
+        font-size: 16px;
+        margin-bottom: 40px;
+    }
+
+    .contactButton {
+        padding: 18px 40px;
+        font-size: 12px;
     }
 }
