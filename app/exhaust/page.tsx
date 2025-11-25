@@ -11,6 +11,18 @@ export default function ExhaustPage() {
   const [currentLang, setCurrentLang] = useState<'ru' | 'en'>('ru')
   const [selectedBrand, setSelectedBrand] = useState<string | null>(null)
 
+  const handleBrandSelect = (brandId: string) => {
+    setSelectedBrand(brandId)
+    
+    // Auto-scroll to products section
+    setTimeout(() => {
+      const productsSection = document.querySelector('#products-section')
+      if (productsSection) {
+        productsSection.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      }
+    }, 100)
+  }
+
   const translations = {
     ru: {
       hero: {
@@ -22,8 +34,10 @@ export default function ExhaustPage() {
       brands: {
         title: 'Выберите марку автомобиля',
         subtitle: 'Мы работаем с премиальными брендами',
-        noCarTitle: 'Не нашли подходящую систему?',
-        noCarDesc: 'Мы изготовим выхлопную систему под вашу марку и модель автомобиля. Свяжитесь с менеджером для индивидуального расчета.',
+        noBrandTitle: 'Не нашли свою марку?',
+        noBrandDesc: 'Свяжитесь с менеджером, мы работаем с любыми марками автомобилей',
+        noSystemTitle: 'Не нашли подходящую систему?',
+        noSystemDesc: 'Мы изготовим выхлопную систему под вашу марку и модель автомобиля. Свяжитесь с менеджером для индивидуального расчета.',
         contactButton: 'Связаться с менеджером'
       },
       products: {
@@ -69,8 +83,10 @@ export default function ExhaustPage() {
       brands: {
         title: 'Select your car brand',
         subtitle: 'We work with premium brands',
-        noCarTitle: 'Didn\'t find a suitable system?',
-        noCarDesc: 'We will manufacture an exhaust system for your car brand and model. Contact our manager for individual calculation.',
+        noBrandTitle: 'Can\'t find your brand?',
+        noBrandDesc: 'Contact our manager, we work with any car brands',
+        noSystemTitle: 'Didn\'t find a suitable system?',
+        noSystemDesc: 'We will manufacture an exhaust system for your car brand and model. Contact our manager for individual calculation.',
         contactButton: 'Contact Manager'
       },
       products: {
@@ -406,7 +422,7 @@ export default function ExhaustPage() {
               <button
                 key={brand.id}
                 className={`${styles.brandCard} ${selectedBrand === brand.id ? styles.brandCardActive : ''}`}
-                onClick={() => setSelectedBrand(brand.id)}
+                onClick={() => handleBrandSelect(brand.id)}
               >
                 <div className={styles.brandImagePlaceholder}>
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
@@ -429,11 +445,30 @@ export default function ExhaustPage() {
               </button>
             ))}
           </div>
+
+          {/* No Brand CTA - Shows when NO brand selected */}
+          <div className={styles.noBrandSection}>
+            <div className={styles.noBrandCard}>
+              <h3 className={styles.noBrandTitle}>{t.brands.noBrandTitle}</h3>
+              <p className={styles.noBrandDesc}>{t.brands.noBrandDesc}</p>
+              <a 
+                href="https://t.me/dgt_manager" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className={styles.contactButton}
+              >
+                <span>{t.brands.contactButton}</span>
+                <svg width="20" height="12" viewBox="0 0 20 12" fill="none">
+                  <path d="M1 6H19M19 6L14 1M19 6L14 11" stroke="currentColor" strokeWidth="1.5"/>
+                </svg>
+              </a>
+            </div>
+          </div>
         </div>
       </section>
 
       {/* Products Section */}
-      <section className={styles.productsSection}>
+      <section className={styles.productsSection} id="products-section">
         <div className={styles.container}>
           {selectedBrand ? (
             <>
@@ -511,8 +546,8 @@ export default function ExhaustPage() {
               {/* No System CTA - After viewing products */}
               <div className={styles.noSystemSection}>
                 <div className={styles.noSystemCard}>
-                  <h3 className={styles.noSystemTitle}>{t.brands.noCarTitle}</h3>
-                  <p className={styles.noSystemDesc}>{t.brands.noCarDesc}</p>
+                  <h3 className={styles.noSystemTitle}>{t.brands.noSystemTitle}</h3>
+                  <p className={styles.noSystemDesc}>{t.brands.noSystemDesc}</p>
                   <a 
                     href="https://t.me/dgt_manager" 
                     target="_blank" 
