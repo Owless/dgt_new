@@ -20,8 +20,8 @@ export default function WheelsPage() {
     ru: {
       hero: {
         label: 'Forged Wheels',
-        title: 'Кованые',
-        titleAccent: 'диски',
+        title: 'КОВАНЫЕ',
+        titleAccent: 'ДИСКИ',
         description: 'Собственное производство DGT. Эксклюзивные кованые диски по индивидуальным параметрам'
       },
       calculator: {
@@ -90,8 +90,8 @@ export default function WheelsPage() {
     en: {
       hero: {
         label: 'Forged Wheels',
-        title: 'Forged',
-        titleAccent: 'Wheels',
+        title: 'FORGED',
+        titleAccent: 'WHEELS',
         description: 'DGT own production. Exclusive forged wheels with custom parameters'
       },
       calculator: {
