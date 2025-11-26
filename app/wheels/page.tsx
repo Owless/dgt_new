@@ -284,7 +284,7 @@ export default function WheelsPage() {
           <div className={styles.heroLabel}>{t.hero.label}</div>
           <h1 className={styles.heroTitle}>
             {t.hero.title}
-            <span className={styles.heroTitleAccent}> {t.hero.titleAccent}</span>
+            <span className={styles.heroTitleAccent}>{t.hero.titleAccent}</span>
           </h1>
           <p className={styles.heroDescription}>{t.hero.description}</p>
         </div>
