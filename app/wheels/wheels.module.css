@@ -92,10 +92,8 @@
 }
 
 .heroTitleAccent {
-    font-weight: 700;
-    background: linear-gradient(135deg, #dc2626, #ef4444);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    color: #dc2626;
+    display: block;
 }
 
 .heroDescription {
