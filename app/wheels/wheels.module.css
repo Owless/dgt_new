@@ -19,66 +19,86 @@
 .heroBackground {
     position: absolute;
     inset: 0;
-    z-index: 0;
+    overflow: hidden;
 }
 
 .gridPattern {
     position: absolute;
     inset: 0;
     background-image: 
-        linear-gradient(rgba(220,38,38,0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(220,38,38,0.03) 1px, transparent 1px);
+        linear-gradient(rgba(220, 38, 38, 0.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(220, 38, 38, 0.08) 1px, transparent 1px);
     background-size: 50px 50px;
-    animation: gridMove 20s linear infinite;
+    opacity: 0.3;
 }
 
-@keyframes gridMove {
-    0% { transform: translate(0, 0); }
-    100% { transform: translate(50px, 50px); }
-}
-
-.glowOrb1, .glowOrb2 {
+.glowOrb1,
+.glowOrb2 {
     position: absolute;
-    width: 600px;
-    height: 600px;
     border-radius: 50%;
-    filter: blur(100px);
-    opacity: 0.15;
+    filter: blur(120px);
+    opacity: 0.2;
     animation: float 20s ease-in-out infinite;
 }
 
 .glowOrb1 {
-    background: #dc2626;
-    top: -200px;
-    left: -200px;
+    width: 700px;
+    height: 700px;
+    background: radial-gradient(circle, #dc2626, transparent);
+    top: -250px;
+    right: -150px;
 }
 
 .glowOrb2 {
-    background: #dc2626;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, #ef4444, transparent);
     bottom: -200px;
-    right: -200px;
-    animation-delay: -10s;
+    left: -150px;
+    animation-delay: 10s;
 }
 
 @keyframes float {
-    0%, 100% { transform: translate(0, 0) scale(1); }
-    50% { transform: translate(50px, 50px) scale(1.1); }
+    0%, 100% {
+        transform: translate(0, 0);
+    }
+    50% {
+        transform: translate(-30px, 30px);
+    }
 }
 
 .heroContent {
     position: relative;
-    z-index: 1;
+    z-index: 2;
     text-align: center;
-    padding: 100px 40px;
+    max-width: 900px;
+    padding: 0 40px;
+    animation: fadeInUp 1s ease-out;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .heroLabel {
-    font-size: 12px;
-    font-weight: 700;
+    display: inline-block;
+    padding: 8px 24px;
+    background: rgba(220, 38, 38, 0.15);
+    border: 1px solid rgba(220, 38, 38, 0.3);
+    border-radius: 50px;
+    font-size: 11px;
+    font-weight: 600;
     letter-spacing: 3px;
     text-transform: uppercase;
     color: #dc2626;
-    margin-bottom: 20px;
+    margin-bottom: 40px;
 }
 
 .heroTitle {
@@ -86,22 +106,24 @@
     font-weight: 200;
     letter-spacing: 8px;
     text-transform: uppercase;
-    color: #fff;
     margin-bottom: 30px;
     line-height: 1.1;
+    color: #fff;
 }
 
 .heroTitleAccent {
-    color: #dc2626;
+    background: linear-gradient(135deg, #dc2626, #ef4444);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
     display: block;
 }
 
 .heroDescription {
     font-size: 20px;
-    color: rgba(255,255,255,0.6);
-    max-width: 800px;
+    line-height: 1.8;
+    color: rgba(255, 255, 255, 0.7);
+    max-width: 700px;
     margin: 0 auto;
-    line-height: 1.6;
 }
 
 /* Calculator Section */
