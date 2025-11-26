@@ -142,14 +142,13 @@
 .navigation {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-start;
     margin-bottom: 60px;
     padding-bottom: 30px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.backButton,
-.downloadButton {
+.backButton {
     display: inline-flex;
     align-items: center;
     gap: 10px;
@@ -165,15 +164,13 @@
     transition: all 0.3s ease;
 }
 
-.backButton:hover,
-.downloadButton:hover {
+.backButton:hover {
     background: rgba(255, 255, 255, 0.08);
     border-color: rgba(220, 38, 38, 0.3);
     color: #fff;
 }
 
-.backButton svg,
-.downloadButton svg {
+.backButton svg {
     width: 18px;
     height: 18px;
 }
@@ -395,11 +392,6 @@
 
     .heroDescription {
         font-size: 16px;
-    }
-
-    .navigation {
-        flex-direction: column;
-        gap: 15px;
     }
 
     .section {
