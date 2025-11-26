@@ -1,0 +1,434 @@
+/* Hero Section */
+.hero {
+    position: relative;
+    min-height: 70vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background: #000;
+}
+
+.heroBackground {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+}
+
+.gridPattern {
+    position: absolute;
+    inset: 0;
+    background-image: 
+        linear-gradient(rgba(220, 38, 38, 0.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(220, 38, 38, 0.08) 1px, transparent 1px);
+    background-size: 50px 50px;
+    opacity: 0.3;
+}
+
+.glowOrb1,
+.glowOrb2 {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(120px);
+    opacity: 0.2;
+    animation: float 20s ease-in-out infinite;
+}
+
+.glowOrb1 {
+    width: 700px;
+    height: 700px;
+    background: radial-gradient(circle, #dc2626, transparent);
+    top: -250px;
+    right: -150px;
+}
+
+.glowOrb2 {
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, #ef4444, transparent);
+    bottom: -200px;
+    left: -150px;
+    animation-delay: 10s;
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translate(0, 0);
+    }
+    50% {
+        transform: translate(-30px, 30px);
+    }
+}
+
+.heroContent {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    max-width: 900px;
+    padding: 0 40px;
+    animation: fadeInUp 1s ease-out;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.heroLabel {
+    display: inline-block;
+    padding: 8px 24px;
+    background: rgba(220, 38, 38, 0.15);
+    border: 1px solid rgba(220, 38, 38, 0.3);
+    border-radius: 50px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #dc2626;
+    margin-bottom: 40px;
+}
+
+.heroTitle {
+    font-size: 96px;
+    font-weight: 200;
+    letter-spacing: 8px;
+    text-transform: uppercase;
+    margin-bottom: 30px;
+    line-height: 1.1;
+    color: #fff;
+}
+
+.heroTitleAccent {
+    background: linear-gradient(135deg, #dc2626, #ef4444);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: block;
+}
+
+.heroDescription {
+    font-size: 20px;
+    line-height: 1.8;
+    color: rgba(255, 255, 255, 0.7);
+    max-width: 700px;
+    margin: 0 auto 20px;
+}
+
+.lastUpdated {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.5);
+    font-style: italic;
+}
+
+/* Container */
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 40px;
+}
+
+/* Content Section */
+.contentSection {
+    padding: 120px 0;
+    background: #000;
+}
+
+/* Navigation */
+.navigation {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 60px;
+    padding-bottom: 30px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.backButton,
+.downloadButton {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 24px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 50px;
+    font-size: 14px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.backButton:hover,
+.downloadButton:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(220, 38, 38, 0.3);
+    color: #fff;
+}
+
+.backButton svg,
+.downloadButton svg {
+    width: 18px;
+    height: 18px;
+}
+
+/* Content */
+.content {
+    margin-bottom: 80px;
+}
+
+.section {
+    margin-bottom: 60px;
+    padding: 40px;
+    background: linear-gradient(135deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 24px;
+    transition: all 0.3s ease;
+}
+
+.section:hover {
+    background: linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
+    border-color: rgba(220, 38, 38, 0.2);
+}
+
+.sectionTitle {
+    font-size: 32px;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid rgba(220, 38, 38, 0.3);
+}
+
+.paragraph {
+    font-size: 16px;
+    line-height: 1.8;
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 20px;
+}
+
+.paragraph:last-of-type {
+    margin-bottom: 0;
+}
+
+.list {
+    margin: 25px 0;
+    padding-left: 0;
+    list-style: none;
+}
+
+.list li {
+    position: relative;
+    padding-left: 30px;
+    margin-bottom: 15px;
+    font-size: 16px;
+    line-height: 1.8;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 10px;
+    width: 12px;
+    height: 12px;
+    background: linear-gradient(135deg, #dc2626, #ef4444);
+    border-radius: 50%;
+}
+
+.note {
+    margin-top: 20px;
+    padding: 20px;
+    background: rgba(220, 38, 38, 0.1);
+    border-left: 3px solid #dc2626;
+    border-radius: 8px;
+    font-size: 14px;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.8);
+    font-style: italic;
+}
+
+.contactDetails {
+    margin-top: 30px;
+    padding: 30px;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 16px;
+}
+
+.contactItem {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.contactItem:last-child {
+    border-bottom: none;
+}
+
+.contactLabel {
+    font-size: 14px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.5);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    min-width: 100px;
+}
+
+.contactValue {
+    font-size: 16px;
+    color: #fff;
+}
+
+/* Bottom CTA */
+.bottomCta {
+    text-align: center;
+    padding: 80px 40px;
+    background: linear-gradient(135deg, rgba(220,38,38,0.1), rgba(220,38,38,0.05));
+    border: 2px solid rgba(220, 38, 38, 0.3);
+    border-radius: 32px;
+    position: relative;
+    overflow: hidden;
+}
+
+.bottomCta::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, rgba(220,38,38,0.8), transparent);
+}
+
+.bottomCta::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 50% 0%, rgba(220,38,38,0.15), transparent 60%);
+    pointer-events: none;
+}
+
+.ctaTitle {
+    font-size: 36px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: #fff;
+    position: relative;
+    z-index: 1;
+}
+
+.ctaDesc {
+    font-size: 18px;
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 40px;
+    position: relative;
+    z-index: 1;
+}
+
+.ctaButton {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 20px 50px;
+    background: linear-gradient(135deg, #dc2626, #ef4444);
+    color: #fff;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    border-radius: 50px;
+    transition: all 0.4s ease;
+    box-shadow: 0 10px 30px rgba(220,38,38,0.4);
+    position: relative;
+    z-index: 1;
+}
+
+.ctaButton:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 40px rgba(220,38,38,0.6);
+}
+
+.ctaButton svg {
+    width: 20px;
+    height: 12px;
+    transition: transform 0.3s ease;
+}
+
+.ctaButton:hover svg {
+    transform: translateX(5px);
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .heroTitle {
+        font-size: 64px;
+    }
+
+    .section {
+        padding: 30px;
+    }
+
+    .sectionTitle {
+        font-size: 28px;
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 0 20px;
+    }
+
+    .heroTitle {
+        font-size: 48px;
+        letter-spacing: 4px;
+    }
+
+    .heroDescription {
+        font-size: 16px;
+    }
+
+    .navigation {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .section {
+        padding: 25px 20px;
+    }
+
+    .sectionTitle {
+        font-size: 24px;
+    }
+
+    .paragraph,
+    .list li {
+        font-size: 14px;
+    }
+
+    .bottomCta {
+        padding: 50px 30px;
+    }
+
+    .ctaTitle {
+        font-size: 28px;
+    }
+
+    .ctaDesc {
+        font-size: 16px;
+    }
+
+    .ctaButton {
+        padding: 18px 40px;
+        font-size: 12px;
+    }
+}
