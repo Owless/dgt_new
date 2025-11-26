@@ -154,8 +154,7 @@ export default function TermsPage() {
         }
       },
       nav: {
-        backToHome: 'На главную',
-        downloadPdf: 'Скачать PDF'
+        backToHome: 'На главную'
       }
     },
     en: {
@@ -302,8 +301,7 @@ export default function TermsPage() {
         }
       },
       nav: {
-        backToHome: 'Back to Home',
-        downloadPdf: 'Download PDF'
+        backToHome: 'Back to Home'
       }
     }
   }
@@ -344,12 +342,6 @@ export default function TermsPage() {
               </svg>
               <span>{t.nav.backToHome}</span>
             </Link>
-            <button className={styles.downloadButton}>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/>
-              </svg>
-              <span>{t.nav.downloadPdf}</span>
-            </button>
           </div>
 
           {/* Main Content */}
